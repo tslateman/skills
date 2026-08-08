@@ -94,7 +94,7 @@ The fix for a stranger verdict is structural — find the metaphor the author wo
 
 | Skill         | Question                              |
 | ------------- | ------------------------------------- |
-| `/duet:prose` | Is it clear and as short as it can be |
+| `/prose`      | Is it clear and as short as it can be |
 | `/slop-check` | Could anyone have written this        |
 | `/voice`      | Did **you** write this                |
 | `/ste`        | Can the reader execute it             |
@@ -105,4 +105,4 @@ Run `/slop-check` first. A draft that fails on genericness will fail here too, a
 ## See Also
 
 - `/slop-check` — genericness; this skill assumes it already passed
-- `/duet:prose` — clarity; a recognizable voice can still be overlong
+- `/prose` — clarity; a recognizable voice can still be overlong

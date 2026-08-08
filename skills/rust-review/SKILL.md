@@ -8,7 +8,7 @@ description: >
   lens. Use when: reviewing agent-written Rust, before committing Rust
   changes, or on "rust review", "review this rust", "clippy pass",
   "check for clone abuse". For generic bug hunts use /code-review; for
-  generic judgment use /duet:vibe-check.
+  generic judgment use /vibe-check.
 argument-hint: "[path or crate to review, defaults to working-tree changes]"
 ---
 

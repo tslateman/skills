@@ -2,13 +2,16 @@
 
 **Judgment skills for working with coding agents.**
 
-Twenty-six skills across five concerns: review what an agent wrote, judge
-whether it will last, keep the prose yours, shape the work before it starts,
-and control the session.
+Forty-six skills across seven concerns: catch what an agent got wrong, judge
+whether the code will last, find your way around it, write what goes out under
+your name, decide what to build, draw the picture, and control the session.
 
 Agents are fast and agreeable. They clear failure signals, produce plausible
 structure, and write competent generic prose. Each skill here asks a question
 that a passing build, a clean diff, or a readable draft does not answer.
+
+Every skill is grounded in a named framework. The full map is in
+[skills/FRAMEWORKS.md](skills/FRAMEWORKS.md).
 
 ## Install
 
@@ -37,7 +40,7 @@ npx skills@latest add tslateman/skills
 Cursor: copy `skills/` into `.cursor/skills/`.
 Gemini CLI: `gemini skills install https://github.com/tslateman/skills.git --path skills`
 
-Two skills call `bin/prose-scan`. Put it on your `PATH` to use them.
+`/slop-check` and `/ste` call `bin/prose-scan`. Put it on your `PATH` to use them.
 
 ---
 
@@ -65,31 +68,54 @@ unvalidated boundary.
 
 The full argument is in [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
+Broader passes: `/review` for knowledge-transfer code review, `/vibe-check`
+when the question is whether the whole change holds up, `/visual-recap` to see
+the shape of a large diff before reading lines.
+
 ## Craft — will this survive contact with the next change
 
-| Skill                              | Question                                                     | Grounded in                     |
-| ---------------------------------- | ------------------------------------------------------------ | ------------------------------- |
-| `/maintainability`                 | Will this stay cheap to change?                              | Ousterhout, Fowler, Martin      |
-| `/ousterhout-software-design`      | Is the module deep or is the interface doing the work?       | A Philosophy of Software Design |
-| `/refactor`                        | Execute a named restructure, behavior held constant          | Fowler, _Refactoring_           |
-| `/strategic-architecture-analyzer` | Procedural transliteration, anemic models, leaked invariants | Deep modules, domain engines    |
-| `/system-map`                      | Can two people hold the same picture of this system?         | C4 model                        |
+| Skill                              | Question                                                     |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `/maintainability`                 | Will this stay cheap to change?                              |
+| `/ousterhout-software-design`      | Is the module deep, or is the interface doing the work?      |
+| `/improve-codebase-architecture`   | Which modules are worth deepening?                           |
+| `/strategic-architecture-analyzer` | Procedural transliteration, anemic models, leaked invariants |
+| `/refactor`                        | Execute a named restructure, behavior held constant          |
+| `/design`                          | Is the interface right before it ships?                      |
+| `/testing`                         | Which test properties matter here, and what do they cost?    |
 
 `/maintainability` finds problems and hands cures to `/refactor`, which executes
-them in verified steps. `/system-map` is a communication artifact for a named
-audience, never a quality verdict.
+them in verified steps against a green suite.
+
+## Navigate — find your way around unfamiliar code
+
+| Skill         | Question                                             |
+| ------------- | ---------------------------------------------------- |
+| `/zoom-out`   | Where does this fit? Map it before reading details   |
+| `/system-map` | Can two people hold the same picture of this system? |
+| `/ia`         | Can anyone find this?                                |
+| `/wayfinding` | Can a reader dropped anywhere tell where they are?   |
+| `/naming`     | Is this name carrying its weight?                    |
+| `/lexicon`    | Do we all mean the same thing by this term?          |
+
+`/ia` designs the structure; `/wayfinding` asks whether it can be traversed from
+an arbitrary entry point — which is how agents always arrive. `/naming` judges
+one name, `/lexicon` judges a term set across code, docs, UI, and API.
 
 ## Writing — does this go out under your name
 
-| Skill         | Question                             |
-| ------------- | ------------------------------------ |
-| `/slop-check` | Could anyone have written this?      |
-| `/voice`      | Did **you** write this?              |
-| `/ste`        | Can the reader execute it?           |
-| `/narrate`    | Can you explain what you just built? |
+| Skill         | Question                               |
+| ------------- | -------------------------------------- |
+| `/prose`      | Is it clear and as short as it can be? |
+| `/slop-check` | Could anyone have written this?        |
+| `/voice`      | Did **you** write this?                |
+| `/ste`        | Can the reader execute it?             |
+| `/narrate`    | Can you explain what you just built?   |
+| `/bro`        | Can the reader understand it?          |
 
-Run `/slop-check` before `/voice` — a draft failing on genericness fails on
-authorship too, and its findings are cheaper to fix.
+`/slop-check` scores and deliberately refuses to rewrite; `/prose` is the fixing
+half. Run slop-check first — a draft failing on genericness fails `/voice` too,
+and its findings are cheaper to fix.
 
 `/voice` judges against a corpus you supply at `~/.claude/voice-traits.md`. It
 ships the taxonomy, never anyone's traits; derive your own before first use.
@@ -98,35 +124,38 @@ ships the taxonomy, never anyone's traits; derive your own before first use.
 executes — runbooks, error messages, migration steps, agent instructions. It
 strips nuance by design, so keep it away from anything that argues a position.
 
-`/narrate` is a comprehension gate: explain the change in your own words before
-committing it. Aimed squarely at code you accepted but did not read.
-
 ## Shape — decide what to build before building it
 
 | Skill                          | Question                                     |
 | ------------------------------ | -------------------------------------------- |
 | `/spec-out`                    | You have a vague idea — what is it actually? |
 | `/brainstorm`                  | You know the goal — what are the options?    |
+| `/research`                    | What should we use, and what does it cost?   |
+| `/adr`                         | Why did we choose this, for the next reader? |
 | `/automagic-problem-discovery` | What friction have you stopped noticing?     |
 
 `/spec-out` interviews sequentially, each round building on the last answers.
 `/brainstorm` runs independent lenses in parallel. The split is deliberate:
 diverge before you converge, and never in the same pass.
 
-`/automagic-problem-discovery` audits for repetition rather than complaints,
-digs to the leverage point, then builds one fix completely. It holds every
-irreversible action for approval rather than running it.
+## Draw — make the picture
+
+| Skill         | For                                              |
+| ------------- | ------------------------------------------------ |
+| `/mermaid`    | Diagrams that render natively in GitHub markdown |
+| `/excalidraw` | Hand-drawn, editable architecture overviews      |
 
 ## Workspace — control the session
 
-| Skill                  | Does                                                        |
-| ---------------------- | ----------------------------------------------------------- |
-| `/freeze`, `/unfreeze` | Restrict edits to one directory for the session             |
-| `/tether`, `/untether` | Bridge another project's context into this session          |
-| `/demo`                | Record an mp4 of a UI change actually working               |
-| `/html-style`          | Three house styles for standalone HTML documents            |
-| `/obsidian-note`       | Write notes into an Obsidian vault, following its own rules |
-| `/bro`                 | Re-explain the last answer in plain language                |
+| Skill                       | Does                                                        |
+| --------------------------- | ----------------------------------------------------------- |
+| `/freeze`, `/unfreeze`      | Restrict edits to one directory for the session             |
+| `/tether`, `/untether`      | Bridge another project's context into this session          |
+| `/demo`                     | Record an mp4 of a UI change actually working               |
+| `/html-style`               | Three house styles for standalone HTML documents            |
+| `/obsidian-note`            | Write notes into an Obsidian vault, following its own rules |
+| `/retro`, `/vamp`, `/sweep` | Reflect, choose what to play next, check for damage         |
+| `/writing-great-skills`     | Reference for writing skills well                           |
 
 `/freeze` is the one to reach for during focused debugging — it stops an agent
 wandering into files you did not ask it to touch.
@@ -135,23 +164,16 @@ wandering into files you did not ask it to touch.
 Drafting Table (light, editorial), Phosphor (terminal, mono). Pick by audience,
 fill the template, keep the tokens.
 
-`/obsidian-note` reads `$OBSIDIAN_VAULT`. It defers to the vault's own
+`/obsidian-note` reads `$OBSIDIAN_VAULT` and defers to the vault's own
 frontmatter and template conventions rather than carrying its own copy.
 
 ---
 
-## Scope
+## Recipes
 
-These are judgment skills. They are not a build system, a test runner, or
-general code review.
-
-- **Generic bug hunt** → `/code-review`
-- **Test strategy and design** → [`/duet:testing`](https://github.com/tslateman/duet)
-- **Information architecture, naming, prose clarity** → [duet](https://github.com/tslateman/duet)
-
-They compose with [duet](https://github.com/tslateman/duet): run `/code-review`
-for correctness, then the language review for the debt the linter was told to
-ignore.
+Eight skills ship a `RECIPE.md` — a decomposition spec telling a multi-agent
+orchestrator how to split the work, what each worker owns, and how to
+synthesize. See the table in [skills/FRAMEWORKS.md](skills/FRAMEWORKS.md).
 
 ## Contributing
 
@@ -164,6 +186,9 @@ merely a linter.
 
 Shaped by [mattpocock/skills](https://github.com/mattpocock/skills) and
 [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills).
+
+Supersedes [duet](https://github.com/tslateman/duet), whose skills were migrated
+here after a utilization pass over a month of session transcripts.
 
 ## License
 

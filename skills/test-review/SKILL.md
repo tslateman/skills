@@ -8,7 +8,7 @@ description: >
   — judges whether a suite can actually detect a regression. Use when:
   reviewing agent-written tests, before trusting a green suite, or on
   "test review", "review these tests", "are these tests real", "would
-  this catch a bug". For designing a test strategy use /duet:testing;
+  this catch a bug". For designing a test strategy use /testing;
   for generic bug hunts use /code-review.
 argument-hint: "[test path or suite to review, defaults to working-tree changes]"
 ---

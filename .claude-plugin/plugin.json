@@ -1,7 +1,7 @@
 {
   "name": "skills",
-  "version": "0.2.0",
-  "description": "Judgment skills for working with coding agents — review what they wrote, judge whether it lasts, keep the prose yours, control the session",
+  "version": "0.3.0",
+  "description": "Judgment skills for working with coding agents — catch what they got wrong, judge whether the code lasts, navigate it, write what goes out under your name, and decide what to build",
   "author": {
     "name": "Tim Slater",
     "url": "https://github.com/tslateman"
@@ -16,13 +16,16 @@
     "maintainability",
     "refactoring",
     "architecture",
+    "information-architecture",
+    "naming",
     "writing",
     "prose",
+    "diagrams",
+    "testing",
     "go",
     "python",
     "rust",
     "typescript",
-    "shell",
-    "testing"
+    "shell"
   ]
 }

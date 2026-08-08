@@ -98,7 +98,6 @@ Trust the log over memory when the two disagree. The log records what happened; 
 
 ## See Also
 
-- `/debugging` — When the audit finds a failure whose cause resists the 5 Whys pass
 - `/research` — When the chosen fix needs a tool or library decision first
 - `/adr` — When the fix encodes a decision worth preserving
 - `/sweep` — Post-op check after a build cycle touches many files

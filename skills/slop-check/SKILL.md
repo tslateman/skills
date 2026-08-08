@@ -7,12 +7,12 @@ description: >
   name: posts, PR descriptions, docs, external email, vault notes headed
   for an audience. Triggers: "slop check", "does this read as AI",
   "score this draft", "check for LLM tells", "would anyone know I wrote
-  this". Do NOT use to tighten or rewrite a draft — that is /duet:prose.
+  this". Do NOT use to tighten or rewrite a draft — that is /prose.
 ---
 
 # Slop Check — Score a Draft for AI Tells
 
-`/duet:prose` writes and cuts. This skill judges. It reads a finished draft, scores it, and hands back line-anchored findings for `/duet:prose` to fix. Keep the modes separate: scoring while rewriting produces a draft that scores itself well.
+`/prose` writes and cuts. This skill judges. It reads a finished draft, scores it, and hands back line-anchored findings for `/prose` to fix. Keep the modes separate: scoring while rewriting produces a draft that scores itself well.
 
 ## Run the horoscope test first
 
@@ -41,7 +41,7 @@ Repeats count once at full weight and +1 after, so **variety of tells drives the
 | Score | Verdict | Action                                                                    |
 | ----- | ------- | ------------------------------------------------------------------------- |
 | 0–5   | Ships   | Report the score and stop. Do not manufacture findings.                   |
-| 6–12  | Revise  | Hand the named findings to `/duet:prose`.                                 |
+| 6–12  | Revise  | Hand the named findings to `/prose`.                                      |
 | 13+   | Rewrite | The draft is unedited generation. Restate the argument and start from it. |
 
 ## Structural tells (+3)
@@ -59,7 +59,7 @@ Repeats count once at full weight and +1 after, so **variety of tells drives the
 | Restating summary      | A closing paragraph that repeats the body in shorter form    | Cut it, or replace with the transferable rule. |
 | Scaffolding leak       | **Bold-colon:** prefixes carrying the structure of the piece | Let the sentences carry it.                    |
 
-The first four overlap `/duet:prose`'s LLM-ism catalog by design — that skill fixes them, this one counts them.
+The first four overlap `/prose`'s LLM-ism catalog by design — that skill fixes them, this one counts them.
 
 ## Lexical tells (+1)
 
@@ -132,11 +132,11 @@ Cap rewrites at one retry. By the third pass a model stops removing slop and sta
 
 ## When not to use
 
-- Tightening, cutting, or rewriting a draft → `/duet:prose`
+- Tightening, cutting, or rewriting a draft → `/prose`
 - Commits, scratch notes, and anything only you read. Slop matters for prose someone else reads under your name.
 - Visual and layout slop in generated HTML → `html-style`
 
 ## See Also
 
-- `/duet:prose` — the fixing half; findings from here go there
+- `/prose` — the fixing half; findings from here go there
 - `html-style` — the same judgment applied to documents rather than sentences

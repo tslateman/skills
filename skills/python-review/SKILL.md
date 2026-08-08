@@ -9,7 +9,7 @@ description: >
   agent-written Python, before committing Python changes, or on "python
   review", "review this python", "ruff pass", "check for except abuse".
   For generic bug hunts use /code-review; for generic judgment use
-  /duet:vibe-check.
+  /vibe-check.
 argument-hint: "[path or package to review, defaults to working-tree changes]"
 ---
 

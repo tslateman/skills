@@ -1,6 +1,6 @@
 ---
 name: system-map
-description: Decompose a system into a shared map at consistent levels of abstraction, using the C4 model. Use when you ask to "map the system", "diagram the architecture", "how does this fit together", "explain our architecture to stakeholders", when onboarding someone to an unfamiliar estate, or when a discussion keeps stalling because two people hold different pictures of the same system. Produces a communication artifact for a named audience, not a quality verdict. Do NOT use to judge a design (that is `ousterhout-software-design` or `maintainability`) or to orient one reader in one module (that is `duet:zoom-out`).
+description: Decompose a system into a shared map at consistent levels of abstraction, using the C4 model. Use when you ask to "map the system", "diagram the architecture", "how does this fit together", "explain our architecture to stakeholders", when onboarding someone to an unfamiliar estate, or when a discussion keeps stalling because two people hold different pictures of the same system. Produces a communication artifact for a named audience, not a quality verdict. Do NOT use to judge a design (that is `ousterhout-software-design` or `maintainability`) or to orient one reader in one module (that is `zoom-out`).
 ---
 
 # System Map
@@ -11,11 +11,11 @@ This skill describes what exists. It never grades it.
 
 ## Use this vs. its neighbors
 
-- Orient one reader in one unfamiliar module -> `duet:zoom-out`.
+- Orient one reader in one unfamiliar module -> `zoom-out`.
 - Judge whether a design will age -> `maintainability`.
 - Judge module depth and interface quality -> `ousterhout-software-design`.
-- Render a diagram you have already scoped -> `duet:mermaid` or `duet:excalidraw`.
-- Record why the architecture is this way -> `duet:adr`.
+- Render a diagram you have already scoped -> `mermaid` or `excalidraw`.
+- Record why the architecture is this way -> `adr`.
 - Produce the shared map itself, at C4 levels, for a named audience -> here.
 
 ## Preconditions

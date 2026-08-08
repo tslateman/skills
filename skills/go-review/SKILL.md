@@ -9,7 +9,7 @@ description: >
   lens. Use when: reviewing agent-written Go, before committing Go
   changes, or on "go review", "review this go", "lint pass", "check
   error handling". For generic bug hunts use /code-review; for generic
-  judgment use /duet:vibe-check.
+  judgment use /vibe-check.
 argument-hint: "[path or package to review, defaults to working-tree changes]"
 ---
 

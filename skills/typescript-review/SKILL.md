@@ -9,7 +9,7 @@ description: >
   lens. Use when: reviewing agent-written TypeScript, before committing
   TS changes, or on "typescript review", "ts review", "review this
   typescript", "check for any abuse". For generic bug hunts use
-  /code-review; for generic judgment use /duet:vibe-check.
+  /code-review; for generic judgment use /vibe-check.
 argument-hint: "[path or package to review, defaults to working-tree changes]"
 ---
 

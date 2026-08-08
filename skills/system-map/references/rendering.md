@@ -8,7 +8,7 @@ Every snippet below was validated against the Mermaid Chart renderer on 2026-08-
 | ---------------------------------------------------------------------- | ------------------------------------------- |
 | Renderer is current Mermaid and C4 semantics matter                    | `C4Context` / `C4Container` / `C4Component` |
 | Must render in a GitHub README or an unknown viewer                    | `flowchart` fallback                        |
-| Stakeholder-facing, will be edited by hand, needs to survive a meeting | `duet:excalidraw`                           |
+| Stakeholder-facing, will be edited by hand, needs to survive a meeting | `excalidraw`                                |
 
 Mermaid's C4 support is **experimental** by Mermaid's own documentation, and layout control is limited — you get `UpdateLayoutConfig` and per-relationship offsets, not real positioning. When a diagram has to look a specific way, the flowchart fallback gives more control and the Excalidraw path gives full control.
 

@@ -8,7 +8,7 @@ description: >
   tool descriptions). Triggers: "STE", "ASD-STE100", "simplified technical
   english", "write this as a procedure", "make these instructions
   unambiguous". Do NOT use for essays, analysis, ADR rationale, or anything
-  that argues a position — STE strips nuance by design. That is /duet:prose.
+  that argues a position — STE strips nuance by design. That is /prose.
 ---
 
 # STE — Simplified Technical English
@@ -21,13 +21,13 @@ It was designed for a technician whose first language is not English, working ag
 
 Ask: **does the reader execute this, or think about it?**
 
-| Reader executes → STE                 | Reader thinks → `/duet:prose` |
-| ------------------------------------- | ----------------------------- |
-| Procedures, runbooks                  | Essays, analysis, arguments   |
-| Error messages, warnings              | ADR rationale, design docs    |
-| CLI help, API reference               | Commit bodies explaining why  |
-| Migration and incident steps          | Postmortem narrative          |
-| Agent instructions, tool descriptions | Anything persuading a reader  |
+| Reader executes → STE                 | Reader thinks → `/prose`     |
+| ------------------------------------- | ---------------------------- |
+| Procedures, runbooks                  | Essays, analysis, arguments  |
+| Error messages, warnings              | ADR rationale, design docs   |
+| CLI help, API reference               | Commit bodies explaining why |
+| Migration and incident steps          | Postmortem narrative         |
+| Agent instructions, tool descriptions | Anything persuading a reader |
 
 Applying STE to an argument destroys it. An essay drawing an analogy between two systems would come out as a list of true sentences with the reasoning removed. Never reach for this skill to "simplify" prose that carries a claim.
 
@@ -93,7 +93,7 @@ It also removes arguments rather than clarifying them. Nuance, hedging, and cond
 
 | Skill         | Mode                   | Scope                               |
 | ------------- | ---------------------- | ----------------------------------- |
-| `/duet:prose` | Rewrite by subtraction | Any prose a human reads for meaning |
+| `/prose`      | Rewrite by subtraction | Any prose a human reads for meaning |
 | `/slop-check` | Score and report       | Any prose published under your name |
 | `/ste`        | Constrained generation | Text a reader or agent executes     |
 
@@ -106,5 +106,5 @@ A published benchmark measured 72.9% fewer STE violations per 100 words across 6
 
 ## See Also
 
-- `/duet:prose` — for prose that argues rather than instructs
+- `/prose` — for prose that argues rather than instructs
 - `/slop-check` — scoring; STE compliance and slop score measure different things

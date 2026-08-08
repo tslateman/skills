@@ -1,6 +1,6 @@
 {
   "name": "skills",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Judgment skills for working with coding agents — catch what they got wrong, judge whether the code lasts, navigate it, write what goes out under your name, and decide what to build",
   "author": {
     "name": "Tim Slater",
@@ -9,6 +9,15 @@
   "homepage": "https://github.com/tslateman/skills",
   "repository": "https://github.com/tslateman/skills",
   "license": "MIT",
+  "skills": [
+    "./skills/audit/",
+    "./skills/craft/",
+    "./skills/navigate/",
+    "./skills/writing/",
+    "./skills/shape/",
+    "./skills/draw/",
+    "./skills/workspace/"
+  ],
   "keywords": [
     "code-review",
     "anti-patterns",

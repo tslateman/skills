@@ -2,12 +2,38 @@
 
 ## What belongs here
 
-One thesis: **local-fix debt** — the minimal edit that clears a failure signal
-without fixing its cause. See [docs/local-fix-debt.md](docs/local-fix-debt.md).
+Judgment skills — each asks a question that a passing build, a clean diff, or a
+readable draft does not answer.
 
-A skill belongs here when it hunts that debt class in one language or one
-artifact type. A skill that reviews code generally, designs a test strategy, or
-judges architecture belongs somewhere else.
+A skill belongs here when it applies a named framework to a decision someone
+actually faces, and when it says what it is _not_ for. A skill that only wraps a
+tool invocation, or that duplicates a question an existing skill already asks
+better, belongs somewhere else.
+
+The `audit/` group carries a stricter thesis of its own: **local-fix debt**, the
+minimal edit that clears a failure signal without fixing its cause. See
+[docs/local-fix-debt.md](docs/local-fix-debt.md).
+
+## Where a skill goes
+
+`skills/` holds seven groups. Place a new skill in the one whose question it
+answers, and read that group's `README.md` first — if the skill does not fit
+the sentence at the top of it, it belongs in a different group.
+
+| Group        | Owns                                                 |
+| ------------ | ---------------------------------------------------- |
+| `audit/`     | Inspecting work that exists, reporting what is wrong |
+| `craft/`     | Whether code survives the next change                |
+| `navigate/`  | Finding your way around unfamiliar code              |
+| `writing/`   | Whether prose is ready to publish                    |
+| `shape/`     | Deciding what to build                               |
+| `draw/`      | Making the picture                                   |
+| `workspace/` | Controlling the session and its artifacts            |
+
+Adding a group means editing the `skills` array in
+`.claude-plugin/plugin.json` — Claude Code scans only the declared directories,
+so an undeclared group is invisible. Add the group `README.md` in the same
+commit.
 
 ## Adding a language
 

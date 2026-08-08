@@ -79,16 +79,16 @@ Each skill is grounded in a named framework or authority. This index maps the in
 
 Recipes teach a multi-agent orchestrator how to decompose a domain task into parallel workers. Each defines worker scope boundaries, prompt templates, and a synthesis step for the manager.
 
-| Skill           | Recipe                   | Workers | Mode       |
-| --------------- | ------------------------ | ------- | ---------- |
-| `/brainstorm`   | `brainstorm/RECIPE.md`   | —       | parallel   |
-| `/design`       | `design/RECIPE.md`       | 3       | parallel   |
-| `/prose`        | `prose/RECIPE.md`        | 3       | parallel   |
-| `/research`     | `research/RECIPE.md`     | 2       | parallel   |
-| `/review`       | `review/RECIPE.md`       | 4       | parallel   |
-| `/spec-out`     | `spec-out/RECIPE.md`     | —       | sequential |
-| `/testing`      | `testing/RECIPE.md`      | 2       | parallel   |
-| `/visual-recap` | `visual-recap/RECIPE.md` | —       | parallel   |
+| Skill           | Recipe                         | Workers | Mode       |
+| --------------- | ------------------------------ | ------- | ---------- |
+| `/brainstorm`   | `shape/brainstorm/RECIPE.md`   | —       | parallel   |
+| `/design`       | `craft/design/RECIPE.md`       | 3       | parallel   |
+| `/prose`        | `writing/prose/RECIPE.md`      | 3       | parallel   |
+| `/research`     | `shape/research/RECIPE.md`     | 2       | parallel   |
+| `/review`       | `audit/review/RECIPE.md`       | 4       | parallel   |
+| `/spec-out`     | `shape/spec-out/RECIPE.md`     | —       | sequential |
+| `/testing`      | `craft/testing/RECIPE.md`      | 2       | parallel   |
+| `/visual-recap` | `audit/visual-recap/RECIPE.md` | —       | parallel   |
 
 `/brainstorm` runs independent lenses concurrently; `/spec-out` runs sequentially because each round builds on the previous answers. That split is the Diverge Then Converge principle made operational.
 

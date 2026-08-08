@@ -131,6 +131,12 @@ easy proxy>`.**
 Add a fourth only for a genuine platform or ecosystem constraint, the way
 `shell-review` adds macOS BSD-vs-GNU testing.
 
+## Placement
+
+Review skills live in `skills/audit/`. The group is declared in the `skills`
+array of `.claude-plugin/plugin.json`; a skill in an undeclared directory is
+never discovered.
+
 ## Checklist for a new language
 
 - [ ] The language has a _characteristic_ silencer, not merely a linter
@@ -140,3 +146,4 @@ Add a fourth only for a genuine platform or ecosystem constraint, the way
 - [ ] The verdict question is one this language makes sharp
 - [ ] Bucket 1 examples are drawn from idiomatic code, not straw men
 - [ ] Under 130 lines
+- [ ] Filed under `skills/audit/`, and that group is declared in `plugin.json`

@@ -37,14 +37,34 @@ or instruction files are supported.
 npx skills@latest add tslateman/skills
 ```
 
-Cursor: copy `skills/` into `.cursor/skills/`.
-Gemini CLI: `gemini skills install https://github.com/tslateman/skills.git --path skills`
+Cursor: copy any group into `.cursor/skills/`.
+Gemini CLI: `gemini skills install https://github.com/tslateman/skills.git --path skills/audit`
+
+Because the groups are real directories, every other agent can install one at a
+time — take `skills/audit` alone if the review suite is all you want.
 
 `/slop-check` and `/ste` call `bin/prose-scan`. Put it on your `PATH` to use them.
 
 ---
 
-## Review — catch what coding agents get wrong
+## Layout
+
+```text
+skills/
+├── audit/       inspect existing work and report what is wrong
+├── craft/       judge whether code survives the next change
+├── navigate/    find your way around unfamiliar code
+├── writing/     decide whether prose is ready to publish
+├── shape/       decide what to build before building it
+├── draw/        make the picture
+└── workspace/   control the session and its artifacts
+```
+
+Each group carries a `README.md` explaining what it owns and which skill to
+reach for. `.claude-plugin/plugin.json` declares the seven directories in its
+`skills` field, so Claude Code discovers all 46.
+
+## Audit — catch what coding agents get wrong
 
 Six skills hunting one debt class: **local-fix debt**, the minimal edit that
 clears a failure signal without fixing its cause. Give an agent a compiler
@@ -68,11 +88,14 @@ unvalidated boundary.
 
 The full argument is in [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
-Broader passes: `/review` for knowledge-transfer code review, `/vibe-check`
-when the question is whether the whole change holds up, `/visual-recap` to see
-the shape of a large diff before reading lines.
+Three broader passes sit alongside them: `/review` for knowledge-transfer code
+review, `/vibe-check` for whether the whole change holds up, `/visual-recap` for
+the shape of a large diff before reading lines. See
+[skills/audit/README.md](skills/audit/README.md).
 
 ## Craft — will this survive contact with the next change
+
+[skills/craft/](skills/craft/README.md)
 
 | Skill                              | Question                                                     |
 | ---------------------------------- | ------------------------------------------------------------ |
@@ -89,6 +112,8 @@ them in verified steps against a green suite.
 
 ## Navigate — find your way around unfamiliar code
 
+[skills/navigate/](skills/navigate/README.md)
+
 | Skill         | Question                                             |
 | ------------- | ---------------------------------------------------- |
 | `/zoom-out`   | Where does this fit? Map it before reading details   |
@@ -103,6 +128,8 @@ an arbitrary entry point — which is how agents always arrive. `/naming` judges
 one name, `/lexicon` judges a term set across code, docs, UI, and API.
 
 ## Writing — does this go out under your name
+
+[skills/writing/](skills/writing/README.md)
 
 | Skill         | Question                               |
 | ------------- | -------------------------------------- |
@@ -126,6 +153,8 @@ strips nuance by design, so keep it away from anything that argues a position.
 
 ## Shape — decide what to build before building it
 
+[skills/shape/](skills/shape/README.md)
+
 | Skill                          | Question                                     |
 | ------------------------------ | -------------------------------------------- |
 | `/spec-out`                    | You have a vague idea — what is it actually? |
@@ -140,12 +169,16 @@ diverge before you converge, and never in the same pass.
 
 ## Draw — make the picture
 
+[skills/draw/](skills/draw/README.md)
+
 | Skill         | For                                              |
 | ------------- | ------------------------------------------------ |
 | `/mermaid`    | Diagrams that render natively in GitHub markdown |
 | `/excalidraw` | Hand-drawn, editable architecture overviews      |
 
 ## Workspace — control the session
+
+[skills/workspace/](skills/workspace/README.md)
 
 | Skill                       | Does                                                        |
 | --------------------------- | ----------------------------------------------------------- |

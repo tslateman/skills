@@ -1,5 +1,5 @@
 ---
-name: obsidian-write
+name: obsidian-note
 description: Write, append, or create notes in the user's Obsidian vault (path from `$OBSIDIAN_VAULT`). Use whenever the user asks to save something to Obsidian, capture a note in their vault, log something to today's daily note, write up a decision, insight, or meeting note, turn a conversation or article into a permanent note, or says things like "add this to my vault," "save this to my notes," or "capture this in Obsidian" — even if they don't name the skill explicitly.
 ---
 

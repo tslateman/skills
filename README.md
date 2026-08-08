@@ -2,8 +2,9 @@
 
 **Judgment skills for working with coding agents.**
 
-Twenty-three skills across four concerns: review what an agent wrote, judge
-whether it will last, keep the prose yours, and control the session.
+Twenty-six skills across five concerns: review what an agent wrote, judge
+whether it will last, keep the prose yours, shape the work before it starts,
+and control the session.
 
 Agents are fast and agreeable. They clear failure signals, produce plausible
 structure, and write competent generic prose. Each skill here asks a question
@@ -100,6 +101,22 @@ strips nuance by design, so keep it away from anything that argues a position.
 `/narrate` is a comprehension gate: explain the change in your own words before
 committing it. Aimed squarely at code you accepted but did not read.
 
+## Shape — decide what to build before building it
+
+| Skill                          | Question                                     |
+| ------------------------------ | -------------------------------------------- |
+| `/spec-out`                    | You have a vague idea — what is it actually? |
+| `/brainstorm`                  | You know the goal — what are the options?    |
+| `/automagic-problem-discovery` | What friction have you stopped noticing?     |
+
+`/spec-out` interviews sequentially, each round building on the last answers.
+`/brainstorm` runs independent lenses in parallel. The split is deliberate:
+diverge before you converge, and never in the same pass.
+
+`/automagic-problem-discovery` audits for repetition rather than complaints,
+digs to the leverage point, then builds one fix completely. It holds every
+irreversible action for approval rather than running it.
+
 ## Workspace — control the session
 
 | Skill                  | Does                                                        |
@@ -108,7 +125,7 @@ committing it. Aimed squarely at code you accepted but did not read.
 | `/tether`, `/untether` | Bridge another project's context into this session          |
 | `/demo`                | Record an mp4 of a UI change actually working               |
 | `/html-style`          | Three house styles for standalone HTML documents            |
-| `/obsidian-write`      | Write notes into an Obsidian vault, following its own rules |
+| `/obsidian-note`       | Write notes into an Obsidian vault, following its own rules |
 | `/bro`                 | Re-explain the last answer in plain language                |
 
 `/freeze` is the one to reach for during focused debugging — it stops an agent
@@ -118,7 +135,7 @@ wandering into files you did not ask it to touch.
 Drafting Table (light, editorial), Phosphor (terminal, mono). Pick by audience,
 fill the template, keep the tokens.
 
-`/obsidian-write` reads `$OBSIDIAN_VAULT`. It defers to the vault's own
+`/obsidian-note` reads `$OBSIDIAN_VAULT`. It defers to the vault's own
 frontmatter and template conventions rather than carrying its own copy.
 
 ---

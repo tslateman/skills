@@ -68,11 +68,11 @@ Do not fill the gap yourself. Ask, then wait.
 Once the narration covers all four dimensions:
 
 1. Summarize the narration in a compact block (attribute it to the developer, not yourself)
-2. Write to Lore (see below)
+2. Write to Lore if it is installed (see below)
 3. Offer three options:
    - **Commit now**: Use the narration as the commit message body, then proceed to `/commit`
    - **Save and continue**: Store the narration for later use
-   - **Just Lore**: Already captured, done
+   - **Just capture**: Already recorded, done
 
 If the developer chooses to commit, format the narration as a clean
 commit message body (intent first, then boundaries/fit/risks as needed).
@@ -80,6 +80,10 @@ Strip conversational artifacts. Keep Strunk's rules: active voice, omit
 needless words, definite and specific.
 
 ### Step 5: Write to Lore
+
+Optional. Requires [Lore](https://github.com/tslateman/lore); check with
+`command -v lore` and skip this step when it is absent. The narration still
+lands in the commit body without it.
 
 Decompose the narration into Lore entries. Run these commands via Bash.
 Extract the values from the developer's narration -- do not invent content.

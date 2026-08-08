@@ -1,0 +1,25 @@
+{
+  "name": "skills",
+  "version": "0.1.0",
+  "description": "Catch what coding agents get wrong — six review skills hunting local-fix debt in Go, Python, Rust, TypeScript, shell, and tests",
+  "author": {
+    "name": "Tim Slater",
+    "url": "https://github.com/tslateman"
+  },
+  "homepage": "https://github.com/tslateman/skills",
+  "repository": "https://github.com/tslateman/skills",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "linting",
+    "agent-review",
+    "anti-patterns",
+    "error-handling",
+    "go",
+    "python",
+    "rust",
+    "typescript",
+    "shell",
+    "testing"
+  ]
+}

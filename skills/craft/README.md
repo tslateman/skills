@@ -17,4 +17,4 @@ Maintainability names the future edits a design taxes and hands cures over;
 refactor applies them in small verified steps against a green suite.
 
 Judging a design is not the same as executing a restructure, and neither is a
-bug hunt — that lives in [audit](../audit/README.md).
+bug hunt — that lives in [review](../review/README.md).

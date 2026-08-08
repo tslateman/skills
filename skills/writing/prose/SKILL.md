@@ -106,6 +106,6 @@ Can you remove this sentence without losing meaning? Remove it.
 ## See Also
 
 - `/naming`: Strunk's Rule 12 applies identically to code names
-- `/review`: Write review comments clearly using these rules
+- `/code-review`: Write review comments clearly using these rules
 - `skills/FRAMEWORKS.md`: Full framework index
 - `RECIPE.md`: Agent recipe for parallel sharpening (3 workers)

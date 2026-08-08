@@ -88,5 +88,5 @@ What becomes easier or more difficult to do because of this change?
 ## See Also
 
 - `/research`: Research informs the decision; ADR captures it
-- `/review`: Reviews that surface architectural decisions belong in ADRs
+- `/code-review`: Reviews that surface architectural decisions belong in ADRs
 - `skills/FRAMEWORKS.md`: Full framework index

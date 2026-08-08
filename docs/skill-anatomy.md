@@ -133,7 +133,7 @@ Add a fourth only for a genuine platform or ecosystem constraint, the way
 
 ## Placement
 
-Review skills live in `skills/audit/`. The group is declared in the `skills`
+Review skills live in `skills/review/`. The group is declared in the `skills`
 array of `.claude-plugin/plugin.json`; a skill in an undeclared directory is
 never discovered.
 
@@ -146,4 +146,4 @@ never discovered.
 - [ ] The verdict question is one this language makes sharp
 - [ ] Bucket 1 examples are drawn from idiomatic code, not straw men
 - [ ] Under 130 lines
-- [ ] Filed under `skills/audit/`, and that group is declared in `plugin.json`
+- [ ] Filed under `skills/review/`, and that group is declared in `plugin.json`

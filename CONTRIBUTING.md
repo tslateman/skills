@@ -10,7 +10,7 @@ actually faces, and when it says what it is _not_ for. A skill that only wraps a
 tool invocation, or that duplicates a question an existing skill already asks
 better, belongs somewhere else.
 
-The `audit/` group carries a stricter thesis of its own: **local-fix debt**, the
+The `review/` group carries a stricter thesis of its own: **local-fix debt**, the
 minimal edit that clears a failure signal without fixing its cause. See
 [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
@@ -22,7 +22,7 @@ the sentence at the top of it, it belongs in a different group.
 
 | Group        | Owns                                                 |
 | ------------ | ---------------------------------------------------- |
-| `audit/`     | Inspecting work that exists, reporting what is wrong |
+| `review/`    | Inspecting work that exists, reporting what is wrong |
 | `craft/`     | Whether code survives the next change                |
 | `navigate/`  | Finding your way around unfamiliar code              |
 | `writing/`   | Whether prose is ready to publish                    |

@@ -1,5 +1,5 @@
 ---
-name: review
+name: code-review
 description: Framework for code review that captures context future maintainers need: concerns raised, alternatives rejected, risks accepted. Use for PRs, local changes, or architecture review when the decision matters more than the diff. Produces structured feedback with must-address issues, suggestions, and observations "for the record."
 ---
 

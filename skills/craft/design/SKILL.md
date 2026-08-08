@@ -80,6 +80,6 @@ Match complexity to vision. Elaborate designs need elaborate execution. Simple d
 
 - `/naming` — Hard-to-name things signal design problems
 - `/adr` — Capture design decisions and their reasoning
-- `/review` — Reviews assess design quality alongside correctness
+- `/code-review` — Reviews assess design quality alongside correctness
 - `skills/FRAMEWORKS.md` — Full framework index
 - `RECIPE.md` — Agent recipe for parallel decomposition (3 workers)

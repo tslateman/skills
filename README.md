@@ -88,7 +88,7 @@ unvalidated boundary.
 
 The full argument is in [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
-Three broader passes sit alongside them: `/code-review` for knowledge-transfer code
+Three broader passes sit alongside them: `/review-decisions` for knowledge-transfer code
 review, `/vibe-check` for whether the whole change holds up, `/visual-recap` for
 the shape of a large diff before reading lines. See
 [skills/review/README.md](skills/review/README.md).

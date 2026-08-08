@@ -16,7 +16,7 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | Ubiquitous Language              | Eric Evans (DDD)             | `/naming`, `/lexicon`                                                               | A translation layer between domain and code is a defect                                  |
 | Controlled Vocabulary            | ANSI/NISO Z39.19             | `/lexicon`                                                                          | One term, one meaning; every rejected variant points back to its preferred form          |
 | ADR Format                       | Michael Nygard               | `/adr`                                                                              | Capture context and reasoning, not just the decision                                     |
-| Modern Code Review               | Bacchelli & Bird             | `/code-review`                                                                      | Code review's primary value is knowledge transfer, not defect detection                  |
+| Modern Code Review               | Bacchelli & Bird             | `/review-decisions`                                                                 | Code review's primary value is knowledge transfer, not defect detection                  |
 | Information Architecture         | Rosenfeld, Morville & Arango | `/ia`                                                                               | Organization, labeling, navigation, search for findability                               |
 | Diataxis                         | Daniele Procida              | `/ia`                                                                               | Four documentation modes: tutorial, how-to, explanation, reference                       |
 | LATCH                            | Richard Saul Wurman          | `/ia`                                                                               | Five and only five ways to organize: location, alphabet, time, category, hierarchy       |
@@ -48,7 +48,7 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | ---------------------------------------- | -------------------------------- | ------------------------------------------ |
 | "Did the agent silence this or fix it?"  | the matching `*-review`          | `/vibe-check`, `/code-review`              |
 | "Would these tests catch a regression?"  | `/test-review`                   | `/testing`                                 |
-| "Is this well-tested?"                   | `/testing`                       | `/test-review`, `/code-review`             |
+| "Is this well-tested?"                   | `/testing`                       | `/test-review`, `/review-decisions`        |
 | "Will this stay cheap to change?"        | `/maintainability`               | `/ousterhout-software-design`, `/refactor` |
 | "Where should we refactor?"              | `/improve-codebase-architecture` | `/zoom-out`, `/naming`, `/design`          |
 | "Execute this restructure safely"        | `/refactor`                      | `/maintainability`, `/testing`             |
@@ -59,19 +59,19 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | "Can people orient once they land?"      | `/wayfinding`                    | `/ia`, `/zoom-out`                         |
 | "How does this system fit together?"     | `/system-map`                    | `/zoom-out`, `/mermaid`                    |
 | "I'm lost in this code"                  | `/zoom-out`                      | `/naming`, `/system-map`                   |
-| "Is this well-written?"                  | `/prose`                         | `/slop-check`, `/code-review`              |
+| "Is this well-written?"                  | `/prose`                         | `/slop-check`, `/review-decisions`         |
 | "Could anyone have written this?"        | `/slop-check`                    | `/prose`                                   |
 | "Does this sound like me?"               | `/voice`                         | `/slop-check`                              |
 | "Can the reader execute it?"             | `/ste`                           | `/prose`                                   |
-| "Do I understand what I just committed?" | `/narrate`                       | `/code-review`                             |
-| "Should we document this decision?"      | `/adr`                           | `/code-review`, `/research`                |
+| "Do I understand what I just committed?" | `/narrate`                       | `/review-decisions`                        |
+| "Should we document this decision?"      | `/adr`                           | `/review-decisions`, `/research`           |
 | "What should we use?"                    | `/research`                      | `/adr`                                     |
 | "I don't know what I want yet"           | `/spec-out`                      | `/brainstorm`                              |
 | "I know the goal, not the options"       | `/brainstorm`                    | `/research`, `/design`                     |
 | "What should I automate?"                | `/automagic-problem-discovery`   | `/research`, `/adr`                        |
-| "Does this vibe-coded output hold up?"   | `/vibe-check`                    | `/code-review`, `/naming`                  |
+| "Does this vibe-coded output hold up?"   | `/vibe-check`                    | `/review-decisions`, `/naming`             |
 | "How should I visualize this?"           | `/mermaid`                       | `/excalidraw`, `/system-map`               |
-| "Show me what changed"                   | `/visual-recap`                  | `/code-review`                             |
+| "Show me what changed"                   | `/visual-recap`                  | `/review-decisions`                        |
 | "Cut my output, save tokens"             | `/bro`                           | `/prose`                                   |
 | "Am I writing a good skill?"             | `/writing-great-skills`          | `/prose`, `/ia`                            |
 
@@ -79,16 +79,16 @@ Each skill is grounded in a named framework or authority. This index maps the in
 
 Recipes teach a multi-agent orchestrator how to decompose a domain task into parallel workers. Each defines worker scope boundaries, prompt templates, and a synthesis step for the manager.
 
-| Skill           | Recipe                          | Workers | Mode       |
-| --------------- | ------------------------------- | ------- | ---------- |
-| `/brainstorm`   | `shape/brainstorm/RECIPE.md`    | —       | parallel   |
-| `/design`       | `craft/design/RECIPE.md`        | 3       | parallel   |
-| `/prose`        | `writing/prose/RECIPE.md`       | 3       | parallel   |
-| `/research`     | `shape/research/RECIPE.md`      | 2       | parallel   |
-| `/code-review`  | `review/code-review/RECIPE.md`  | 4       | parallel   |
-| `/spec-out`     | `shape/spec-out/RECIPE.md`      | —       | sequential |
-| `/testing`      | `craft/testing/RECIPE.md`       | 2       | parallel   |
-| `/visual-recap` | `review/visual-recap/RECIPE.md` | —       | parallel   |
+| Skill               | Recipe                              | Workers | Mode       |
+| ------------------- | ----------------------------------- | ------- | ---------- |
+| `/brainstorm`       | `shape/brainstorm/RECIPE.md`        | —       | parallel   |
+| `/design`           | `craft/design/RECIPE.md`            | 3       | parallel   |
+| `/prose`            | `writing/prose/RECIPE.md`           | 3       | parallel   |
+| `/research`         | `shape/research/RECIPE.md`          | 2       | parallel   |
+| `/review-decisions` | `review/review-decisions/RECIPE.md` | 4       | parallel   |
+| `/spec-out`         | `shape/spec-out/RECIPE.md`          | —       | sequential |
+| `/testing`          | `craft/testing/RECIPE.md`           | 2       | parallel   |
+| `/visual-recap`     | `review/visual-recap/RECIPE.md`     | —       | parallel   |
 
 `/brainstorm` runs independent lenses concurrently; `/spec-out` runs sequentially because each round builds on the previous answers. That split is the Diverge Then Converge principle made operational.
 
@@ -100,7 +100,7 @@ Skills that pair naturally:
 - `/test-review` + `/testing` — Test-review audits whether a suite can fail; testing designs what it should cover
 - `/maintainability` + `/refactor` — Maintainability names the problems; refactor executes the cure in verified steps
 - `/improve-codebase-architecture` + `/zoom-out` — Render the map first, then propose which modules to deepen against it
-- `/code-review` + `/naming` — Code review surfaces naming problems; naming review deepens code review
+- `/review-decisions` + `/naming` — Code review surfaces naming problems; naming review deepens code review
 - `/naming` + `/lexicon` — Naming judges one name; lexicon judges a term set for consistency across surfaces
 - `/ia` + `/wayfinding` — IA fixes the structure; wayfinding fixes orientation inside it
 - `/ia` + `/naming` — IA labeling problems are naming problems
@@ -110,7 +110,7 @@ Skills that pair naturally:
 - `/prose` + `/slop-check` — Slop-check scores and refuses to rewrite; prose is the fixing half
 - `/slop-check` + `/voice` — Genericness first, authorship second; a draft failing the first fails the second
 - `/ste` + `/prose` — STE for text a reader executes, prose for text a reader considers
-- `/narrate` + `/code-review` — Narrate gates comprehension before the commit; review catches what comprehension missed
+- `/narrate` + `/review-decisions` — Narrate gates comprehension before the commit; review catches what comprehension missed
 - `/adr` + `/research` — Research informs the decision; ADR captures it
 - `/spec-out` + `/brainstorm` — Spec-out when you don't know what you want; brainstorm when you know what but not how
 - `/automagic-problem-discovery` + `/adr` — Discovery builds the fix; the ADR records why that fix over the alternatives

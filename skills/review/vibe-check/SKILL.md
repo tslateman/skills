@@ -96,7 +96,7 @@ vibe-check: 2 errors, 4 warnings across 3 files
 When findings are dense (8+ findings or 4+ categories with hits), suggest escalation:
 
 ```
-Dense findings across multiple categories — consider running /code-review for a deeper pass.
+Dense findings across multiple categories — consider running /review-decisions for a deeper pass.
 ```
 
 ## Guidelines
@@ -111,7 +111,7 @@ Dense findings across multiple categories — consider running /code-review for 
 
 ## See Also
 
-- `/code-review`: Full structured review when vibe-check suggests escalation
+- `/review-decisions`: Full structured review when vibe-check suggests escalation
 - `/naming`: Deep dive when shallow-naming findings accumulate
 - `/testing`: When missing-skepticism reveals untested assumptions
 - `/sweep`: Post-op damage check; vibe-check is pre-commit, sweep is post-merge

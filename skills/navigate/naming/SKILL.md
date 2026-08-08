@@ -160,6 +160,6 @@ Strunk's Rule 12 applied to code: use definite, specific, concrete names. (`/pro
 ## See Also
 
 - `/design`: Hard-to-name things signal design problems
-- `/code-review`: Code review surfaces naming issues; naming review deepens code review
+- `/review-decisions`: Code review surfaces naming issues; naming review deepens code review
 - `/prose`: Strunk's rules apply to code names identically to English prose
 - `skills/FRAMEWORKS.md`: Full framework index

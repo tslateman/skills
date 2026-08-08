@@ -1,0 +1,36 @@
+{
+  "context": "Tests whether the agent recognizes a pass-through layer and restructures instead of adding a fourth identical method to each of three layers.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "floor_update_works",
+      "description": "A room's floor can be updated end to end through the controller.",
+      "max_score": 2,
+      "category": "INTENT"
+    },
+    {
+      "name": "pass_through_addressed",
+      "description": "The solution does not simply add update_room_floor to all three layers with identical signatures. It either removes/merges the pure pass-through service layer, or generalizes the update path (e.g. a single update_room(room_id, **fields) with validated field names) so the change lives in one place.",
+      "max_score": 4,
+      "category": "DESIGN"
+    },
+    {
+      "name": "future_fields_cheap",
+      "description": "After the change, adding the next updatable field requires an edit in at most one layer.",
+      "max_score": 2,
+      "category": "DESIGN"
+    },
+    {
+      "name": "no_unsafe_generalization",
+      "description": "If a generic field-update path is introduced, field names are validated against an allowlist (no SQL built from unchecked caller input).",
+      "max_score": 2,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "existing_behavior_kept",
+      "description": "Name updates and the controller's response shapes still work as before.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    }
+  ]
+}

@@ -2,3 +2,9 @@
 node_modules/
 .entire/
 *.log
+__pycache__/
+*.pyc
+
+# slop-check's clean-draft fixture is real unedited writing about internal
+# systems. It stays on disk and out of the published repo.
+skills/slop-check/evals/

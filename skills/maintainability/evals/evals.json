@@ -1,0 +1,47 @@
+{
+  "skill_name": "maintainability",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "review-seeded-export-module",
+      "prompt": "We're about to add a PDF export to the report module at evals/fixtures/report_service.py. Before I queue that work: give me a maintainability review of this module. Will it age well as we add more export formats?",
+      "expected_output": "A ranked maintainability review that flags the triplicated export pipeline, the pass-through ReportManager, the defensive error handling, and the repeated ACME special case, each with a concrete future-edit cost, recommending consolidation before adding the PDF exporter.",
+      "files": ["evals/fixtures/report_service.py"],
+      "expectations": [
+        "Flags the triplicated export pipeline (export_csv/export_json/export_xml repeating the same filter/sort/special-case logic) as a top-priority finding and recommends consolidating before adding the PDF export rather than adding a fourth copy",
+        "Flags ReportManager as a shallow pass-through layer over ReportBuilder and recommends inlining or removing it",
+        "Flags the defensive error handling (load_export_config catching Exception to return {}, and/or the dead try/except in summarize) and frames the fix at the contract level, not merely narrowing the exception type",
+        "Flags the ACME-001 special case as a tactical patch duplicated across export paths, not ordinary business logic",
+        "At least one finding states a concrete future change and quantifies its cost in edit sites or files",
+        "Does not recommend adding comments or docstrings as a maintainability improvement, and does not rewrite the module inline in the review"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "design-sync-worker-boundaries",
+      "prompt": "Here's the program design for our device config sync worker: evals/fixtures/sync_design.md. Before I start building, review the module boundaries. Will this design age well?",
+      "expected_output": "A design review that flags wire-format knowledge split across PayloadBuilder and VendorClient, the pass-through orchestrator, complexity exported upward via config and six exception types, and the vendor-specific method on the generic state store.",
+      "files": ["evals/fixtures/sync_design.md"],
+      "expectations": [
+        "Identifies that VendorA wire-format knowledge is split between PayloadBuilder (builds the frame) and VendorClient (re-parses the header, recomputes the CRC) as information leakage, recommending a single owner for the format",
+        "Identifies SyncOrchestrator as a pass-through layer that forwards calls and wraps errors without changing the abstraction, recommending it be collapsed",
+        "Flags complexity exported upward (worker_main catching six exception types and/or retry/backoff tuning pushed to callers via WorkerConfig), recommending it be pulled down into the owning modules",
+        "Flags get_vendor_b_state as a vendor-specific method leaking into the generic SyncStateStore interface",
+        "Evaluates modules in depth and information-hiding terms (interface size versus functionality hidden), not only naming or style commentary"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-deep-module-no-filler",
+      "prompt": "Quick maintainability review of evals/fixtures/rate_limiter.py please. Anything that will bite us later?",
+      "expected_output": "A short verdict that the module is deep and healthy, with no manufactured findings and no recommendation to split allow() on length grounds.",
+      "files": ["evals/fixtures/rate_limiter.py"],
+      "expectations": [
+        "Concludes the module is healthy and will age well, without manufacturing significant findings",
+        "Does not recommend splitting allow() on length grounds; any extraction suggestion is explicitly minor or optional",
+        "Does not flag the idiomatic dict access (setdefault for a first-seen key, pop with default in reset) as defensive slop",
+        "Does not treat the idle-key eviction sweep as dead code or speculative generality; it bounds per-key memory"
+      ]
+    }
+  ]
+}

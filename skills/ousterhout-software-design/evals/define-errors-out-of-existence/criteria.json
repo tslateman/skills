@@ -1,0 +1,36 @@
+{
+  "context": "Tests whether the agent defines errors out of existence: changes the registry's semantics so absence is a normal case, rather than patching each caller with more try/except.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "idempotent_unregister",
+      "description": "unregister() succeeds silently when the device is absent; the fix is in the registry's semantics, not in caller-side exception handling.",
+      "max_score": 3,
+      "category": "INTENT"
+    },
+    {
+      "name": "get_returns_default",
+      "description": "Looking up an unknown device returns None (or a sensible default) instead of raising, since absence is a normal state here.",
+      "max_score": 2,
+      "category": "DESIGN"
+    },
+    {
+      "name": "callers_lose_boilerplate",
+      "description": "handlers.py no longer contains try/except DeviceNotFound blocks; each handler body shrinks.",
+      "max_score": 2,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "no_caller_side_patching",
+      "description": "The solution does not fix the problem by adding more defensive checks at call sites or a wrapper that swallows exceptions around the old API.",
+      "max_score": 2,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "real_errors_not_masked",
+      "description": "The solution does not introduce a blanket except/Exception that would hide genuinely unexpected failures.",
+      "max_score": 1,
+      "category": "EDGE_CASE"
+    }
+  ]
+}

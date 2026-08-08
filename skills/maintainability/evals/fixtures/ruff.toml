@@ -1,0 +1,3 @@
+# Eval fixtures carry seeded defects on purpose; lint must not clean or block them.
+[lint]
+select = []

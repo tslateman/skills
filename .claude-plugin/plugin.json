@@ -1,7 +1,7 @@
 {
   "name": "skills",
-  "version": "0.1.0",
-  "description": "Catch what coding agents get wrong — six review skills hunting local-fix debt in Go, Python, Rust, TypeScript, shell, and tests",
+  "version": "0.2.0",
+  "description": "Judgment skills for working with coding agents — review what they wrote, judge whether it lasts, keep the prose yours, control the session",
   "author": {
     "name": "Tim Slater",
     "url": "https://github.com/tslateman"
@@ -11,10 +11,13 @@
   "license": "MIT",
   "keywords": [
     "code-review",
-    "linting",
-    "agent-review",
     "anti-patterns",
     "error-handling",
+    "maintainability",
+    "refactoring",
+    "architecture",
+    "writing",
+    "prose",
     "go",
     "python",
     "rust",

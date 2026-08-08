@@ -1,0 +1,42 @@
+{
+  "context": "Tests whether the agent pulls complexity downward: absorbs connection lifecycle, serializer setup, and flush/close into the module instead of leaving ordering constraints on callers, while adding batch support.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "batch_support_works",
+      "description": "Callers can emit multiple events in one call and each event is serialized as one JSON line.",
+      "max_score": 2,
+      "category": "INTENT"
+    },
+    {
+      "name": "no_required_call_order",
+      "description": "Callers no longer need to invoke connect() and set_serializer() before sending; lifecycle and serialization are handled inside the module (constructor defaults, lazy connect, or context manager).",
+      "max_score": 3,
+      "category": "DESIGN"
+    },
+    {
+      "name": "cleanup_internalized",
+      "description": "Callers do not manage flush()/close() manually; the module guarantees flush-and-close (context manager, single send function, or equivalent).",
+      "max_score": 2,
+      "category": "DESIGN"
+    },
+    {
+      "name": "no_mode_flags",
+      "description": "The solution does not add boolean/mode flag parameters (e.g. batch=True) that select internal behavior branches.",
+      "max_score": 1,
+      "category": "MUST_NOT"
+    },
+    {
+      "name": "callers_simplified",
+      "description": "checkout.py call sites are updated and are shorter or no more complex than before; record_checkout and record_refund no longer duplicate setup/teardown boilerplate.",
+      "max_score": 2,
+      "category": "INTEGRATION"
+    },
+    {
+      "name": "no_speculative_abstraction",
+      "description": "No new classes, layers, or configuration options beyond what the task needs.",
+      "max_score": 1,
+      "category": "MINIMALITY"
+    }
+  ]
+}

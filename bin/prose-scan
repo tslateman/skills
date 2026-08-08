@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+"""Mechanical prose checks for the /slop-check and /ste skills.
+
+Usage:
+    prose-scan slop FILE [FILE ...]
+    prose-scan ste FILE [FILE ...] [--descriptive]
+    prose-scan slop FILE --json
+
+Scans only what a regex can settle. Judgment calls stay with the skill:
+the horoscope test, manufactured voice, rule-of-three, and whether a
+flagged word is decorative or load-bearing.
+
+Exits 1 when a file exceeds its mode's threshold, 0 otherwise.
+"""
+
+import argparse
+import json
+import re
+import statistics
+import sys
+
+FRONTMATTER = re.compile(r"\A---\n.*?\n---\n", re.DOTALL)
+FENCE = re.compile(r"^\s*```")
+INLINE_CODE = re.compile(r"`[^`]*`")
+URL = re.compile(r"https?://\S+")
+WIKILINK = re.compile(r"\[\[[^\]]*\]\]")
+
+PIVOT_PATTERNS = [
+    (r"\bis\s+not\s+(?:just\s+)?(?:a|an|the)?\s*\w+[^.;]*?[,;]?\s*(?:it|that)'?s\b", "contrastive pivot"),
+    (r"\b(?:isn't|aren't|wasn't|weren't)\s+(?:just\s+)?[^.;]*?[,;]\s*(?:it|they|that)'?s\b", "contrastive pivot"),
+    (r"\bnot\s+(?:just|only)\s+[^.;]*?\bbut\b", "contrastive pivot"),
+    (r"\bnever\s+just\s+\w+", "contrastive pivot"),
+    (r"\bis\s+a\s+\w+[^.;]*?,\s*not\s+(?:a|an|the)\s+\w+", "contrastive pivot"),
+    (r"\bdoes\s+not\s+\w+\s+it\b", "contrastive pivot"),
+    (r"\bhave\s+not\s+\w+[^.;]*?,\s*you\s+have\b", "contrastive pivot"),
+]
+
+OPENER_PATTERNS = [
+    (r"^\s*When\s+(?:we|you)\s+think\s+about\b", "throat-clearing opener"),
+    (r"^\s*In\s+today's\b", "throat-clearing opener"),
+    (r"^\s*It'?s\s+(?:worth\s+noting|important\s+to\s+(?:note|remember))\b", "hedged authority"),
+    (r"^\s*It\s+should\s+be\s+noted\b", "hedged authority"),
+    (r"^\s*Here'?s\s+the\s+thing\b", "manufactured voice"),
+    (r"^\s*Let'?s\s+be\s+(?:honest|clear)\b", "manufactured voice"),
+]
+
+SCAFFOLD = re.compile(r"^\s*[-*]?\s*\*\*[^*]+:\*\*")
+
+LEXICAL_SUSPECTS = [
+    "delve", "tapestry", "leverage", "seamless", "seamlessly", "robust",
+    "landscape", "unlock", "unleash", "elevate", "pivotal", "transformative",
+    "game-changer", "streamline", "empower", "navigate", "harness", "crucial",
+    "groundbreaking", "cutting-edge", "paradigm", "unprecedented", "synergy",
+]
+
+HEDGE_MODALS = re.compile(r"\b(?:should|may|might|could)\b", re.IGNORECASE)
+PRESENT_PERFECT = re.compile(r"\b(?:has|have|had)\s+(?:been\s+)?\w+(?:ed|en)\b", re.IGNORECASE)
+PASSIVE = re.compile(r"\b(?:is|are|was|were|be|been|being)\s+\w+(?:ed|en)\b", re.IGNORECASE)
+GERUND_NOUN = re.compile(r"\b(?:the|a|an)\s+\w+ing\b", re.IGNORECASE)
+SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+")
+WORD = re.compile(r"[A-Za-z][A-Za-z'’-]*")
+
+
+def mask_noncontent(text):
+    text = FRONTMATTER.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+    lines = text.split("\n")
+    masked = []
+    in_fence = False
+    for line in lines:
+        if FENCE.match(line):
+            in_fence = not in_fence
+            masked.append("")
+            continue
+        if in_fence or line.lstrip().startswith((">", "|")):
+            masked.append("")
+            continue
+        clean = INLINE_CODE.sub(" ", line)
+        clean = URL.sub(" ", clean)
+        clean = WIKILINK.sub(" ", clean)
+        masked.append(clean)
+    return masked
+
+
+def iter_sentences(masked):
+    for lineno, line in enumerate(masked, 1):
+        stripped = line.strip().lstrip("#").strip()
+        if not stripped:
+            continue
+        for sentence in SENTENCE_SPLIT.split(stripped):
+            sentence = sentence.strip()
+            if sentence:
+                yield lineno, sentence
+
+
+def iter_paragraphs(masked):
+    start, buffer = None, []
+    for lineno, line in enumerate(masked, 1):
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            if buffer:
+                yield start, " ".join(buffer)
+                start, buffer = None, []
+            continue
+        if start is None:
+            start = lineno
+        buffer.append(stripped)
+    if buffer:
+        yield start, " ".join(buffer)
+
+
+def word_count(text):
+    return len(WORD.findall(text))
+
+
+def scan_slop(masked):
+    findings, notes = [], []
+    seen_kinds = {}
+
+    def add(lineno, kind, detail):
+        seen_kinds[kind] = seen_kinds.get(kind, 0) + 1
+        points = 3 if seen_kinds[kind] == 1 else 1
+        findings.append({"line": lineno, "kind": kind, "detail": detail, "points": points})
+
+    for lineno, sentence in iter_sentences(masked):
+        for pattern, kind in PIVOT_PATTERNS:
+            match = re.search(pattern, sentence, re.IGNORECASE)
+            if match:
+                add(lineno, kind, match.group(0).strip())
+                break
+        for pattern, kind in OPENER_PATTERNS:
+            if re.search(pattern, sentence, re.IGNORECASE):
+                add(lineno, kind, sentence[:60])
+                break
+
+    scaffold_lines = [i for i, line in enumerate(masked, 1) if SCAFFOLD.match(line)]
+    if len(scaffold_lines) >= 4:
+        add(scaffold_lines[0], "scaffolding leak", f"{len(scaffold_lines)} bold-colon prefixes")
+
+    lengths = [word_count(s) for _, s in iter_sentences(masked)]
+    lengths = [n for n in lengths if n > 3]
+    if len(lengths) >= 8:
+        spread = statistics.pstdev(lengths)
+        if spread < 4.5:
+            add(1, "uniform rhythm", f"sentence-length spread {spread:.1f} words")
+        notes.append(f"sentence length: mean {statistics.mean(lengths):.1f}, spread {spread:.1f}")
+
+    candidates = []
+    for lineno, sentence in iter_sentences(masked):
+        for suspect in LEXICAL_SUSPECTS:
+            if re.search(rf"\b{re.escape(suspect)}\b", sentence, re.IGNORECASE):
+                candidates.append({"line": lineno, "word": suspect})
+
+    em_dashes = sum(line.count("—") for line in masked)
+    paragraphs = sum(1 for _ in iter_paragraphs(masked))
+    if paragraphs:
+        notes.append(f"em dash: {em_dashes} across {paragraphs} paragraphs")
+
+    total = sum(f["points"] for f in findings)
+    words = sum(word_count(line) for line in masked)
+    return {
+        "score": total,
+        "words": words,
+        "verdict": verdict_for(total),
+        "findings": findings,
+        "lexical_candidates": candidates,
+        "notes": notes,
+    }
+
+
+def verdict_for(score):
+    if score <= 5:
+        return "Ships"
+    if score <= 12:
+        return "Revise"
+    return "Rewrite"
+
+
+def scan_ste(masked, descriptive):
+    limit = 25 if descriptive else 20
+    findings = []
+
+    for lineno, sentence in iter_sentences(masked):
+        count = word_count(sentence)
+        if count > limit:
+            findings.append({"line": lineno, "kind": "sentence too long", "detail": f"{count} words (limit {limit})"})
+        if not descriptive and HEDGE_MODALS.search(sentence):
+            findings.append({"line": lineno, "kind": "hedging modal", "detail": HEDGE_MODALS.search(sentence).group(0)})
+        if PRESENT_PERFECT.search(sentence):
+            findings.append({"line": lineno, "kind": "present perfect", "detail": PRESENT_PERFECT.search(sentence).group(0)})
+        if PASSIVE.search(sentence):
+            findings.append({"line": lineno, "kind": "possible passive", "detail": PASSIVE.search(sentence).group(0)})
+        if GERUND_NOUN.search(sentence):
+            findings.append({"line": lineno, "kind": "gerund as noun", "detail": GERUND_NOUN.search(sentence).group(0)})
+
+    for start, paragraph in iter_paragraphs(masked):
+        sentences = [s for s in SENTENCE_SPLIT.split(paragraph) if s.strip()]
+        if len(sentences) > 6:
+            findings.append({"line": start, "kind": "paragraph too long", "detail": f"{len(sentences)} sentences (limit 6)"})
+
+    words = sum(word_count(line) for line in masked)
+    per_hundred = (len(findings) / words * 100) if words else 0
+    return {
+        "violations": len(findings),
+        "words": words,
+        "per_100_words": round(per_hundred, 1),
+        "findings": findings,
+    }
+
+
+def report_slop(path, result):
+    print(f"{path}")
+    print(f"  Slop score: {result['score']} / {result['verdict']}   ({result['words']} words)")
+    if result["findings"]:
+        print("  Mechanical findings")
+        for f in result["findings"]:
+            print(f"    L{f['line']:<4} +{f['points']}  {f['kind']} — {f['detail']}")
+    if result["lexical_candidates"]:
+        print("  Lexical candidates (apply Strunk's test; unscored)")
+        for c in result["lexical_candidates"]:
+            print(f"    L{c['line']:<4}     {c['word']}")
+    for note in result["notes"]:
+        print(f"  Note: {note}")
+    print("  Unchecked here: horoscope test, rule of three, restating summary")
+
+
+def report_ste(path, result):
+    print(f"{path}")
+    print(f"  Violations: {result['violations']}  ({result['per_100_words']} per 100 words, {result['words']} words)")
+    for f in result["findings"]:
+        print(f"    L{f['line']:<4} {f['kind']} — {f['detail']}")
+    print("  Unchecked here: noun clusters and one-word-one-meaning need judgment")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("mode", choices=["slop", "ste"])
+    parser.add_argument("files", nargs="+")
+    parser.add_argument("--descriptive", action="store_true", help="STE mode: 25-word limit instead of 20")
+    parser.add_argument("--json", action="store_true")
+    args = parser.parse_args()
+
+    results, failed = {}, False
+    for path in args.files:
+        with open(path, encoding="utf-8") as handle:
+            masked = mask_noncontent(handle.read())
+        if args.mode == "slop":
+            result = scan_slop(masked)
+            failed = failed or result["score"] > 5
+        else:
+            result = scan_ste(masked, args.descriptive)
+            failed = failed or result["violations"] > 0
+        results[path] = result
+        if not args.json:
+            report_slop(path, result) if args.mode == "slop" else report_ste(path, result)
+
+    if args.json:
+        print(json.dumps(results, indent=2))
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

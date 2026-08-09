@@ -5,7 +5,15 @@ description: Find deepening opportunities in a codebase. Use when the user asks 
 
 # Improve Codebase Architecture
 
-Surface architectural friction and propose **deepening opportunities**, refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability.
+Surface architectural friction and propose **deepening opportunities**, refactors that turn shallow modules into deep ones. Scope is a whole codebase or a large sub-tree, not a diff. The aim is testability and AI-navigability.
+
+## Use this vs. its neighbors
+
+- Judge one diff or module, ranked by future edit cost -> `maintainability`.
+- Judge whether the domain owns its own invariants -> `domain-model`.
+- Look up the depth and information-hiding principles themselves -> `ousterhout-software-design`.
+- Execute a candidate once it is chosen -> `refactor`.
+- Sweep a codebase for the modules worth deepening -> here.
 
 ## Glossary
 

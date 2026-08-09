@@ -12,6 +12,7 @@ Change the structure, never the behavior. Fowler's discipline: a series of small
 - Find what is wrong and rank it -> `maintainability`.
 - Hunt correctness bugs in a diff -> `code-review`.
 - Judge module boundaries and interface depth -> `ousterhout-software-design`.
+- Judge whether the domain owns its own invariants -> `domain-model`.
 - Quick reuse/simplification pass on a just-written diff -> `simplify`.
 - Execute a named restructure with behavior held constant -> here.
 

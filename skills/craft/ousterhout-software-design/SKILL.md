@@ -5,6 +5,8 @@ description: Apply John Ousterhout's "A Philosophy of Software Design" principle
 
 # Ousterhout Software Design
 
+The reference the other craft judges cite. `maintainability`, `improve-codebase-architecture`, and `domain-model` each apply these principles at a fixed scope and emit a ranked verdict; this skill is the principles themselves, for writing code or looking up a term. Reach for it while designing, not as a fourth reviewer.
+
 Primary goal: reduce cognitive load for future maintainers. Working code is necessary but insufficient. Complexity is anything that makes a system hard to understand or modify. It shows up three ways: change amplification (one decision requires edits in many places), high cognitive load (callers must know too much), and unknown unknowns (it is unclear what must change). Every rule below attacks one of these.
 
 ## 1. Deep modules

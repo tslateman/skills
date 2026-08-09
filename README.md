@@ -97,18 +97,23 @@ the shape of a large diff before reading lines. See
 
 [skills/craft/](skills/craft/README.md)
 
-| Skill                              | Question                                                     |
-| ---------------------------------- | ------------------------------------------------------------ |
-| `/maintainability`                 | Will this stay cheap to change?                              |
-| `/ousterhout-software-design`      | Is the module deep, or is the interface doing the work?      |
-| `/improve-codebase-architecture`   | Which modules are worth deepening?                           |
-| `/strategic-architecture-analyzer` | Procedural transliteration, anemic models, leaked invariants |
-| `/refactor`                        | Execute a named restructure, behavior held constant          |
-| `/design`                          | Is the interface right before it ships?                      |
-| `/testing`                         | Which test properties matter here, and what do they cost?    |
+| Skill                            | Question                                                  |
+| -------------------------------- | --------------------------------------------------------- |
+| `/maintainability`               | Will this diff stay cheap to change?                      |
+| `/improve-codebase-architecture` | Which modules across the codebase are worth deepening?    |
+| `/domain-model`                  | Does the domain own its own invariants?                   |
+| `/ousterhout-software-design`    | Reference: what makes a module deep?                      |
+| `/refactor`                      | Execute a named restructure, behavior held constant       |
+| `/testing`                       | Which test properties matter here, and what do they cost? |
 
-`/maintainability` finds problems and hands cures to `/refactor`, which executes
-them in verified steps against a green suite.
+Three judges, one reference, one executor, one precondition. **The judges differ
+by scope**: `/maintainability` takes a diff, `/improve-codebase-architecture`
+takes a tree, `/domain-model` takes the business rules and asks whether the code
+holding the state also holds the rules about it.
+
+`/ousterhout-software-design` is the reference the other three cite, not a fourth
+judge. Each judge hands a named cure to `/refactor`, which executes it in
+verified steps against a green suite — the suite `/testing` designs.
 
 ## Navigate — find your way around unfamiliar code
 
@@ -160,12 +165,16 @@ strips nuance by design, so keep it away from anything that argues a position.
 | `/spec-out`                    | You have a vague idea — what is it actually? |
 | `/brainstorm`                  | You know the goal — what are the options?    |
 | `/research`                    | What should we use, and what does it cost?   |
+| `/design`                      | What shape and tone should this take?        |
 | `/adr`                         | Why did we choose this, for the next reader? |
 | `/automagic-problem-discovery` | What friction have you stopped noticing?     |
 
 `/spec-out` interviews sequentially, each round building on the last answers.
 `/brainstorm` runs independent lenses in parallel. The split is deliberate:
 diverge before you converge, and never in the same pass.
+
+`/design` asks what a thing should be — purpose, tone, constraints, the one
+thing worth getting right. Whether it lasts is [craft](skills/craft/README.md).
 
 ## Draw — make the picture
 

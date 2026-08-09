@@ -5,11 +5,14 @@ description: Judge whether code will stay cheap to change, applying Ousterhout's
 
 # Maintainability Judgment
 
-Answers one question: how expensive will the next change be? Two modes: design (judge a proposed shape before code exists) and review (judge a diff or module). This skill names and ranks problems; it never executes the restructure.
+Answers one question: how expensive will the next change be? Scope is a diff or a module. Two modes: design (judge a proposed shape before code exists) and review (judge a diff or module). This skill names and ranks problems; it never executes the restructure.
 
 ## Use this vs. its neighbors
 
 - Bug or correctness risk to find -> `code-review`.
+- Sweep a whole codebase, not one diff, for deepening candidates -> `improve-codebase-architecture`.
+- Judge whether the domain owns its own invariants -> `domain-model`.
+- Look up the depth and information-hiding principles themselves -> `ousterhout-software-design`.
 - Execute a named restructure with behavior held constant -> `refactor`.
 - Quick reuse/simplification pass on a just-written diff -> `simplify`.
 - Judge how a design or diff will age, with book-grounded names and a ranked verdict -> here.

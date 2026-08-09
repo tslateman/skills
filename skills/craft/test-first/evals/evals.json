@@ -1,0 +1,59 @@
+{
+  "skill_name": "test-first",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "audit-retrofitted-suite",
+      "prompt": "This module and its tests landed in the same commit: evals/fixtures/shipping.py and evals/fixtures/test_shipping.py. Everything is green. Could any of these tests ever have been red?",
+      "expected_output": "A per-test verdict identifying the truthy-only assertion, the test that recomputes its expectation from the implementation's own constants, the two tests pinning a silent .get() default, and the test that only exercises a mock — while leaving the two genuine specification tests alone.",
+      "files": [
+        "evals/fixtures/shipping.py",
+        "evals/fixtures/test_shipping.py"
+      ],
+      "expectations": [
+        "Flags test_shipping_cost_returns_a_value as asserting only truthiness, noting it passes for any non-zero rate and so cannot detect a wrong charge",
+        "Flags test_expedited_doubles_the_base_rate as computing its expected value from REGION_RATES and the same doubling the implementation performs, so it passes whatever shipping_cost does",
+        "Flags test_unknown_region_estimates_zero_days and/or test_unknown_region_charges_domestic_rate as pinning an implementation default (the fallback in .get) rather than any specified behavior",
+        "Flags test_quote_calls_the_rate_service as asserting on a mock it configured itself, noting it never calls shipping.py at all",
+        "Does not flag test_free_shipping_over_threshold or test_under_threshold_charges_domestic_rate; both assert concrete values that a mutation would break",
+        "Proposes a constructive check — reverting the implementation, or mutating a constant, operator, or branch — rather than judging the tests by reading them alone",
+        "Reports a per-test verdict rather than a single overall score for the suite"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "clean-suite-no-manufactured-findings",
+      "prompt": "Audit the tests in evals/fixtures/test_slugify.py against evals/fixtures/slugify.py. Would any of them survive a bug being introduced?",
+      "expected_output": "A short verdict that the suite would catch mutations, with no manufactured findings and no demand for additional testing styles as a defect.",
+      "files": [
+        "evals/fixtures/slugify.py",
+        "evals/fixtures/test_slugify.py"
+      ],
+      "expectations": [
+        "Concludes the suite can fail and would catch a mutation, without manufacturing significant findings",
+        "Does not treat the absence of property-based or generative tests as a defect in this suite",
+        "Does not claim the tests mirror the implementation's structure; they assert literal expected slugs derived from the documented contract",
+        "Any comment on test_truncates_to_max_length asserting a bound rather than an exact value is explicitly marked minor or optional, not a headline finding",
+        "Does not recommend adding comments or docstrings to the tests"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "bug-fix-reproduce-before-repair",
+      "prompt": "Bug report: expedited delivery to APAC is quoted at 6 days, but expedited should shave a third off the standard estimate, not half — it should be 8. Fix it in evals/fixtures/shipping.py.",
+      "expected_output": "A failing reproduction test written and run before any change to shipping.py, with the expected failure stated in advance, then the fix, then the test kept as a regression test.",
+      "files": [
+        "evals/fixtures/shipping.py",
+        "evals/fixtures/test_shipping.py"
+      ],
+      "expectations": [
+        "Writes a test asserting estimate_days('apac', expedited=True) == 8 and runs it BEFORE editing shipping.py",
+        "States the expected failure before running, and confirms the observed failure is the assertion firing rather than an import or collection error",
+        "Does not edit shipping.py first and add the test afterward",
+        "Keeps the reproduction test in the suite after the fix rather than deleting it or folding it into an existing test",
+        "Does not weaken or delete test_unknown_region_estimates_zero_days or any other existing assertion to keep the suite green",
+        "Treats the fix as the minimum change reaching green, without restructuring estimate_days or the region tables in the same pass"
+      ]
+    }
+  ]
+}

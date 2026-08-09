@@ -1,0 +1,42 @@
+{
+  "context": "Tests whether the agent adds behavior beside untestable code rather than rewriting it or mocking its way into a harness. Notifier's constructor opens a live SMTP connection (SMTP, starttls, noop), so the class cannot be instantiated in a test. The suppression decision is pure and belongs in a sprouted, tested unit called from one line inside notify.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "suppression_works",
+      "description": "A repeat of the same recipient and subject within five minutes is suppressed and returns False; the same pair after five minutes sends normally.",
+      "max_score": 2,
+      "category": "INTENT"
+    },
+    {
+      "name": "decision_sprouted_and_tested",
+      "description": "The suppress-or-send decision lives in a new function or class that is tested directly, with no SMTP connection, no network, and no mock of the mail gateway. Tests that can only exercise the decision through Notifier fail this item.",
+      "max_score": 5,
+      "category": "DESIGN"
+    },
+    {
+      "name": "clock_is_injectable",
+      "description": "The five-minute window is tested at its boundary by controlling time (injected clock, passed timestamp, or equivalent) rather than by sleeping or by leaving the boundary untested.",
+      "max_score": 3,
+      "category": "DESIGN"
+    },
+    {
+      "name": "host_class_not_rewritten",
+      "description": "Notifier is changed conservatively: the new behavior enters through a small number of added lines (sprout method, sprout class, or wrap method). Regenerating the class, restructuring notify_batch, or refactoring the constructor's connection setup as part of this task fails this item.",
+      "max_score": 4,
+      "category": "DESIGN"
+    },
+    {
+      "name": "no_mock_saturation",
+      "description": "The agent does not stub smtplib and every collaborator to force Notifier into a harness and then assert on the mocks. If Notifier is exercised at all, the assertions are about the suppression decision, not about which mock methods were called.",
+      "max_score": 3,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "existing_send_path_intact",
+      "description": "First-time sends still dispatch through sendmail with the same message format, and notify_batch still returns the accepted count.",
+      "max_score": 2,
+      "category": "INTEGRATION"
+    }
+  ]
+}

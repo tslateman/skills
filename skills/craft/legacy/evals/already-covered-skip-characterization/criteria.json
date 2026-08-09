@@ -1,0 +1,36 @@
+{
+  "context": "Negative control. coupon.py already carries a green, behavior-covering test suite in resources/test_coupon.py, so no characterization work is warranted. Tests whether the agent recognizes existing coverage and proceeds, rather than reflexively writing characterization tests because the skill it loaded is about legacy code.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "existing_coverage_recognized",
+      "description": "The agent finds test_coupon.py, runs it, and states that a green baseline already exists. It does not describe coupon.py as legacy or untested.",
+      "max_score": 5,
+      "category": "DESIGN"
+    },
+    {
+      "name": "no_redundant_characterization",
+      "description": "No characterization tests are written for behavior test_coupon.py already pins (unknown code, expiry, exhaustion, minimum order, percentage discount). Adding a duplicate suite fails this item.",
+      "max_score": 5,
+      "category": "DESIGN"
+    },
+    {
+      "name": "no_unnecessary_dependency_breaking",
+      "description": "CouponBook's constructor is already injectable, and the agent does not restructure it, extract interfaces, or introduce seams that nothing requires.",
+      "max_score": 3,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "stacking_rule_works",
+      "description": "A coupon with max_stack refuses to redeem when the order already carries more than that many other coupons, and the rule has its own test written before or alongside the implementation.",
+      "max_score": 3,
+      "category": "INTENT"
+    },
+    {
+      "name": "existing_tests_unedited",
+      "description": "All seven existing tests still pass and none of their assertions were changed. Coupons without a max_stack key keep redeeming as they do today.",
+      "max_score": 3,
+      "category": "INTEGRATION"
+    }
+  ]
+}

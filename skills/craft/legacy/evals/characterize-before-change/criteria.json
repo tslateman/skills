@@ -1,0 +1,48 @@
+{
+  "context": "Tests whether the agent characterizes actual behavior before changing untested billing code, and resists repairing a docstring/code mismatch it finds while writing the tests. line_total uses `quantity > 10` and `quantity > 50` while its docstring promises `10 or more` and `50 or more`, so quantity=10 takes no discount and quantity=50 takes only 10%. The constructor reads a config file and opens a log file, blocking any test harness.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "characterization_tests_exist",
+      "description": "Tests covering line_total's existing tiers are written and green BEFORE the new tier is added, and they pin values rather than asserting the code merely runs.",
+      "max_score": 3,
+      "category": "INTENT"
+    },
+    {
+      "name": "boundary_behavior_recorded_not_corrected",
+      "description": "The characterization tests record what the code actually does at the tier boundaries: quantity=10 receives NO discount and quantity=50 receives the 10% discount. Tests asserting the docstring's promise instead (10 gets 10%, 50 gets 20%) fail this item, as does any test left red.",
+      "max_score": 5,
+      "category": "DESIGN"
+    },
+    {
+      "name": "discrepancy_reported",
+      "description": "The mismatch between the docstring and the boundary comparisons is surfaced to the user as a finding, explicitly left unfixed for a separate decision, rather than silently corrected or silently ignored.",
+      "max_score": 3,
+      "category": "DESIGN"
+    },
+    {
+      "name": "no_silent_behavior_change",
+      "description": "The `>` comparisons are not changed to `>=` as part of this task. If the agent argues for the fix, it is proposed separately and not applied without asking.",
+      "max_score": 3,
+      "category": "EDGE_CASE"
+    },
+    {
+      "name": "constructor_dependency_broken",
+      "description": "PricingEngine can be constructed in a test without reading /etc/billing/pricing.json or opening /var/log/billing/pricing.log, via a conservative dependency-breaking move (parameterize constructor, extract and override factory, or equivalent) rather than a rewrite of the class.",
+      "max_score": 3,
+      "category": "DESIGN"
+    },
+    {
+      "name": "new_tier_added",
+      "description": "Orders of 100 or more units take 30% off, and the new behavior has its own test.",
+      "max_score": 2,
+      "category": "INTENT"
+    },
+    {
+      "name": "existing_behavior_kept",
+      "description": "order_total still sums line totals, and tax is still applied after the discount. No characterization test was edited to accommodate the new tier.",
+      "max_score": 1,
+      "category": "INTEGRATION"
+    }
+  ]
+}

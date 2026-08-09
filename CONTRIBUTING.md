@@ -87,6 +87,47 @@ Check three failure modes:
 
 State in the PR what you ran it against and what it found.
 
+## Evals
+
+Six skills carry an `evals/` directory. **Two formats, chosen by what the skill
+produces** — not two conventions competing for the same job.
+
+**Judgment evals** grade a report. Use when the skill's output is prose: a
+verdict, a ranked finding list, a recommendation.
+
+```text
+evals/
+├── evals.json      # skill_name + cases: prompt, expected_output, files, expectations[]
+└── fixtures/       # the code the prompt points at
+```
+
+Each expectation is one binary, checkable claim about the report. Write them so
+a grader never has to weigh partial credit.
+
+**Task evals** grade changed code. Use when the skill's output is a diff.
+
+```text
+evals/<case-name>/
+├── task.md         # the request, as a user would phrase it
+├── criteria.json   # context + weighted_checklist[] scored by category
+├── scenario.json   # {"include": ["resources/"]}
+└── resources/      # the starting code
+```
+
+Categories are `INTENT`, `DESIGN`, `EDGE_CASE`, `INTEGRATION`. Weight `DESIGN`
+highest when the skill exists to change how an agent decides, not what it types.
+
+In force today: `maintainability`, `test-first`, and `tidy` use judgment evals;
+`ousterhout-software-design` and `legacy` use task evals.
+
+**Every set needs a negative control** — a case where the right answer is "nothing
+to report". Skills that always find something are the failure mode evals exist to
+catch, and a suite without one cannot see it.
+
+Seed fixtures with flaws that are unambiguous and verifiable. Run them: a
+negative-control fixture whose tests fail, or a seeded bug that is not actually
+reachable, silently inverts what the eval measures.
+
 ## Style
 
 - ATX headers, fenced code blocks with a language identifier

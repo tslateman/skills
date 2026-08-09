@@ -1,0 +1,50 @@
+{
+  "skill_name": "tidy",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "tidy-first-before-a-named-change",
+      "prompt": "Next sprint I have to add multi-currency support to posting — every entry gets a currency and the balances stay per-currency. Look at evals/fixtures/ledger.py. Should I clean this up before I start?",
+      "expected_output": "A tidy-first recommendation justified by the named change, proposing guard clauses and a small number of scoped tidyings on post(), with the structural commit landing separately from the currency work.",
+      "files": ["evals/fixtures/ledger.py"],
+      "expectations": [
+        "Recommends tidy FIRST and justifies it by the named multi-currency change, stating what the tidying removes from that change rather than citing readability alone",
+        "Names guard clauses as the primary tidying, inverting the nested conditionals in post() so the validation returns early and the posting body unnests",
+        "Names at most a few specific tidyings from the catalog rather than proposing a general cleanup of the file",
+        "Requires the tidying to land as its own commit, separate from the multi-currency change",
+        "Flags _reserve_legacy_batch as dead code, or explicitly checks for callers before proposing its removal",
+        "Does not add comments as part of the cleanup, and does not propose adding docstrings as a tidying",
+        "Does not restructure the accounts/journal collaborators or propose extracting a new class; that is refactor's scope, not a tidying"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "refuse-to-tidy-untouched-code",
+      "prompt": "I was reading evals/fixtures/archive_import.py and it's pretty rough — bare open() with no context manager, manual counter, a dict built key by key. It ran once in 2019 for the archive migration and nothing calls it now. Want to clean it up?",
+      "expected_output": "A never-or-later verdict: the code is not read and not changed, so tidying it buys nothing, with deletion raised as the question actually worth asking.",
+      "files": ["evals/fixtures/archive_import.py"],
+      "expectations": [
+        "Answers never or later, not first or after, and says so explicitly using that vocabulary",
+        "Justifies the answer by the absence of a coming change or future reader, not by the code's quality",
+        "Does not produce a cleaned-up version of the module or a list of tidyings to apply",
+        "Raises deleting the module as the more useful question, given that nothing calls it",
+        "If deletion is proposed, notes that dynamic call sites survive static search and the claim needs checking before acting"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "split-mixed-structure-and-behavior",
+      "prompt": "Review evals/fixtures/renewal_cleanup.diff. I've called this a cleanup commit — is it ready to merge?",
+      "expected_output": "A refusal to merge as a cleanup: the diff carries two behavior changes (the grace period going from 3 days to 7, and a new trial early-return) inside otherwise structural work, and must be split into separate commits.",
+      "files": ["evals/fixtures/renewal_cleanup.diff"],
+      "expectations": [
+        "Identifies the grace period value changing from 3 to 7 as a behavior change, distinct from the structural rename of GRACE to GRACE_PERIOD_DAYS",
+        "Identifies the new trial_ends_on early return as added behavior that no cleanup commit should contain",
+        "Concludes the diff cannot merge as a cleanup and must be split into separate structural and behavioral commits",
+        "Recognizes the remaining changes as genuinely structural — renaming r to renew, renaming sub to subscription, extracting _is_due and _within_grace, and converting the nesting to guard clauses — rather than rejecting the whole diff",
+        "Confirms the rewritten grace comparison preserves the original outcome at the boundary, rather than assuming an inverted conditional changed behavior",
+        "Applies the reviewer's test explicitly: reading only the structural part, could anything a caller observes have changed"
+      ]
+    }
+  ]
+}

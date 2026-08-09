@@ -1,0 +1,53 @@
+diff --git a/billing/renewal.py b/billing/renewal.py
+index 3f8a1c2..b7e4d90 100644
+--- a/billing/renewal.py
++++ b/billing/renewal.py
+@@ -1,30 +1,36 @@
+ from datetime import timedelta
+
+-GRACE = 3
++GRACE_PERIOD_DAYS = 7
+
+
+-def r(sub, today):
+-    if sub.status == "active":
+-        if sub.renews_on <= today:
+-            if sub.payment_method is None:
+-                sub.status = "past_due"
+-                return sub
+-            charged = charge(sub.payment_method, sub.price)
+-            if charged:
+-                sub.renews_on = today + timedelta(days=30)
+-                return sub
+-            if today - sub.renews_on > timedelta(days=GRACE):
+-                sub.status = "canceled"
+-            else:
+-                sub.status = "past_due"
+-    return sub
++def _is_due(subscription, today):
++    return subscription.status == "active" and subscription.renews_on <= today
++
++
++def _within_grace(subscription, today):
++    return today - subscription.renews_on <= timedelta(days=GRACE_PERIOD_DAYS)
++
++
++def renew(subscription, today):
++    if not _is_due(subscription, today):
++        return subscription
++
++    if subscription.payment_method is None:
++        subscription.status = "past_due"
++        return subscription
++
++    if subscription.trial_ends_on and subscription.trial_ends_on > today:
++        return subscription
++
++    if charge(subscription.payment_method, subscription.price):
++        subscription.renews_on = today + timedelta(days=30)
++        return subscription
++
++    subscription.status = (
++        "past_due" if _within_grace(subscription, today) else "canceled"
++    )
++    return subscription

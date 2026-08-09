@@ -13,6 +13,8 @@ Change the structure, never the behavior. Fowler's discipline: a series of small
 - Hunt correctness bugs in a diff -> `code-review`.
 - Judge module boundaries and interface depth -> `ousterhout-software-design`.
 - Judge whether the domain owns its own invariants -> `domain-model`.
+- Get untested code under a harness first -> `legacy`.
+- Small cleanup needing no mechanics and no test changes -> `tidy`.
 - Quick reuse/simplification pass on a just-written diff -> `simplify`.
 - Execute a named restructure with behavior held constant -> here.
 
@@ -26,7 +28,7 @@ The test of a refactoring is not the diff size. It is whether any caller can tel
 
 Refuse to start without all three. Say which one is missing and stop.
 
-1. **A green, self-checking test suite covering the target.** Run it first and see it pass; a suite you did not watch pass is not a baseline. No coverage means the first job is characterization tests — write them, get them green, then refactor. Never restructure code whose behavior nothing pins down.
+1. **A green, self-checking test suite covering the target.** Run it first and see it pass; a suite you did not watch pass is not a baseline. No coverage means the first job is characterization tests — hand off to `legacy`, get green, then come back. Never restructure code whose behavior nothing pins down.
 2. **A clean working tree**, or unrelated changes committed first. A refactor tangled with a feature cannot be reviewed and cannot be reverted.
 3. **A named target.** "Clean this up" is not a target. Either the caller names the move, or `maintainability` hands one over, or you name it explicitly and confirm before touching code.
 
@@ -75,7 +77,7 @@ Where Fowler and Ousterhout disagree, **Ousterhout wins** — same tiebreak as `
 - **Code you do not need to modify and do not need to understand.** Ugly and stable is not a defect. Refactoring earns its cost only against a change you are actually about to make.
 - **When a rewrite is cheaper.** If the module cannot be brought green in small steps, it is a rewrite behind a preserved interface, not a refactoring. Name it as such.
 - **Mid-feature.** Finish the feature, commit, then re-hat.
-- **Without the budget for tests.** Refactoring untested code is editing code and hoping. Either write the characterization tests or leave it.
+- **Without the budget for tests.** Refactoring untested code is editing code and hoping. Either take it through `legacy` first or leave it.
 
 ## Gotchas
 

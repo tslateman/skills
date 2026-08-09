@@ -49,7 +49,7 @@ Emit one finding per problem:
 - **Name**: the book term (smell name, shallow module, leakage, exported complexity)
 - **Site**: `file:line`
 - **Tax**: the concrete future edit it makes expensive, with the site count from the future-edits test
-- **Cure handoff**: `refactor` with the named smell, `simplify`, or "accept and note"
+- **Cure handoff**: `refactor` with the named smell, `tidy` for a sub-refactoring cleanup, `simplify`, or "accept and note"
 
 Rank findings by the cost of the taxed edit. If nothing clears the bar, say so plainly; no filler findings.
 

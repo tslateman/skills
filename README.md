@@ -2,7 +2,7 @@
 
 **Judgment skills for working with coding agents.**
 
-Forty-six skills across seven concerns: catch what an agent got wrong, judge
+Forty-nine skills across seven concerns: catch what an agent got wrong, judge
 whether the code will last, find your way around it, write what goes out under
 your name, decide what to build, draw the picture, and control the session.
 
@@ -62,7 +62,7 @@ skills/
 
 Each group carries a `README.md` explaining what it owns and which skill to
 reach for. `.claude-plugin/plugin.json` declares the seven directories in its
-`skills` field, so Claude Code discovers all 46.
+`skills` field, so Claude Code discovers all 49.
 
 ## Review — catch what coding agents get wrong
 
@@ -103,17 +103,29 @@ the shape of a large diff before reading lines. See
 | `/improve-codebase-architecture` | Which modules across the codebase are worth deepening?    |
 | `/domain-model`                  | Does the domain own its own invariants?                   |
 | `/ousterhout-software-design`    | Reference: what makes a module deep?                      |
+| `/tidy`                          | Is this cleanup worth it, and does it go before or after? |
 | `/refactor`                      | Execute a named restructure, behavior held constant       |
 | `/testing`                       | Which test properties matter here, and what do they cost? |
+| `/test-first`                    | Did the test fail first, and for the right reason?        |
+| `/legacy`                        | How do I get this under test without changing it first?   |
 
-Three judges, one reference, one executor, one precondition. **The judges differ
-by scope**: `/maintainability` takes a diff, `/improve-codebase-architecture`
-takes a tree, `/domain-model` takes the business rules and asks whether the code
-holding the state also holds the rules about it.
+The largest group, and deliberately so — code judgment is this repo's center of
+gravity. Four jobs: **judge it, change it, prove it**, plus one reference.
 
-`/ousterhout-software-design` is the reference the other three cite, not a fourth
-judge. Each judge hands a named cure to `/refactor`, which executes it in
-verified steps against a green suite — the suite `/testing` designs.
+**The three judges differ by scope**: `/maintainability` takes a diff,
+`/improve-codebase-architecture` takes a tree, `/domain-model` takes the business
+rules and asks whether the code holding the state also holds the rules about it.
+`/ousterhout-software-design` is the reference they cite, not a fourth judge.
+
+**`/tidy` and `/refactor` split by size**: a tidying needs no mechanics and no
+test changes; a refactoring is named, follows published mechanics, and is
+verified step by step. Both obey Beck's two hats — structure and behavior land
+in separate commits.
+
+**The prove skills supply the baseline execution depends on.** `/refactor`
+refuses to start without a green suite, and `/legacy` is where it sends you when
+there is none. `/test-first` fixes the order tests get written in, because a test
+written after the code it checks encodes that code's bugs as the specification.
 
 ## Navigate — find your way around unfamiliar code
 

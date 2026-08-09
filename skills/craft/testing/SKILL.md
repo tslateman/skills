@@ -208,6 +208,9 @@ After designing the test suite, ask: "If all these tests pass, would you deploy 
 
 ## See Also
 
+- `/test-first`: This skill chooses which properties matter; test-first fixes the order they get written in
+- `/test-review`: Audits whether an existing suite can actually fail
+- `/legacy`: When the code has no tests at all, start with characterization
 - `/review-decisions`: Reviews assess test coverage alongside code quality
 - `skills/FRAMEWORKS.md`: Full framework index
 - `RECIPE.md`: Agent recipe for parallel decomposition (2 workers)

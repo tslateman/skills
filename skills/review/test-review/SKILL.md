@@ -9,6 +9,7 @@ description: >
   reviewing agent-written tests, before trusting a green suite, or on
   "test review", "review these tests", "are these tests real", "would
   this catch a bug". For designing a test strategy use /testing;
+  for driving code from a failing test use /test-first;
   for generic bug hunts use /code-review.
 argument-hint: "[test path or suite to review, defaults to working-tree changes]"
 ---

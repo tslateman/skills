@@ -18,12 +18,21 @@ different silencer, so each gets its own skill. The argument is in
 | `review-decisions`  | Knowledge-transfer review for a PR or diff                   |
 | `vibe-check`        | Whether the whole change holds up, not one debt class        |
 | `visual-recap`      | The shape of a large diff, before reading lines              |
+| `doubt`             | A decision that has not landed yet, cross-examined           |
 
 **Reach for the language skill** when an agent just made a build go green.
 **Reach for `review-decisions`** when the change needs a reader, not a linter — it
 captures concerns raised, alternatives rejected, and risks accepted, because
 review's real product is knowledge transfer.
 **Reach for `visual-recap`** first when the diff is too large to start reading.
+**Reach for `doubt`** before the artifact is finished, not after.
+
+**`doubt` is the only one here that runs before the work is finished.** Every
+other skill in this group inspects an artifact that already exists; `doubt`
+cross-examines a decision while changing course is still free. Its mechanism is
+one rule: the fresh reviewer gets the artifact and the contract, never your
+claim. Tell a reviewer what you concluded and it grades your conclusion; tell it
+only what the thing must do and it tests whether the thing does it.
 
 ## `review-decisions` is not `/code-review`
 

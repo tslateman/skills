@@ -47,6 +47,9 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | Skill Craft                          | mattpocock/skills            | `/writing-great-skills`                                                             | Predictability via leading words, information hierarchy, and pruning                     |
 | Human-in-the-Loop Procedure          | mattpocock/skills            | `/wizard`                                                                           | A step only a human can take belongs in a script, not in a conversation                  |
 | Phase Boundaries                     | mattpocock/skills            | `docs/phase-boundaries.md`                                                          | Every context move but one trades a primary source for an account of it                  |
+| Adversarial Fresh Context            | addyosmani/agent-skills      | `/doubt`                                                                            | A reviewer told your conclusion grades your conclusion; withhold it                      |
+| Hyrum's Law                          | Hyrum Wright                 | `/deprecate`                                                                        | With enough users, every observable behavior is depended on, promised or not             |
+| Expand, Migrate, Contract            | Parallel Change (Fowler)     | `/deprecate`                                                                        | Old and new forms both valid at every step; never change a form in place                 |
 | Mermaid.js v11                       | Mermaid project              | `/mermaid`                                                                          | Text-based diagrams that render natively in GitHub markdown                              |
 | Excalidraw Generator                 | Excalidraw project           | `/excalidraw`                                                                       | Programmatic hand-drawn diagrams via Python API                                          |
 
@@ -87,6 +90,8 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | "Cut my output, save tokens"             | `/bro`                           | `/prose`                                   |
 | "Am I writing a good skill?"             | `/writing-great-skills`          | `/prose`, `/ia`                            |
 | "Only a human can do this step"          | `/wizard`                        | `/spec-out`                                |
+| "Am I sure about this decision?"         | `/doubt`                         | `/blast-radius`, `/vibe-check`             |
+| "Should this code exist at all?"         | `/deprecate`                     | `/improve-codebase-architecture`, `/tidy`  |
 
 ## Recipes
 

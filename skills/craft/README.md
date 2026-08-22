@@ -26,10 +26,11 @@ other three cite, for writing code or looking up a term.
 
 ## Change
 
-| Skill      | Question                                                  |
-| ---------- | --------------------------------------------------------- |
-| `tidy`     | Is this cleanup worth it, and does it go before or after? |
-| `refactor` | Execute a named restructure, behavior held constant       |
+| Skill       | Question                                                  |
+| ----------- | --------------------------------------------------------- |
+| `tidy`      | Is this cleanup worth it, and does it go before or after? |
+| `refactor`  | Execute a named restructure, behavior held constant       |
+| `deprecate` | Should this code exist at all, and how does it come out?  |
 
 **Split by size and justification.** A tidying is minutes, needs no mechanics
 and no test changes, and is priced by whether you will be back here soon. A
@@ -37,6 +38,12 @@ refactoring is named, follows published mechanics, and is verified step by step
 against a green suite. Needing the catalog means you left `tidy`.
 
 Both obey Beck's two hats: structure and behavior are separate commits, always.
+
+**`deprecate` is the third verb: removal.** `tidy` and `refactor` both assume
+the code stays. `deprecate` asks whether it should, then retires it against
+Hyrum's Law — with enough callers, every observable behavior is depended on,
+including the ones you never promised. Schemas and shared symbols come out by
+expand, migrate, contract, never by changing a form in place.
 
 ## Prove
 

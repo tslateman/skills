@@ -88,10 +88,17 @@ unvalidated boundary.
 
 The full argument is in [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
-Three broader passes sit alongside them: `/review-decisions` for knowledge-transfer code
-review, `/vibe-check` for whether the whole change holds up, `/visual-recap` for
-the shape of a large diff before reading lines. See
+Four broader passes sit alongside them: `/review-decisions` for
+knowledge-transfer code review, `/vibe-check` for whether the whole change holds
+up, `/visual-recap` for the shape of a large diff before reading lines, and
+`/doubt` for a decision that has not landed yet. See
 [skills/review/README.md](skills/review/README.md).
+
+`/doubt` is the only one that runs _before_ the work is finished. Everything
+else here inspects an artifact that exists; `/doubt` cross-examines a decision
+while changing course is still free, by handing a fresh reviewer the artifact
+and the contract and withholding your own conclusion — tell a reviewer what you
+concluded and it grades your conclusion.
 
 ## Craft — will this survive contact with the next change
 
@@ -105,6 +112,7 @@ the shape of a large diff before reading lines. See
 | `/ousterhout-software-design`    | Reference: what makes a module deep?                      |
 | `/tidy`                          | Is this cleanup worth it, and does it go before or after? |
 | `/refactor`                      | Execute a named restructure, behavior held constant       |
+| `/deprecate`                     | Should this code exist at all, and how does it come out?  |
 | `/testing`                       | Which test properties matter here, and what do they cost? |
 | `/test-first`                    | Did the test fail first, and for the right reason?        |
 | `/legacy`                        | How do I get this under test without changing it first?   |
@@ -116,6 +124,11 @@ gravity. Four jobs: **judge it, change it, prove it**, plus one reference.
 `/improve-codebase-architecture` takes a tree, `/domain-model` takes the business
 rules and asks whether the code holding the state also holds the rules about it.
 `/ousterhout-software-design` is the reference they cite, not a fourth judge.
+
+**`/deprecate` is the third verb: removal.** `/tidy` and `/refactor` both assume
+the code stays; `/deprecate` asks whether it should, then retires it against
+Hyrum's Law — with enough callers every observable behavior is depended on,
+including the ones you never promised.
 
 **`/tidy` and `/refactor` split by size**: a tidying needs no mechanics and no
 test changes; a refactoring is named, follows published mechanics, and is

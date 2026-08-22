@@ -2,17 +2,24 @@
 
 **Decide what to build before building it.**
 
-| Skill                         | Question                                     |
-| ----------------------------- | -------------------------------------------- |
-| `spec-out`                    | You have a vague idea — what is it actually? |
-| `brainstorm`                  | You know the goal — what are the options?    |
-| `research`                    | What should we use, and what does it cost?   |
-| `design`                      | What shape and tone should this take?        |
-| `adr`                         | Why did we choose this, for the next reader? |
-| `automagic-problem-discovery` | What friction have you stopped noticing?     |
+| Skill                         | Question                                      |
+| ----------------------------- | --------------------------------------------- |
+| `spec-out`                    | You have a vague idea — what is it actually?  |
+| `slice`                       | The spec exists — what are the units of work? |
+| `brainstorm`                  | You know the goal — what are the options?     |
+| `research`                    | What should we use, and what does it cost?    |
+| `design`                      | What shape and tone should this take?         |
+| `adr`                         | Why did we choose this, for the next reader?  |
+| `automagic-problem-discovery` | What friction have you stopped noticing?      |
 
 **Start with `spec-out` when you do not know what you want. Start with
 `brainstorm` when you know what but not how.**
+
+**`slice` runs last.** `spec-out` decides what to build; `slice` turns that into
+tasks that can be picked up — each cutting through every layer so it is
+demonstrable alone, each declaring what blocks it and which command proves it.
+The wide mechanical refactor is its exception: no single slice lands green, so
+it sequences expand, migrate, contract instead.
 
 The two decompose differently on purpose: `brainstorm` runs independent lenses
 in parallel, `spec-out` runs sequentially because each round builds on the last

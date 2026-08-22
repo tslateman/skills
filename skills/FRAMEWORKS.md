@@ -40,6 +40,8 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | Functional Core, Imperative Shell    | Gary Bernhardt               | `/domain-model`                                                                     | Pure decisions at the center, I/O at the edge; the mocking test detects the braid        |
 | Diverge Then Converge                | Design Council               | `/brainstorm`, `/spec-out`                                                          | Separate generative mode from evaluative mode                                            |
 | Confidence Stop                      | addyosmani/agent-skills      | `/spec-out`                                                                         | Stop when you can predict the next three answers, not when the rounds run out            |
+| Tracer Bullets                       | Hunt & Thomas                | `/slice`                                                                            | A thin complete path through every layer beats a finished layer                          |
+| Parallel Change                      | Danilo Sato                  | `/slice`, `/deprecate`                                                              | Expand, migrate, contract; never change a form in place                                  |
 | 5 Whys                               | Sakichi Toyoda (Toyota)      | `/automagic-problem-discovery`                                                      | Dig past the symptom to the leverage point underneath it                                 |
 | Judgment Linting                     | Anthropic eval methodology   | `/vibe-check`                                                                       | Higher-order code assertions that require AI reasoning, not regexes                      |
 | Compression Mode                     | mattpocock/skills            | `/bro`                                                                              | Strip a reply to the claim underneath it                                                 |
@@ -86,6 +88,7 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | "Should we document this decision?"        | `/adr`                           | `/review-decisions`, `/research`           |
 | "What should we use?"                      | `/research`                      | `/adr`                                     |
 | "I don't know what I want yet"             | `/spec-out`                      | `/brainstorm`                              |
+| "How does this spec become tasks?"         | `/slice`                         | `/spec-out`, `/refactor`                   |
 | "I know the goal, not the options"         | `/brainstorm`                    | `/research`, `/design`                     |
 | "What should I automate?"                  | `/automagic-problem-discovery`   | `/research`, `/adr`                        |
 | "Does this vibe-coded output hold up?"     | `/vibe-check`                    | `/review-decisions`, `/naming`             |

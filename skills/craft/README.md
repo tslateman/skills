@@ -52,11 +52,19 @@ expand, migrate, contract, never by changing a form in place.
 | `testing`    | Which test properties matter here, and what do they cost? |
 | `test-first` | Did the test fail first, and for the right reason?        |
 | `legacy`     | How do I get this under test without changing it first?   |
+| `observe`    | Can you tell what it did in production?                   |
 
 `testing` chooses what to cover. `test-first` fixes the order — a test written
 after the code it checks encodes that code's bugs as the specification, so the
 run order is the whole discipline. `legacy` is the entry point when there are no
 tests at all: characterization first, improvement never on the way in.
+
+**The suite proves it before it ships; `observe` proves it after.** Its first
+move is the same one `testing` makes: name the questions worth answering before
+choosing what to capture. Two to four questions an on-call engineer will ask,
+written down, or you log everything and learn nothing. Done when an induced
+failure in staging can be located through telemetry alone, without opening the
+source.
 
 `test-review` in [review](../review/README.md) is the audit half — it asks
 whether an existing suite can fail at all.

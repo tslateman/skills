@@ -50,48 +50,52 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | Adversarial Fresh Context            | addyosmani/agent-skills      | `/doubt`                                                                            | A reviewer told your conclusion grades your conclusion; withhold it                      |
 | Hyrum's Law                          | Hyrum Wright                 | `/deprecate`                                                                        | With enough users, every observable behavior is depended on, promised or not             |
 | Expand, Migrate, Contract            | Parallel Change (Fowler)     | `/deprecate`                                                                        | Old and new forms both valid at every step; never change a form in place                 |
+| RED Method                           | Tom Wilkie                   | `/observe`                                                                          | Rate, errors, duration on every request path                                             |
+| USE Method                           | Brendan Gregg                | `/observe`                                                                          | Utilization, saturation, errors on every resource                                        |
+| Symptom-Based Alerting               | Rob Ewaschuk (Google SRE)    | `/observe`                                                                          | Page on what users feel; dashboard the causes                                            |
 | Mermaid.js v11                       | Mermaid project              | `/mermaid`                                                                          | Text-based diagrams that render natively in GitHub markdown                              |
 | Excalidraw Generator                 | Excalidraw project           | `/excalidraw`                                                                       | Programmatic hand-drawn diagrams via Python API                                          |
 
 ## Skills by Concern
 
-| Concern                                  | Primary Skill                    | Supporting Skills                          |
-| ---------------------------------------- | -------------------------------- | ------------------------------------------ |
-| "Did the agent silence this or fix it?"  | the matching `*-review`          | `/vibe-check`, `/code-review`              |
-| "Would these tests catch a regression?"  | `/test-review`                   | `/testing`                                 |
-| "Is this well-tested?"                   | `/testing`                       | `/test-review`, `/review-decisions`        |
-| "Will this stay cheap to change?"        | `/maintainability`               | `/ousterhout-software-design`, `/refactor` |
-| "Where should we refactor?"              | `/improve-codebase-architecture` | `/zoom-out`, `/naming`, `/maintainability` |
-| "Does the domain own its rules?"         | `/domain-model`                  | `/maintainability`, `/refactor`            |
-| "Execute this restructure safely"        | `/refactor`                      | `/maintainability`, `/testing`             |
-| "Should I clean this up now or later?"   | `/tidy`                          | `/refactor`, `/maintainability`            |
-| "This code has no tests at all"          | `/legacy`                        | `/test-first`, `/refactor`                 |
-| "Did these tests ever fail?"             | `/test-first`                    | `/test-review`, `/testing`                 |
-| "Is this well-designed?"                 | `/design`                        | `/naming`, `/adr`                          |
-| "Is this well-named?"                    | `/naming`                        | `/design`, `/lexicon`                      |
-| "Do we all mean the same thing?"         | `/lexicon`                       | `/naming`, `/ia`                           |
-| "Can people find this?"                  | `/ia`                            | `/naming`, `/wayfinding`                   |
-| "Can people orient once they land?"      | `/wayfinding`                    | `/ia`, `/zoom-out`                         |
-| "How does this system fit together?"     | `/system-map`                    | `/zoom-out`, `/mermaid`                    |
-| "I'm lost in this code"                  | `/zoom-out`                      | `/naming`, `/system-map`                   |
-| "Is this well-written?"                  | `/prose`                         | `/slop-check`, `/review-decisions`         |
-| "Could anyone have written this?"        | `/slop-check`                    | `/prose`                                   |
-| "Does this sound like me?"               | `/voice`                         | `/slop-check`                              |
-| "Can the reader execute it?"             | `/ste`                           | `/prose`                                   |
-| "Do I understand what I just committed?" | `/narrate`                       | `/review-decisions`                        |
-| "Should we document this decision?"      | `/adr`                           | `/review-decisions`, `/research`           |
-| "What should we use?"                    | `/research`                      | `/adr`                                     |
-| "I don't know what I want yet"           | `/spec-out`                      | `/brainstorm`                              |
-| "I know the goal, not the options"       | `/brainstorm`                    | `/research`, `/design`                     |
-| "What should I automate?"                | `/automagic-problem-discovery`   | `/research`, `/adr`                        |
-| "Does this vibe-coded output hold up?"   | `/vibe-check`                    | `/review-decisions`, `/naming`             |
-| "How should I visualize this?"           | `/mermaid`                       | `/excalidraw`, `/system-map`               |
-| "Show me what changed"                   | `/visual-recap`                  | `/review-decisions`                        |
-| "Cut my output, save tokens"             | `/bro`                           | `/prose`                                   |
-| "Am I writing a good skill?"             | `/writing-great-skills`          | `/prose`, `/ia`                            |
-| "Only a human can do this step"          | `/wizard`                        | `/spec-out`                                |
-| "Am I sure about this decision?"         | `/doubt`                         | `/blast-radius`, `/vibe-check`             |
-| "Should this code exist at all?"         | `/deprecate`                     | `/improve-codebase-architecture`, `/tidy`  |
+| Concern                                    | Primary Skill                    | Supporting Skills                          |
+| ------------------------------------------ | -------------------------------- | ------------------------------------------ |
+| "Did the agent silence this or fix it?"    | the matching `*-review`          | `/vibe-check`, `/code-review`              |
+| "Would these tests catch a regression?"    | `/test-review`                   | `/testing`                                 |
+| "Is this well-tested?"                     | `/testing`                       | `/test-review`, `/review-decisions`        |
+| "Will this stay cheap to change?"          | `/maintainability`               | `/ousterhout-software-design`, `/refactor` |
+| "Where should we refactor?"                | `/improve-codebase-architecture` | `/zoom-out`, `/naming`, `/maintainability` |
+| "Does the domain own its rules?"           | `/domain-model`                  | `/maintainability`, `/refactor`            |
+| "Execute this restructure safely"          | `/refactor`                      | `/maintainability`, `/testing`             |
+| "Should I clean this up now or later?"     | `/tidy`                          | `/refactor`, `/maintainability`            |
+| "This code has no tests at all"            | `/legacy`                        | `/test-first`, `/refactor`                 |
+| "Did these tests ever fail?"               | `/test-first`                    | `/test-review`, `/testing`                 |
+| "Is this well-designed?"                   | `/design`                        | `/naming`, `/adr`                          |
+| "Is this well-named?"                      | `/naming`                        | `/design`, `/lexicon`                      |
+| "Do we all mean the same thing?"           | `/lexicon`                       | `/naming`, `/ia`                           |
+| "Can people find this?"                    | `/ia`                            | `/naming`, `/wayfinding`                   |
+| "Can people orient once they land?"        | `/wayfinding`                    | `/ia`, `/zoom-out`                         |
+| "How does this system fit together?"       | `/system-map`                    | `/zoom-out`, `/mermaid`                    |
+| "I'm lost in this code"                    | `/zoom-out`                      | `/naming`, `/system-map`                   |
+| "Is this well-written?"                    | `/prose`                         | `/slop-check`, `/review-decisions`         |
+| "Could anyone have written this?"          | `/slop-check`                    | `/prose`                                   |
+| "Does this sound like me?"                 | `/voice`                         | `/slop-check`                              |
+| "Can the reader execute it?"               | `/ste`                           | `/prose`                                   |
+| "Do I understand what I just committed?"   | `/narrate`                       | `/review-decisions`                        |
+| "Should we document this decision?"        | `/adr`                           | `/review-decisions`, `/research`           |
+| "What should we use?"                      | `/research`                      | `/adr`                                     |
+| "I don't know what I want yet"             | `/spec-out`                      | `/brainstorm`                              |
+| "I know the goal, not the options"         | `/brainstorm`                    | `/research`, `/design`                     |
+| "What should I automate?"                  | `/automagic-problem-discovery`   | `/research`, `/adr`                        |
+| "Does this vibe-coded output hold up?"     | `/vibe-check`                    | `/review-decisions`, `/naming`             |
+| "How should I visualize this?"             | `/mermaid`                       | `/excalidraw`, `/system-map`               |
+| "Show me what changed"                     | `/visual-recap`                  | `/review-decisions`                        |
+| "Cut my output, save tokens"               | `/bro`                           | `/prose`                                   |
+| "Am I writing a good skill?"               | `/writing-great-skills`          | `/prose`, `/ia`                            |
+| "Only a human can do this step"            | `/wizard`                        | `/spec-out`                                |
+| "Am I sure about this decision?"           | `/doubt`                         | `/blast-radius`, `/vibe-check`             |
+| "Should this code exist at all?"           | `/deprecate`                     | `/improve-codebase-architecture`, `/tidy`  |
+| "Can we tell what happened in production?" | `/observe`                       | `/blast-radius`, `/testing`                |
 
 ## Recipes
 

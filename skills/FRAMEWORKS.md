@@ -45,6 +45,8 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | Map Before Streets                   | mattpocock/skills            | `/zoom-out`                                                                         | Map callers, neighbors, and abstraction layers before reading details                    |
 | Visual Recap                         | BuilderIO/skills             | `/visual-recap`                                                                     | Map a diff to structured blocks before reading raw lines                                 |
 | Skill Craft                          | mattpocock/skills            | `/writing-great-skills`                                                             | Predictability via leading words, information hierarchy, and pruning                     |
+| Human-in-the-Loop Procedure          | mattpocock/skills            | `/wizard`                                                                           | A step only a human can take belongs in a script, not in a conversation                  |
+| Phase Boundaries                     | mattpocock/skills            | `docs/phase-boundaries.md`                                                          | Every context move but one trades a primary source for an account of it                  |
 | Mermaid.js v11                       | Mermaid project              | `/mermaid`                                                                          | Text-based diagrams that render natively in GitHub markdown                              |
 | Excalidraw Generator                 | Excalidraw project           | `/excalidraw`                                                                       | Programmatic hand-drawn diagrams via Python API                                          |
 
@@ -84,6 +86,7 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | "Show me what changed"                   | `/visual-recap`                  | `/review-decisions`                        |
 | "Cut my output, save tokens"             | `/bro`                           | `/prose`                                   |
 | "Am I writing a good skill?"             | `/writing-great-skills`          | `/prose`, `/ia`                            |
+| "Only a human can do this step"          | `/wizard`                        | `/spec-out`                                |
 
 ## Recipes
 

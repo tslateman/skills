@@ -208,6 +208,7 @@ thing worth getting right. Whether it lasts is [craft](skills/craft/README.md).
 | `/demo`                     | Record an mp4 of a UI change actually working               |
 | `/html-style`               | Three house styles for standalone HTML documents            |
 | `/obsidian-note`            | Write notes into an Obsidian vault, following its own rules |
+| `/wizard`                   | Script the steps only a human can take                      |
 | `/retro`, `/vamp`, `/sweep` | Reflect, choose what to play next, check for damage         |
 | `/writing-great-skills`     | Reference for writing skills well                           |
 
@@ -220,6 +221,16 @@ fill the template, keep the tokens.
 
 `/obsidian-note` reads `$OBSIDIAN_VAULT` and defers to the vault's own
 frontmatter and template conventions rather than carrying its own copy.
+
+`/wizard` ships a tested bash library, so authoring one is only a matter of
+writing its stages. Reach for it when the agent stalls on something only you can
+do — a dashboard you must be logged into, a secret displayed once. The script
+replaces re-explaining that procedure to the next agent that stalls there.
+
+`/retro`, `/vamp`, and `/sweep` all fire at a phase boundary, and none of them
+decides what happens to the context afterward. That decision — continue, clear,
+hand off, delegate, or compact — has its own ordered tree in
+[docs/phase-boundaries.md](docs/phase-boundaries.md).
 
 ---
 

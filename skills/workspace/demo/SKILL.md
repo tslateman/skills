@@ -67,7 +67,7 @@ On a selector timeout, fix the selector or add a missing `wait_for` and re-run. 
 
 ### 5. Verify the recording
 
-A completed run already proves each `wait_for` state appeared. Additionally extract the final frame and look at it to confirm the video shows what it should:
+A completed run already proves each `wait_for` state appeared. Extract the final frame too, and look at it to confirm the video shows what it should:
 
 ```bash
 ffmpeg -sseof -0.5 -i demo.mp4 -frames:v 1 -y last-frame.png

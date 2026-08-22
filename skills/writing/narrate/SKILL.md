@@ -70,7 +70,7 @@ Once the narration covers all four dimensions:
 1. Summarize the narration in a compact block (attribute it to the developer, not yourself)
 2. Write to Lore if it is installed (see below)
 3. Offer three options:
-   - **Commit now**: Use the narration as the commit message body, then proceed to `/commit`
+   - **Commit now**: Use the narration as the commit message body, then commit
    - **Save and continue**: Store the narration for later use
    - **Just capture**: Already recorded, done
 

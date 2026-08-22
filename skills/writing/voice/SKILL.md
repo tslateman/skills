@@ -18,9 +18,15 @@ description: >
 
 This skill judges a draft against a corpus you supply. It does not ship anyone's traits.
 
-Read `~/.claude/voice-traits.md`. If it does not exist, derive it first (below) — a voice check against no corpus is guesswork with a confident format.
+Find the traits file in this order. Stop at the first one that exists.
 
-Keep that file outside version control. It quotes your private writing, and it will name people.
+1. `$VOICE_TRAITS`
+2. `${XDG_CONFIG_HOME:-$HOME/.config}/voice-traits.md`
+3. `$HOME/.claude/voice-traits.md`, the path earlier versions used
+
+When none exists, derive it first (below) and write it to entry 2. A voice check against no corpus is guesswork with a confident format.
+
+Keep the file outside version control. It quotes your private writing, and it will name people.
 
 ## Deriving the corpus
 

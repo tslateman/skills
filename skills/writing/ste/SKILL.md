@@ -71,15 +71,24 @@ Without the dictionary open, approximate it: pick the shortest common word, hold
 6. Move every warning and caution ahead of the step it protects.
 7. Reread as the intended reader — second language, under time pressure, hands occupied.
 
-## Check the counts mechanically
+## Check the counts mechanically, when a scanner is available
 
 ```bash
 prose-scan ste FILE               # 20-word procedural limit
 prose-scan ste FILE --descriptive # 25-word limit
 ```
 
-`prose-scan` ships at `bin/prose-scan` in this repo. Put it on your `PATH`, or
-invoke it by path. It counts what counting settles: sentence length against the active limit, paragraphs over 6 sentences, hedging modals, present perfect, passive constructions, and gerunds used as nouns. Exit code is 1 on any violation.
+`prose-scan` is an optional external tool. It does not ship with these skills.
+Run `command -v prose-scan` before you use it.
+
+When it is absent, skip this step and say so. Report the result as judgment-only
+and state that the mechanical floor was not measured. Never report a score you
+did not compute.
+
+Any scanner that reports the same patterns works here. The skill needs a
+deterministic count, not this specific binary.
+
+It counts what counting settles: sentence length against the active limit, paragraphs over 6 sentences, hedging modals, present perfect, passive constructions, and gerunds used as nouns. Exit code is 1 on any violation.
 
 It does not check noun clusters or one-word-one-meaning. Both need part-of-speech judgment that a regex gets wrong more often than right, so they stay with the reader.
 

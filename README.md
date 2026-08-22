@@ -1,34 +1,20 @@
 # skills
 
-**Judgment skills for working with coding agents.**
-
-Forty-nine skills across seven concerns: catch what an agent got wrong, judge
-whether the code will last, find your way around it, write what goes out under
-your name, decide what to build, draw the picture, and control the session.
-
 Agents are fast and agreeable. They clear failure signals, produce plausible
-structure, and write competent generic prose. Each skill here asks a question
-that a passing build, a clean diff, or a readable draft does not answer.
+structure, and write generic prose. A green build, a clean diff, and a readable
+draft are each things an agent can hand you without having solved your problem.
 
-Every skill is grounded in a named framework. The full map is in
+Every skill is grounded in a named framework. The map is in
 [skills/FRAMEWORKS.md](skills/FRAMEWORKS.md).
 
 ## Install
-
-### Claude Code
-
-```
-/plugin marketplace add tslateman/claude-plugins
-/plugin install skills@tslateman
-```
-
-Or straight from this repo:
 
 ```
 /plugin marketplace add tslateman/skills
 ```
 
-### Any other agent
+<details>
+<summary><strong>Any other agent</strong></summary>
 
 Skills are plain Markdown with YAML frontmatter and work anywhere skills, rules,
 or instruction files are supported.
@@ -37,221 +23,109 @@ or instruction files are supported.
 npx skills@latest add tslateman/skills
 ```
 
+The groups are real directories, so take one at a time. `skills/review` alone is
+a complete thing if the review suite is all you want.
+
 Cursor: copy any group into `.cursor/skills/`.
 Gemini CLI: `gemini skills install https://github.com/tslateman/skills.git --path skills/review`
 
-Because the groups are real directories, every other agent can install one at a
-time — take `skills/review` alone if the review suite is all you want.
+</details>
 
-`/slop-check` and `/ste` call `bin/prose-scan`. Put it on your `PATH` to use them.
+`/voice` needs a corpus you supply at `$VOICE_TRAITS`, or
+`~/.config/voice-traits.md` when that is unset.
 
----
+`/slop-check` and `/ste` use a deterministic scanner when one is on `PATH`, and
+report judgment-only findings when none is. Nothing here needs installing.
 
-## Layout
+## What goes wrong
 
-```text
-skills/
-├── review/      inspect existing work and report what is wrong
-├── craft/       judge whether code survives the next change
-├── navigate/    find your way around unfamiliar code
-├── writing/     decide whether prose is ready to publish
-├── shape/       decide what to build before building it
-├── draw/        make the picture
-└── workspace/   control the session and its artifacts
-```
+### The build went green and nothing got fixed
 
-Each group carries a `README.md` explaining what it owns and which skill to
-reach for. `.claude-plugin/plugin.json` declares the seven directories in its
-`skills` field, so Claude Code discovers all 49.
+Hand an agent a compiler error and it finds the shortest path to green. Usually
+a silencer: `as any`, `# type: ignore`, `.unwrap()`, `2>/dev/null`. Each edit is
+one line and defensible on its own, the debt is in the aggregate, and the tool
+that got silenced is the one tool that can never find it.
 
-## Review — catch what coding agents get wrong
+Six skills hunt this, one per language, because every language sells a different
+escape hatch. Each runs the linter with a targeted rule set, then judges every
+trigger as fine, mechanical fix, or restructure. A repeated trigger is one
+finding, not many: five `as any` on one response are one unvalidated boundary.
 
-Six skills hunting one debt class: **local-fix debt**, the minimal edit that
-clears a failure signal without fixing its cause. Give an agent a compiler
-error and it finds the shortest path to green — usually a silencer, and every
-language offers a different one.
+[`/go-review`](skills/review/) · [`/python-review`](skills/review/) ·
+[`/rust-review`](skills/review/) · [`/typescript-review`](skills/review/) ·
+[`/shell-review`](skills/review/) · [`/test-review`](skills/review/) — the
+argument is in [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
-| Skill                | Audit          | Hunts                                                                                           |
-| -------------------- | -------------- | ----------------------------------------------------------------------------------------------- |
-| `/go-review`         | Local-Fix Debt | Discarded errors, string-matched error handling, panic as control flow, leaked goroutines       |
-| `/python-review`     | Local-Fix Debt | Blind except, `type: ignore`, `Any` in signatures, `.get()` defaults hiding KeyErrors           |
-| `/rust-review`       | Local-Fix Debt | Clone-to-satisfy-the-borrow-checker, bare `unwrap`, `#[allow]` suppression                      |
-| `/typescript-review` | Local-Fix Debt | `as any`, non-null assertions, floating promises, untyped JSON at boundaries                    |
-| `/shell-review`      | Silent Failure | `2>/dev/null`, missing `set -euo pipefail`, unquoted expansions, GNU-vs-BSD assumptions         |
-| `/test-review`       | Falsifiability | Assertions that cannot fail, mocked units under test, sleep-based timing, regenerated snapshots |
+Two skills work the other side of the clock. `/doubt` spawns a fresh-context
+adversary before a decision lands, biased to disprove and deliberately not told
+what you concluded. `/blast-radius` asks what a change breaks outside the diff,
+and refuses to answer from reading alone — it names the one fact the change is
+safe because of, then makes you prove it by running code.
 
-Each runs the language's linter with a targeted rule set, then sorts every
-trigger into **fine**, **mechanical fix**, or **restructure** — the third named
-with its blast radius and never applied without asking. Repeated triggers
-collapse into one finding: five `as any` on the same response are one
-unvalidated boundary.
+### It works, and the next change will be expensive
 
-The full argument is in [docs/local-fix-debt.md](docs/local-fix-debt.md).
+Three judges, split by scope rather than by taste. `/maintainability` takes a
+diff and ranks findings by the future edits each one taxes.
+`/improve-codebase-architecture` takes a whole tree and returns the modules worth
+deepening. `/domain-model` asks whether the code holding the state also holds the
+rules about it.
 
-Four broader passes sit alongside them: `/review-decisions` for
-knowledge-transfer code review, `/vibe-check` for whether the whole change holds
-up, `/visual-recap` for the shape of a large diff before reading lines, and
-`/doubt` for a decision that has not landed yet. See
-[skills/review/README.md](skills/review/README.md).
+They find; `/refactor` and `/tidy` execute. `/refactor` refuses to start without
+a green suite, and `/legacy` is where it sends you when there is none.
+`/deprecate` handles the other direction: whether the code should exist at all,
+and how to remove it without breaking the callers who depend on behavior you
+never promised.
 
-`/doubt` is the only one that runs _before_ the work is finished. Everything
-else here inspects an artifact that exists; `/doubt` cross-examines a decision
-while changing course is still free, by handing a fresh reviewer the artifact
-and the contract and withholding your own conclusion — tell a reviewer what you
-concluded and it grades your conclusion.
+→ [skills/craft/](skills/craft/README.md)
 
-## Craft — will this survive contact with the next change
+### Nobody can find their way around it
 
-[skills/craft/](skills/craft/README.md)
+`/ia` designs the structure. `/wayfinding` asks whether a reader dropped into an
+arbitrary file can tell where they are, which is how agents always arrive.
+`/naming` judges one name, `/lexicon` judges a term set across code, docs, UI,
+and API.
 
-| Skill                            | Question                                                  |
-| -------------------------------- | --------------------------------------------------------- |
-| `/maintainability`               | Will this diff stay cheap to change?                      |
-| `/improve-codebase-architecture` | Which modules across the codebase are worth deepening?    |
-| `/domain-model`                  | Does the domain own its own invariants?                   |
-| `/ousterhout-software-design`    | Reference: what makes a module deep?                      |
-| `/tidy`                          | Is this cleanup worth it, and does it go before or after? |
-| `/refactor`                      | Execute a named restructure, behavior held constant       |
-| `/deprecate`                     | Should this code exist at all, and how does it come out?  |
-| `/testing`                       | Which test properties matter here, and what do they cost? |
-| `/test-first`                    | Did the test fail first, and for the right reason?        |
-| `/legacy`                        | How do I get this under test without changing it first?   |
+→ [skills/navigate/](skills/navigate/README.md)
 
-The largest group, and deliberately so — code judgment is this repo's center of
-gravity. Four jobs: **judge it, change it, prove it**, plus one reference.
+### It reads like nobody wrote it
 
-**The three judges differ by scope**: `/maintainability` takes a diff,
-`/improve-codebase-architecture` takes a tree, `/domain-model` takes the business
-rules and asks whether the code holding the state also holds the rules about it.
-`/ousterhout-software-design` is the reference they cite, not a fourth judge.
+`/slop-check` scores a draft and deliberately refuses to rewrite it; `/prose` is
+the fixing half. Run them in that order — a draft failing on genericness fails
+`/voice` too, and its findings are cheaper to fix.
 
-**`/deprecate` is the third verb: removal.** `/tidy` and `/refactor` both assume
-the code stays; `/deprecate` asks whether it should, then retires it against
-Hyrum's Law — with enough callers every observable behavior is depended on,
-including the ones you never promised.
+→ [skills/writing/](skills/writing/README.md)
 
-**`/tidy` and `/refactor` split by size**: a tidying needs no mechanics and no
-test changes; a refactoring is named, follows published mechanics, and is
-verified step by step. Both obey Beck's two hats — structure and behavior land
-in separate commits.
-
-**The prove skills supply the baseline execution depends on.** `/refactor`
-refuses to start without a green suite, and `/legacy` is where it sends you when
-there is none. `/test-first` fixes the order tests get written in, because a test
-written after the code it checks encodes that code's bugs as the specification.
-
-## Navigate — find your way around unfamiliar code
-
-[skills/navigate/](skills/navigate/README.md)
-
-| Skill         | Question                                             |
-| ------------- | ---------------------------------------------------- |
-| `/zoom-out`   | Where does this fit? Map it before reading details   |
-| `/system-map` | Can two people hold the same picture of this system? |
-| `/ia`         | Can anyone find this?                                |
-| `/wayfinding` | Can a reader dropped anywhere tell where they are?   |
-| `/naming`     | Is this name carrying its weight?                    |
-| `/lexicon`    | Do we all mean the same thing by this term?          |
-
-`/ia` designs the structure; `/wayfinding` asks whether it can be traversed from
-an arbitrary entry point — which is how agents always arrive. `/naming` judges
-one name, `/lexicon` judges a term set across code, docs, UI, and API.
-
-## Writing — does this go out under your name
-
-[skills/writing/](skills/writing/README.md)
-
-| Skill         | Question                               |
-| ------------- | -------------------------------------- |
-| `/prose`      | Is it clear and as short as it can be? |
-| `/slop-check` | Could anyone have written this?        |
-| `/voice`      | Did **you** write this?                |
-| `/ste`        | Can the reader execute it?             |
-| `/narrate`    | Can you explain what you just built?   |
-| `/bro`        | Can the reader understand it?          |
-
-`/slop-check` scores and deliberately refuses to rewrite; `/prose` is the fixing
-half. Run slop-check first — a draft failing on genericness fails `/voice` too,
-and its findings are cheaper to fix.
-
-`/voice` judges against a corpus you supply at `~/.claude/voice-traits.md`. It
-ships the taxonomy, never anyone's traits; derive your own before first use.
-
-`/ste` writes ASD-STE100 Simplified Technical English for text a reader
-executes — runbooks, error messages, migration steps, agent instructions. It
-strips nuance by design, so keep it away from anything that argues a position.
-
-## Shape — decide what to build before building it
-
-[skills/shape/](skills/shape/README.md)
-
-| Skill                          | Question                                     |
-| ------------------------------ | -------------------------------------------- |
-| `/spec-out`                    | You have a vague idea — what is it actually? |
-| `/brainstorm`                  | You know the goal — what are the options?    |
-| `/research`                    | What should we use, and what does it cost?   |
-| `/design`                      | What shape and tone should this take?        |
-| `/adr`                         | Why did we choose this, for the next reader? |
-| `/automagic-problem-discovery` | What friction have you stopped noticing?     |
+### We built the wrong thing
 
 `/spec-out` interviews sequentially, each round building on the last answers.
-`/brainstorm` runs independent lenses in parallel. The split is deliberate:
-diverge before you converge, and never in the same pass.
+`/brainstorm` runs independent lenses in parallel. Diverge before you converge,
+and never in the same pass.
 
-`/design` asks what a thing should be — purpose, tone, constraints, the one
-thing worth getting right. Whether it lasts is [craft](skills/craft/README.md).
+→ [skills/shape/](skills/shape/README.md)
 
-## Draw — make the picture
+## The rest
 
-[skills/draw/](skills/draw/README.md)
+[`/mermaid`](skills/draw/README.md) and
+[`/excalidraw`](skills/draw/README.md) make the picture.
+[skills/workspace/](skills/workspace/README.md) controls the session: `/arena`
+races N candidates at one task and grafts the losers' best ideas into the
+winner, `/wizard` scripts the steps only a human can take, `/obsidian-note`
+writes into an Obsidian vault by reading that vault's own conventions first.
 
-| Skill         | For                                              |
-| ------------- | ------------------------------------------------ |
-| `/mermaid`    | Diagrams that render natively in GitHub markdown |
-| `/excalidraw` | Hand-drawn, editable architecture overviews      |
+## Groups
 
-## Workspace — control the session
+| Group                                   | Owns                                      | Skills |
+| --------------------------------------- | ----------------------------------------- | -----: |
+| [review](skills/review/README.md)       | What is wrong with work that exists       |     11 |
+| [craft](skills/craft/README.md)         | Whether code survives the next change     |     13 |
+| [navigate](skills/navigate/README.md)   | Finding your way around unfamiliar code   |      6 |
+| [writing](skills/writing/README.md)     | Whether prose is ready to publish         |      7 |
+| [shape](skills/shape/README.md)         | Deciding what to build                    |      7 |
+| [draw](skills/draw/README.md)           | Making the picture                        |      2 |
+| [workspace](skills/workspace/README.md) | Controlling the session and its artifacts |     10 |
 
-[skills/workspace/](skills/workspace/README.md)
-
-| Skill                       | Does                                                        |
-| --------------------------- | ----------------------------------------------------------- |
-| `/freeze`, `/unfreeze`      | Restrict edits to one directory for the session             |
-| `/tether`, `/untether`      | Bridge another project's context into this session          |
-| `/demo`                     | Record an mp4 of a UI change actually working               |
-| `/html-style`               | Three house styles for standalone HTML documents            |
-| `/obsidian-note`            | Write notes into an Obsidian vault, following its own rules |
-| `/wizard`                   | Script the steps only a human can take                      |
-| `/retro`, `/vamp`, `/sweep` | Reflect, choose what to play next, check for damage         |
-| `/writing-great-skills`     | Reference for writing skills well                           |
-
-`/freeze` is the one to reach for during focused debugging — it stops an agent
-wandering into files you did not ask it to touch.
-
-`/html-style` ships three complete templates: Blueprint (dark, technical),
-Drafting Table (light, editorial), Phosphor (terminal, mono). Pick by audience,
-fill the template, keep the tokens.
-
-`/obsidian-note` reads `$OBSIDIAN_VAULT` and defers to the vault's own
-frontmatter and template conventions rather than carrying its own copy.
-
-`/wizard` ships a tested bash library, so authoring one is only a matter of
-writing its stages. Reach for it when the agent stalls on something only you can
-do — a dashboard you must be logged into, a secret displayed once. The script
-replaces re-explaining that procedure to the next agent that stalls there.
-
-`/retro`, `/vamp`, and `/sweep` all fire at a phase boundary, and none of them
-decides what happens to the context afterward. That decision — continue, clear,
-hand off, delegate, or compact — has its own ordered tree in
-[docs/phase-boundaries.md](docs/phase-boundaries.md).
-
----
-
-## Recipes
-
-Eight skills ship a `RECIPE.md` — a decomposition spec telling a multi-agent
-orchestrator how to split the work, what each worker owns, and how to
-synthesize. See the table in [skills/FRAMEWORKS.md](skills/FRAMEWORKS.md).
+Each group README names what it owns and which skill to reach for.
+`.claude-plugin/plugin.json` declares all seven, so Claude Code discovers all 56.
 
 ## Contributing
 
@@ -264,10 +138,9 @@ merely a linter.
 
 Shaped by [mattpocock/skills](https://github.com/mattpocock/skills) and
 [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills).
+`/technical-writing`, `/blast-radius`, `/arena`, and the verification pair are
+adapted from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by
+Lauren Tan, MIT.
 
 Supersedes [duet](https://github.com/tslateman/duet), whose skills were migrated
 here after a utilization pass over a month of session transcripts.
-
-## License
-
-MIT

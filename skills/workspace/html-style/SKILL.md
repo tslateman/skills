@@ -73,6 +73,5 @@ Two reference files carry the quality bar for the harder parts of a document. Th
 ## Prose inside the document
 
 These styles govern the look. The words are a separate job: run `/slop-check` on
-the body copy before shipping a document that carries an argument, and
-`prose-scan slop FILE` for the mechanical pass. A document can clear every
-slop-test gate here and still read as generated.
+the body copy before shipping a document that carries an argument. A document
+can clear every slop-test gate here and still read as generated.

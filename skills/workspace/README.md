@@ -4,20 +4,32 @@
 
 | Skill                    | Does                                                        |
 | ------------------------ | ----------------------------------------------------------- |
-| `freeze`, `unfreeze`     | Restrict edits to one directory for the session             |
-| `tether`, `untether`     | Bridge another project's context into this session          |
 | `demo`                   | Record an mp4 of a UI change actually working               |
 | `html-style`             | Three house styles for standalone HTML documents            |
 | `obsidian-note`          | Write notes into an Obsidian vault, following its own rules |
+| `get-or-create-note`     | Find the vault note for a URL, title, or topic, or make it  |
 | `wizard`                 | Script the steps only a human can take                      |
+| `arena`                  | Race N candidates at one task, then graft the losers' best  |
 | `retro`, `vamp`, `sweep` | Reflect, choose what to play next, check for damage         |
 | `writing-great-skills`   | Reference for writing skills well                           |
 
-**`freeze` is the one to reach for during focused debugging** — it stops an
-agent wandering into files you did not ask it to touch.
+**`arena` is for the artifact one attempt would get wrong.** N agents take the
+same prompt with different design directions, a read-only judge scores them
+against a rubric written before anyone ran, and the best ideas from the losing
+candidates get folded into the winner by hand. The rejection notes are the point
+as much as the result.
 
-Two skills read environment variables rather than assuming a layout:
-`obsidian-note` reads `$OBSIDIAN_VAULT`, `tether` reads `$DEV_ROOT`.
+**The two note skills read the vault, not this repo.** They resolve the vault
+from `$OBSIDIAN_VAULT` or a directory containing `.obsidian/`, then read that
+vault's own folders, frontmatter, and templates before writing. No convention is
+hardcoded here, so they work against a vault laid out any way.
+
+**`get-or-create-note` searches, `obsidian-note` writes.** The lookup skill
+resolves a URL, title, or topic against the vault and opens what it finds; only
+when nothing matches does it hand the title, the source, and the notes worth
+linking to over to `obsidian-note`. Creation rules live in one file, not two.
+Reach for the lookup first when handed a link — the duplicate it prevents costs
+more than the search.
 
 `html-style` ships three complete templates — Blueprint (dark, technical),
 Drafting Table (light, editorial), Phosphor (terminal, mono). Pick by audience,

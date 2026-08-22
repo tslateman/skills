@@ -15,13 +15,24 @@ Generate Excalidraw diagrams programmatically using Python. Produces professiona
 
 ### Method 1: Direct Python Script (Recommended)
 
+## Locating the library
+
+The generator library sits in `scripts/`, in the same directory as this file.
+Resolve that directory to an absolute path and use it wherever the samples below
+say `SCRIPTS`.
+
+You already know the path: it is the directory you read this skill from, plus
+`/scripts`. On Claude Code that resolves to
+`${CLAUDE_PLUGIN_ROOT}/skills/draw/excalidraw/scripts`.
+
+Do not guess a path. If you cannot resolve it, say so and stop.
+
 Write a Python script using the generator library and run it:
 
 ```python
 #!/usr/bin/env python3
-import sys, os
-plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT", os.path.expanduser("~/.claude/plugins/skills"))
-sys.path.insert(0, os.path.join(plugin_root, "skills/excalidraw/scripts"))
+import sys
+sys.path.insert(0, SCRIPTS)  # see "Locating the library" above
 from excalidraw_generator import Diagram, Flowchart, ArchitectureDiagram
 
 # Create your diagram
@@ -42,9 +53,8 @@ python3 /path/to/your_script.py
 
 ```bash
 python3 -c "
-import sys, os
-plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT", os.path.expanduser("~/.claude/plugins/skills"))
-sys.path.insert(0, os.path.join(plugin_root, "skills/excalidraw/scripts"))
+import sys
+sys.path.insert(0, SCRIPTS)  # see "Locating the library" above
 from excalidraw_generator import Diagram
 
 d = Diagram()
@@ -282,9 +292,8 @@ neutral = d.scheme_color("neutral")
 ### Example 1: Simple Flow
 
 ```python
-import sys, os
-plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT", os.path.expanduser("~/.claude/plugins/skills"))
-sys.path.insert(0, os.path.join(plugin_root, "skills/excalidraw/scripts"))
+import sys
+sys.path.insert(0, SCRIPTS)  # see "Locating the library" above
 from excalidraw_generator import Diagram
 
 d = Diagram()
@@ -303,9 +312,8 @@ d.save("pipeline.excalidraw")
 ### Example 2: Decision Flowchart
 
 ```python
-import sys, os
-plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT", os.path.expanduser("~/.claude/plugins/skills"))
-sys.path.insert(0, os.path.join(plugin_root, "skills/excalidraw/scripts"))
+import sys
+sys.path.insert(0, SCRIPTS)  # see "Locating the library" above
 from excalidraw_generator import Flowchart
 
 fc = Flowchart(direction="vertical", spacing=100)
@@ -333,9 +341,8 @@ fc.save("auth_flow.excalidraw")
 ### Example 3: Microservices Architecture
 
 ```python
-import sys, os
-plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT", os.path.expanduser("~/.claude/plugins/skills"))
-sys.path.insert(0, os.path.join(plugin_root, "skills/excalidraw/scripts"))
+import sys
+sys.path.insert(0, SCRIPTS)  # see "Locating the library" above
 from excalidraw_generator import ArchitectureDiagram
 
 arch = ArchitectureDiagram()
@@ -381,12 +388,12 @@ After generating a `.excalidraw` file:
 
 ```bash
 # First time setup
-cd "${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/skills}/skills/excalidraw/scripts"
+cd "$SCRIPTS"
 npm install
 npx playwright install chromium
 
 # Export
-node "${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/skills}/skills/excalidraw/scripts/export_playwright.js" diagram.excalidraw output.png
+node "$SCRIPTS/export_playwright.js" diagram.excalidraw output.png
 ```
 
 ## Tips

@@ -14,5 +14,6 @@ around afterward.**
 Deciding _what_ to draw is a different job: see
 [`system-map`](../navigate/README.md) for choosing the levels and the audience.
 
-`excalidraw` ships Python and Node scripts under `excalidraw/scripts/`. They
-resolve through `CLAUDE_PLUGIN_ROOT`, so they work at any install path.
+`excalidraw` ships Python and Node scripts under `excalidraw/scripts/`. The
+skill resolves that directory relative to itself rather than from a fixed path
+or a harness variable, so it works wherever the skills are installed.

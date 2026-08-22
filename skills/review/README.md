@@ -18,6 +18,7 @@ different silencer, so each gets its own skill. The argument is in
 | `review-decisions`  | Knowledge-transfer review for a PR or diff                   |
 | `vibe-check`        | Whether the whole change holds up, not one debt class        |
 | `visual-recap`      | The shape of a large diff, before reading lines              |
+| `blast-radius`      | What the change breaks outside the diff, proven by running   |
 | `doubt`             | A decision that has not landed yet, cross-examined           |
 
 **Reach for the language skill** when an agent just made a build go green.
@@ -25,7 +26,14 @@ different silencer, so each gets its own skill. The argument is in
 captures concerns raised, alternatives rejected, and risks accepted, because
 review's real product is knowledge transfer.
 **Reach for `visual-recap`** first when the diff is too large to start reading.
+**Reach for `blast-radius`** when the diff is small and you still don't trust it.
 **Reach for `doubt`** before the artifact is finished, not after.
+
+`blast-radius` refuses to answer from reading alone. It names the one fact the
+change is safe because of, then ranks the evidence behind it: you said so, you
+pointed at the line, you showed the bad case can't reach, you ran it, you
+reproduced it live. Anything that stops short of running code ships marked
+unproven.
 
 **`doubt` is the only one here that runs before the work is finished.** Every
 other skill in this group inspects an artifact that already exists; `doubt`

@@ -73,9 +73,9 @@ Every trigger sorts into one of three, and the sorting is the review.
 ### 1. Fine
 
 Idiomatic, or the pragmatic choice is documented. `Arc::clone` for a thread
-handoff. `_ = f.Close()` on a read-only file with a comment. `command -v foo
-
-> /dev/null 2>&1`as a presence check.`dict.get` where absence is a valid state.
+handoff. `_ = f.Close()` on a read-only file with a comment.
+`command -v foo >/dev/null 2>&1` as a presence check. `dict.get` where absence
+is a valid state.
 
 The test is whether the specific failure being suppressed can be named. If it
 can, the code is fine and the comment should record it.

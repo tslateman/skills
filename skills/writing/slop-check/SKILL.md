@@ -115,14 +115,21 @@ Uncounted
 
 When the score lands at Ships, say so in one line and stop. A detector that always finds something is not measuring anything.
 
-## Run the scanner first
+## Run a scanner first, when you have one
 
 ```bash
 prose-scan slop FILE          # add --json for machine-readable output
 ```
 
-`prose-scan` ships at `bin/prose-scan` in this repo. Put it on your `PATH`, or
-invoke it by path.
+`prose-scan` is an optional external tool. It does not ship with these skills.
+Run `command -v prose-scan` before you use it.
+
+When it is absent, skip this step and say so. Report the result as judgment-only
+and state that the mechanical floor was not measured. Never report a score you
+did not compute.
+
+Any scanner that reports the same patterns works here. The skill needs a
+deterministic count, not this specific binary.
 
 It settles the mechanical layer: contrastive pivots, throat-clearing openers, hedged authority, manufactured voice, scaffolding leaks, and sentence-length spread — with repeat capping already applied. It reports lexical suspects unscored, because deciding whether "leverage" is decorative needs a reader. Exit code is 1 above the Ships threshold, so it can gate a commit.
 

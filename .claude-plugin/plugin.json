@@ -1,6 +1,6 @@
 {
   "name": "skills",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Judgment skills for working with coding agents — catch what they got wrong, judge whether the code lasts, navigate it, write what goes out under your name, and decide what to build",
   "author": {
     "name": "Tim Slater",

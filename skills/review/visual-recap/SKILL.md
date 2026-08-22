@@ -15,7 +15,7 @@ Adapted from BuilderIO/skills `visual-recap`. The discipline is theirs; the
 output targets are yours. There is no hosted plan renderer here, so author plain
 artifacts.
 
-## When To Use
+## When to use
 
 Build a recap when a PR or commit is large, multi-file, or touches schema, API
 contracts, or architecture, and a reviewer benefits from seeing the change mapped
@@ -39,7 +39,7 @@ dangerous, because a reviewer who trusts the summary skips the line the summary
 got wrong. When the diff does not contain a fact, leave it out. Mark anything
 inferred rather than extracted as inferred.
 
-## Canonical Shape And Budgets
+## Canonical shape and budgets
 
 A strong recap follows one skeleton, top to bottom. Drop any section the diff
 does not touch.
@@ -64,7 +64,7 @@ Budgets that keep it reviewable:
   of a long file instead of dumping it.
 - Title at most ~70 characters; narrative 1-3 short paragraphs.
 
-## Lean, But Substantial
+## Lean, but substantial
 
 Add no boilerplate: no intro, disclaimer, provenance, file-count, or "this is an
 aid, still review the diff" prose. The title, narrative, and file map already

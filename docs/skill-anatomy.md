@@ -62,7 +62,7 @@ Resolve `$ARGUMENTS`, then changed files, then ask. One line stating what
 context each finding needs — error contract, ownership, type flow, control
 flow — so the model reads whole files rather than grepped lines.
 
-### Step 2: Mechanical Pass
+### Step 2: Mechanical pass
 
 The linter invocation with a rule set targeted at _this debt class_, not the
 project's default set. Annotate why each rule earns its place.
@@ -81,7 +81,7 @@ Then the trigger table — the greps the linter cannot judge:
 
 Suspicions are questions, never verdicts. The verdict is Step 3's job.
 
-### Step 3: Judgment Pass
+### Step 3: Judgment pass
 
 Three buckets, always in this order and always with this framing:
 

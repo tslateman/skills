@@ -89,8 +89,8 @@ State in the PR what you ran it against and what it found.
 
 ## Evals
 
-Six skills carry an `evals/` directory. **Two formats, chosen by what the skill
-produces** — not two conventions competing for the same job.
+Five skills carry a published `evals/` directory. **Two formats, chosen by what
+the skill produces** — not two conventions competing for the same job.
 
 **Judgment evals** grade a report. Use when the skill's output is prose: a
 verdict, a ranked finding list, a recommendation.
@@ -119,6 +119,11 @@ highest when the skill exists to change how an agent decides, not what it types.
 
 In force today: `maintainability`, `test-first`, and `tidy` use judgment evals;
 `ousterhout-software-design` and `legacy` use task evals.
+
+`slop-check` has a sixth set that stays unpublished. Its clean-draft fixture is
+real unedited writing about internal systems, so `.gitignore` excludes
+`**/slop-check/evals/`. Keep any fixture drawn from private prose out of the
+repo the same way.
 
 **Every set needs a negative control** — a case where the right answer is "nothing
 to report". Skills that always find something are the failure mode evals exist to

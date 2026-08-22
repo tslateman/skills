@@ -3,7 +3,7 @@
 **Judge whether code will survive contact with the next change, then change it.**
 
 The largest group, and deliberately so — this repo's center of gravity is code
-judgment. Nine skills across four jobs: judge it, learn it, change it, prove it.
+judgment. Eleven skills across four jobs: judge it, learn it, change it, prove it.
 
 ## Judge
 
@@ -47,17 +47,31 @@ expand, migrate, contract, never by changing a form in place.
 
 ## Prove
 
-| Skill        | Question                                                  |
-| ------------ | --------------------------------------------------------- |
-| `testing`    | Which test properties matter here, and what do they cost? |
-| `test-first` | Did the test fail first, and for the right reason?        |
-| `legacy`     | How do I get this under test without changing it first?   |
-| `observe`    | Can you tell what it did in production?                   |
+| Skill                         | Question                                                  |
+| ----------------------------- | --------------------------------------------------------- |
+| `testing`                     | Which test properties matter here, and what do they cost? |
+| `test-first`                  | Did the test fail first, and for the right reason?        |
+| `legacy`                      | How do I get this under test without changing it first?   |
+| `create-verification-skill`   | Can an agent drive this app and prove a feature works?    |
+| `maintain-verification-skill` | Does that harness still describe the app?                 |
+| `observe`                     | Can you tell what it did in production?                   |
 
 `testing` chooses what to cover. `test-first` fixes the order — a test written
 after the code it checks encodes that code's bugs as the specification, so the
 run order is the whole discipline. `legacy` is the entry point when there are no
 tests at all: characterization first, improvement never on the way in.
+
+**The first three prove code against a suite; the verification pair proves the
+app against a user.** `create-verification-skill` interviews the repo and writes
+a project-local `verify-<app>` skill — launch, doctor, drive, evidence, cleanup —
+plus a feature map with one file per user-facing feature, then runs its own
+instructions once before handing them over. A generated skill that was never
+executed is a draft. `maintain-verification-skill` is the upkeep loop: a
+read-only reader per feature, one live pass driving every feature, and at most
+one PR of proven corrections.
+
+Reach for them when a green suite still leaves you unsure the feature works.
+`demo` in [workspace](../workspace/README.md) drives the harness they generate.
 
 **The suite proves it before it ships; `observe` proves it after.** Its first
 move is the same one `testing` makes: name the questions worth answering before

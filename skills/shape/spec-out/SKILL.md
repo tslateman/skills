@@ -6,44 +6,104 @@ argument-hint: "<topic, initiative, or plan to clarify>"
 
 # Spec Out
 
-Turn ambiguous topics into clear specifications through structured questioning. The interviewer asks; the user answers. The output is a concise spec the user can act on.
+What people ask for and what they want are different things. They ask for a
+dashboard because that is what one asks for, not because a dashboard solves the
+problem. They say "make it faster" without a number to hit.
 
-## Process
+The cheapest moment to find that gap is before anything exists. Afterward the
+switching cost is real, and the user will rationalize the wrong thing into a
+good-enough thing. This skill closes the gap while closing it is free, and hands
+back a spec that can be acted on.
 
-### 1. Establish Scope
+## Use this vs. its neighbors
 
-Read any context the user provides (files, links, prior notes). Then ask one opening question with multiple-choice options:
+- You know the goal and want options → `brainstorm`.
+- You need evidence about a tool or approach → `research`.
+- The spec exists and needs structural shape → `design`.
+- The decision is made and needs recording → `adr`.
+- You do not yet know what you want → here.
+
+## 1. State your hypothesis, with a number
+
+Before asking anything, write your current read in one sentence with an honest
+confidence number:
+
+```
+HYPOTHESIS: You want to answer "how are we doing?" in standup, and "dashboard"
+            was the convention that came to mind.
+CONFIDENCE: ~30% — missing who it is for, what "metrics" means here, and what
+            success looks like.
+```
+
+Below ~70%, the reason is not optional. It tells the user exactly what the
+interview has to surface, and it turns the number from a vibe into a claim you
+can be wrong about in public.
+
+## 2. Establish scope
+
+Read whatever the user provides first — files, links, prior notes — and skip
+every question they already answer. Then ask the opening question:
 
 > "In one sentence, what are you trying to accomplish?"
 
-Provide 3-5 concise options plus an open-text option. Make the top option your recommended default. Keep labels short.
+Offer 3-5 short options plus open text, with your recommended default first.
+Do not proceed until the scope is stated.
 
-This anchors the interview. Do not proceed until the scope is stated.
+## 3. Work the frontier
 
-### 2. Interview Rounds
+Ask in rounds. Each round asks only questions whose prerequisites are already
+settled — never one whose answer depends on another question still open in the
+same round. Those belong to a later round. Answers push the frontier outward and
+unblock what was waiting.
 
-Run 3-4 rounds of questions. Each round has a focus area and 2-3 questions. Each question should offer multiple-choice options with an open-text option. Wait for the user to answer before moving to the next round.
+Every question carries 3-5 options plus open text, recommended default first.
+**The options are your guesses.** Reacting to a wrong guess is faster than
+generating an answer from nothing, and it puts your assumptions where the user
+can correct them. Being visibly willing to be wrong is what stops a polite user
+agreeing with you.
 
-**Round structure:**
+Cover these before you stop. They are a checklist, not a schedule — a technical
+plan needs more How, a strategic one more Why:
 
-| Round | Focus              | Goal                                       |
-| ----- | ------------------ | ------------------------------------------ |
-| 1     | Why                | Motivation, success criteria, who benefits |
-| 2     | What               | Scope boundaries, deliverables, non-goals  |
-| 3     | How                | Constraints, dependencies, known risks     |
-| 4     | When (if relevant) | Sequencing, milestones, deadlines          |
+| Area     | Must come out                              |
+| -------- | ------------------------------------------ |
+| **Why**  | Motivation, success criteria, who benefits |
+| **What** | Scope boundaries, deliverables, non-goals  |
+| **How**  | Constraints, dependencies, known risks     |
+| **When** | Sequencing, milestones, deadlines          |
 
-**Question style:**
+Ask "what are you explicitly not doing?" in every interview. Silent disagreement
+about non-goals is half of all misalignment.
 
-- Ask open questions first, then tighten with closed ones.
-- Reflect back what you heard before asking the next question ("So the core problem is X. Given that...")
-- Surface contradictions gently ("Earlier you said A, but this implies B. Which takes priority?")
-- Ask "What are you explicitly not doing?" in every interview. Non-goals prevent scope creep.
-- Provide 3-5 options per question plus an open-text option. Make the first option your recommended default.
+Finding facts is your job, never the user's. When a question needs something
+from the filesystem or the tools, go get it rather than asking.
 
-### 3. Synthesize
+### Listen for want vs should-want
 
-After the final round, produce a structured spec:
+The dangerous answers are the ones that sound like what a thoughtful answer
+sounds like. Watch for best-practice talk with no specifics ("scalable", "clean
+architecture"), deference to convention ("the way most apps do it"), and the
+phrase "I should probably". When you hear one, ask:
+
+> "If you didn't have to justify this to anyone, what would you actually want?"
+
+That question routinely does more work than the previous five.
+
+## 4. Stop when you can predict
+
+The interview is over when you can answer yes to this:
+
+> _Can I predict the user's reaction to the next three questions I would ask?_
+
+That is a checkable test, not a feeling. Running out of rounds is not a reason
+to stop, and neither is the user sounding agreeable.
+
+It has a floor. If several rounds in you still cannot predict, that is
+information about the ask rather than a reason to grind: say so plainly —
+"I've asked six questions and still can't predict your answers; something
+foundational is missing, want to step back?"
+
+## 5. Synthesize
 
 ```
 ## Spec: [Title]
@@ -55,8 +115,7 @@ After the final round, produce a structured spec:
 [1 sentence: the desired outcome]
 
 ### Success Criteria
-- [Measurable condition 1]
-- [Measurable condition 2]
+- [Measurable condition]
 
 ### Scope
 **In scope:**
@@ -72,23 +131,32 @@ After the final round, produce a structured spec:
 - [Anything unresolved]
 ```
 
-### 4. Confirm
+## 6. Confirm — an explicit yes
 
-Present the spec and ask: "Does this capture what you mean? Anything to add, cut, or correct?"
+Ask: "Does this capture what you mean? Anything to add, cut, or correct?"
 
-Iterate once if needed, then finalize.
+These are **not** a yes:
+
+| Answer                        | What it means                                                                                |
+| ----------------------------- | -------------------------------------------------------------------------------------------- |
+| "Whatever you think is best." | Delegation. They are not confident either — re-ask as a choice between two concrete options. |
+| "Sounds good."                | Ambiguous. Ask what they would refine. Silence is not confirmation.                          |
+| "Sure, let's go."             | Often a polite exit. Same follow-up.                                                         |
+
+Fold in every correction and restate. Loop until the yes is explicit.
 
 ## Guidelines
 
-- Stay in interviewer mode. Ask questions; do not propose solutions unless asked.
-- Keep rounds short. Two good questions beat five mediocre ones.
-- If the user's answers reveal the scope is larger than expected, name it: "This sounds like it might be two separate initiatives. Want to split it?"
-- Adapt the round structure to the topic. A technical plan needs more "How"; a strategic initiative needs more "Why."
-- If the user already has a doc or plan file, read it first and skip questions it already answers. Focus on gaps.
+- Stay in interviewer mode. Ask; do not propose solutions unless asked.
+- Two good questions beat five mediocre ones.
+- Reflect back what you heard before the next round, and surface contradictions
+  gently: "Earlier you said A, but this implies B — which takes priority?"
+- If the answers reveal a bigger scope than expected, name it: "This sounds like
+  two initiatives. Split it?"
 
 ## See Also
 
-- `/brainstorm` — Generative counterpart; use before spec-out to explore the solution space, or after to brainstorm approaches within scoped constraints
-- `/research` — Evidence-gathering companion; use to validate assumptions surfaced during the interview
-- `/design` — Implementation companion; use when the spec is done and needs structural shape
-- `skills/FRAMEWORKS.md` — Full framework index
+- `/brainstorm` — generative counterpart, before or after this
+- `/research` — validate assumptions the interview surfaces
+- `/design` — structural shape once the spec is done
+- `skills/FRAMEWORKS.md` — full framework index

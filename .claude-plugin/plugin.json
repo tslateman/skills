@@ -1,5 +1,5 @@
 {
-  "name": "skills",
+  "name": "tslateman-skills",
   "version": "0.6.0",
   "description": "Coding agent skills for reviewing code, keeping it maintainable, navigating a codebase, writing and diagramming what ships, shaping what to build, and running the work around it",
   "author": {

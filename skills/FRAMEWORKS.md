@@ -87,6 +87,7 @@ Each skill is grounded in a named framework or authority. This index maps the in
 | "I'm lost in this code"                    | `/zoom-out`                      | `/naming`, `/system-map`                   |
 | "Is this well-written?"                    | `/prose`                         | `/slop-check`, `/review-decisions`         |
 | "Could anyone have written this?"          | `/slop-check`                    | `/prose`                                   |
+| "Can every claim name its evidence?"       | `/cite-or-cut`                   | `/slop-check`, `/prose`                    |
 | "Does this sound like me?"                 | `/voice`                         | `/slop-check`                              |
 | "Can the reader execute it?"               | `/ste`                           | `/prose`                                   |
 | "Do I understand what I just committed?"   | `/narrate`                       | `/review-decisions`                        |
@@ -147,6 +148,7 @@ Skills that pair naturally:
 - `/system-map` + `/mermaid` — The map is the argument; mermaid is how it renders
 - `/mermaid` + `/excalidraw` — Mermaid for inline docs (GitHub-native); Excalidraw for architecture overviews (hand-drawn, editable)
 - `/prose` + `/slop-check` — Slop-check scores and refuses to rewrite; prose is the fixing half
+- `/slop-check` + `/cite-or-cut` — Slop-check reads the vocabulary; cite-or-cut reads the claims a clean sentence still makes
 - `/slop-check` + `/voice` — Genericness first, authorship second; a draft failing the first fails the second
 - `/ste` + `/prose` — STE for text a reader executes, prose for text a reader considers
 - `/narrate` + `/review-decisions` — Narrate gates comprehension before the commit; review catches what comprehension missed

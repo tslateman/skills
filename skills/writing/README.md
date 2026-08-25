@@ -7,6 +7,7 @@
 | `technical-writing` | What kind of document is this?         |
 | `prose`             | Is it clear and as short as it can be? |
 | `slop-check`        | Could anyone have written this?        |
+| `cite-or-cut`       | Can every claim name its evidence?     |
 | `voice`             | Did **you** write this?                |
 | `ste`               | Can the reader execute it?             |
 | `narrate`           | Can you explain what you just built?   |
@@ -21,6 +22,10 @@ authority when the text is a procedure.
 **Order matters after that.** `slop-check` scores and deliberately refuses to rewrite;
 `prose` is the fixing half. Run slop-check first — a draft failing on
 genericness fails `voice` too, and its findings are cheaper to fix.
+
+`cite-or-cut` runs on the claims, not the sentences. `slop-check` catches the
+vocabulary of overclaiming; this one catches a clean sentence that asserts
+something the writer never checked. Run it on anything that argues a position.
 
 `voice` judges against a corpus you supply at `$VOICE_TRAITS`, or
 `~/.config/voice-traits.md` when that is unset. It

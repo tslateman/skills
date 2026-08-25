@@ -44,13 +44,13 @@ report judgment-only findings when none is. Nothing here needs installing.
 | [review](skills/review/README.md)       | What is wrong with work that exists       |     11 |
 | [craft](skills/craft/README.md)         | Whether code survives the next change     |     13 |
 | [navigate](skills/navigate/README.md)   | Finding your way around unfamiliar code   |      6 |
-| [writing](skills/writing/README.md)     | Whether prose is ready to publish         |      7 |
+| [writing](skills/writing/README.md)     | Whether prose is ready to publish         |      8 |
 | [shape](skills/shape/README.md)         | Deciding what to build                    |      7 |
 | [draw](skills/draw/README.md)           | Making the picture                        |      2 |
 | [workspace](skills/workspace/README.md) | Controlling the session and its artifacts |     10 |
 
 Each group README names what it owns and which skill to reach for.
-`.claude-plugin/plugin.json` declares all seven, so Claude Code discovers all 56.
+`.claude-plugin/plugin.json` declares all seven, so Claude Code discovers all 57.
 
 The `review` group argues a thesis of its own, **local-fix debt**: the minimal
 edit that clears a failure signal without fixing its cause. See

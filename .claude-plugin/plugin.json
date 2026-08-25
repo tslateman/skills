@@ -1,7 +1,7 @@
 {
   "name": "skills",
   "version": "0.6.0",
-  "description": "Judgment skills for working with coding agents — catch what they got wrong, judge whether the code lasts, navigate it, write what goes out under your name, and decide what to build",
+  "description": "Coding agent skills for reviewing code, keeping it maintainable, navigating a codebase, writing and diagramming what ships, shaping what to build, and running the work around it",
   "author": {
     "name": "Tommy Slater",
     "url": "https://github.com/tslateman"

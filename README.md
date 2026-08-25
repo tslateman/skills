@@ -1,10 +1,8 @@
 # skills
 
-Agents are fast and agreeable. They clear failure signals, produce plausible
-structure, and write generic prose. A green build, a clean diff, and a readable
-draft are each things an agent can hand you without having solved your problem.
+Agents are fast and agreeable. They'll do all kinds of things without having solved your problem.
 
-Every skill is grounded in a named framework. The map is in
+That's why they need skills, grounded in a named framework in
 [skills/FRAMEWORKS.md](skills/FRAMEWORKS.md).
 
 ## Install

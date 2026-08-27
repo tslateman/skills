@@ -1,6 +1,6 @@
 ---
 name: test-first
-description: Drive code from a failing test, applying Beck's Test-Driven Development by Example. Use when starting new behavior ("TDD this", "write it test-first", "red green refactor"), when fixing a bug (reproduce before repair), or to audit whether existing tests were ever red. Answers one question, forward or backward: did the test fail first, and for the right reason? Do NOT use to choose which properties a suite needs (that is testing), to audit a whole suite for tests that cannot fail (that is test-review), or to get untested legacy code under test (that is legacy).
+description: "Drive code from a failing test, applying Beck's Test-Driven Development by Example. Use when starting new behavior (\"TDD this\", \"write it test-first\", \"red green refactor\"), when fixing a bug (reproduce before repair), or to audit whether existing tests were ever red. Answers one question, forward or backward: did the test fail first, and for the right reason? Do NOT use to choose which properties a suite needs (that is testing), to audit a whole suite for tests that cannot fail (that is test-review), or to get untested legacy code under test (that is legacy)."
 ---
 
 # Test First

@@ -1,6 +1,6 @@
 ---
 name: retro
-description: Reflect on recent work—capture learnings and surface what to think about next
+description: "Reflect on recent work—capture learnings and surface what to think about next. Use on /retro or at the end of a working session, before the conversation closes."
 ---
 
 # Session Retrospective

@@ -1,6 +1,6 @@
 ---
 name: vamp
-description: Survey the project and choose what to play next
+description: "Survey the project and choose what to play next. Use on /vamp or when asked what to work on next in this project."
 ---
 
 # Project Survey

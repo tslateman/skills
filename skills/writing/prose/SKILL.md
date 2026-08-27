@@ -1,6 +1,6 @@
 ---
 name: prose
-description: Apply Strunk's writing rules to prose: documentation, commits, error messages, UI text. Clearer, stronger, more professional. Also sharpens and tightens overlong drafts by subtraction.
+description: "Apply Strunk's writing rules to prose: documentation, commits, error messages, UI text. Clearer, stronger, more professional. Also sharpens and tightens overlong drafts by subtraction. Use when writing or editing documentation, commit messages, error messages, or UI copy, or when a draft runs long."
 ---
 
 # Writing Clearly and Concisely

@@ -1,6 +1,6 @@
 ---
 name: research
-description: Systematic technical investigation: evidence gathering, option comparison, and actionable recommendations. Use when the user asks to "research X", "investigate Y", "compare X vs Y", "how does X work", or needs analysis of libraries, APIs, frameworks, or architectural approaches.
+description: "Systematic technical investigation: evidence gathering, option comparison, and actionable recommendations. Use when the user asks to \"research X\", \"investigate Y\", \"compare X vs Y\", \"how does X work\", or needs analysis of libraries, APIs, frameworks, or architectural approaches."
 ---
 
 # Technical Research

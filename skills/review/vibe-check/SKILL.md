@@ -1,6 +1,6 @@
 ---
 name: vibe-check
-description: Judgment linter for vibe-coded output: reads the energy of the code, not just correctness. Use when the user says "vibe check", "does this hold up", "sanity check this AI code", or after a fast generation session before committing.
+description: "Judgment linter for vibe-coded output: reads the energy of the code, not just correctness. Use when the user says \"vibe check\", \"does this hold up\", \"sanity check this AI code\", or after a fast generation session before committing."
 ---
 
 # Vibe Check

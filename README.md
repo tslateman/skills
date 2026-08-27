@@ -6,6 +6,8 @@ authorities they apply.
 
 ## Install
 
+Claude Code:
+
 ```
 /plugin marketplace add tslateman/skills
 ```

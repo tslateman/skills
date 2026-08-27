@@ -1,6 +1,6 @@
 # Frameworks Index
 
-Each skill is grounded in a named framework or authority. This index maps the intellectual foundations to the skills that apply them.
+This index maps the intellectual foundations to the skills that apply them.
 
 ## Skills by Framework
 

@@ -1,9 +1,8 @@
 # skills
 
-Agents are fast and agreeable. They'll do all kinds of things without having solved your problem.
-
-That's why they need skills, grounded in a named framework in
-[skills/FRAMEWORKS.md](skills/FRAMEWORKS.md).
+Skills for coding agents, grouped by what they own.
+[skills/FRAMEWORKS.md](skills/FRAMEWORKS.md) maps them to the frameworks and
+authorities they apply.
 
 ## Install
 
@@ -37,18 +36,18 @@ report judgment-only findings when none is. Nothing here needs installing.
 
 ## Groups
 
-| Group                                   | Owns                                      | Skills |
-| --------------------------------------- | ----------------------------------------- | -----: |
-| [review](skills/review/README.md)       | What is wrong with work that exists       |     11 |
-| [craft](skills/craft/README.md)         | Whether code survives the next change     |     13 |
-| [navigate](skills/navigate/README.md)   | Finding your way around unfamiliar code   |      6 |
-| [writing](skills/writing/README.md)     | Whether prose is ready to publish         |      8 |
-| [shape](skills/shape/README.md)         | Deciding what to build                    |      7 |
-| [draw](skills/draw/README.md)           | Making the picture                        |      2 |
-| [workspace](skills/workspace/README.md) | Controlling the session and its artifacts |     10 |
+| Group                                   | Owns                                      |
+| --------------------------------------- | ----------------------------------------- |
+| [review](skills/review/README.md)       | What is wrong with work that exists       |
+| [craft](skills/craft/README.md)         | Whether code survives the next change     |
+| [navigate](skills/navigate/README.md)   | Finding your way around unfamiliar code   |
+| [writing](skills/writing/README.md)     | Whether prose is ready to publish         |
+| [shape](skills/shape/README.md)         | Deciding what to build                    |
+| [draw](skills/draw/README.md)           | Making the picture                        |
+| [workspace](skills/workspace/README.md) | Controlling the session and its artifacts |
 
 Each group README names what it owns and which skill to reach for.
-`.claude-plugin/plugin.json` declares all seven, so Claude Code discovers all 57.
+`.claude-plugin/plugin.json` declares every group, so Claude Code discovers every skill.
 
 The `review` group argues a thesis of its own, **local-fix debt**: the minimal
 edit that clears a failure signal without fixing its cause. See

@@ -22,19 +22,21 @@ or instruction files are supported.
 npx skills@latest add tslateman/skills
 ```
 
-The groups are real directories, so take one at a time. `skills/review` alone is
-a complete thing if the review suite is all you want.
+The groups are real directories, so you can take one at a time. Skills reference
+each other across groups, so a lone group leaves some pointers unresolved.
 
 Cursor: copy any group into `.cursor/skills/`.
 Gemini CLI: `gemini skills install https://github.com/tslateman/skills.git --path skills/review`
 
 </details>
 
-`/voice` needs a corpus you supply at `$VOICE_TRAITS`, or
-`~/.config/voice-traits.md` when that is unset.
+### Skill setup
+
+`/voice` needs a corpus you supply at `$VOICE_TRAITS`. The skill lists the
+fallback paths it checks when that is unset.
 
 `/slop-check` and `/ste` use a deterministic scanner when one is on `PATH`, and
-report judgment-only findings when none is. Nothing here needs installing.
+report judgment-only findings when none is.
 
 ## Groups
 
@@ -49,18 +51,18 @@ report judgment-only findings when none is. Nothing here needs installing.
 | [workspace](skills/workspace/README.md) | Controlling the session and its artifacts |
 
 Each group README names what it owns and which skill to reach for.
-`.claude-plugin/plugin.json` declares every group, so Claude Code discovers every skill.
+`.claude-plugin/plugin.json` declares every group, so Claude Code discovers
+every skill.
 
-The `review` group argues a thesis of its own, **local-fix debt**: the minimal
-edit that clears a failure signal without fixing its cause. See
+The `review` group is built on **local-fix debt**: the minimal edit that clears
+a failure signal without fixing its cause. See
 [docs/local-fix-debt.md](docs/local-fix-debt.md).
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and
 [docs/skill-anatomy.md](docs/skill-anatomy.md). Review skills follow a fixed
-spine; a new language earns one when it has a _characteristic_ silencer, not
-merely a linter.
+spine; a new language earns one when it has a _characteristic_ silencer.
 
 ## Prior art
 

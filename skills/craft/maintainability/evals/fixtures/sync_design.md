@@ -1,7 +1,8 @@
 # Program Design: Device Config Sync Worker
 
-Syncs device configuration bundles from the platform to partner systems on a
-schedule. First vendor is VendorA. VendorB follows next quarter.
+Syncs device configuration bundles from the platform to partner
+device-management systems on a schedule. First vendor is VendorA. VendorB
+follows next quarter.
 
 ## Module layout
 
@@ -42,8 +43,8 @@ For each ref: calls `PayloadBuilder.build`, passes the result to
 build(bundle: ConfigBundle, frame_version: int) -> bytes
 ```
 
-Produces the VendorA binary frame: 12-byte header (magic, version, body length),
-TLV body, trailing CRC16. `frame_version` comes from `WorkerConfig`.
+Produces the VendorA binary frame: 12-byte header (magic, version, body
+length), TLV body, trailing CRC16. `frame_version` comes from `WorkerConfig`.
 
 ### VendorClient
 

@@ -13,7 +13,7 @@ Claude Code:
 ```
 
 <details>
-<summary><strong>Any other agent</strong></summary>
+<summary><strong>Other agents</strong></summary>
 
 Skills are plain Markdown with YAML frontmatter and work anywhere skills, rules,
 or instruction files are supported.

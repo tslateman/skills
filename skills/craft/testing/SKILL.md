@@ -97,81 +97,31 @@ Ask of each test:
 
 ## Test Smells
 
-| Smell                  | Symptom                                   | Fix                                    |
-| ---------------------- | ----------------------------------------- | -------------------------------------- |
-| Testing implementation | Breaks on refactor, behavior unchanged    | Test outputs, not internals            |
-| Tautological test      | Repeats production logic in assertions    | Test observable behavior               |
-| Happy path only        | No error/boundary cases                   | Add boundary analysis                  |
-| Flaky                  | Passes sometimes, fails sometimes         | Fix nondeterminism or mark explicitly  |
-| Giant arrange          | 30 lines of setup for 1 assertion         | Simplify the interface or use builders |
-| Invisible assertion    | `expect(result).toBeTruthy()`             | Assert specific values                 |
-| Test per method        | One test per function, misses integration | Test use cases, not methods            |
+Three that a different strategy fixes. The rest are somebody else's job.
 
-## Red-Green Discipline
+| Smell           | Symptom                                   | Fix                                    |
+| --------------- | ----------------------------------------- | -------------------------------------- |
+| Happy path only | No error/boundary cases                   | Add boundary analysis                  |
+| Giant arrange   | 30 lines of setup for 1 assertion         | Simplify the interface or use builders |
+| Test per method | One test per function, misses integration | Test use cases, not methods            |
 
-Two failure modes when building test-first. Adapted from mattpocock/skills `tdd` (MIT).
+An expected value must come from _outside_ the code under test: a known-good
+literal, a worked example, the spec. A value computed the way the code computes
+it can never disagree with the code — break the code wrong and the assertion
+breaks wrong with it. `expect(add(a, b)).toBe(a + b)`, a figure snapshotted the
+code's own way, a constant asserted against itself: each passes by construction
+and gives zero confidence.
 
-**Horizontal slicing.** Writing all the tests, then all the implementation, treats RED as "write every test" and GREEN as "write every impl". It produces crap tests: authored in bulk against _imagined_ behavior, they assert the shape of things (signatures, data structures) rather than user-facing behavior, and they go insensitive to real change. Slice vertically instead, one tracer bullet at a time: one test, then the minimal code to pass it, then the next test informed by what that one taught you. Because you just wrote the code, you know exactly what behavior matters and how to verify it.
-
-**Tautological tests.** A test whose expected value is computed the way the code computes it can never disagree with the code: break the code wrong and the assertion breaks wrong with it. `expect(add(a, b)).toBe(a + b)`, a figure hand-snapshotted the code's own way, a constant asserted against itself, all pass by construction and give zero confidence. The expected value must come from an _independent source of truth_: a known-good literal, a worked example, the spec.
+The smells that decide whether a test can fail at all — tautologies, invisible
+assertions, implementation coupling, flakes, mock saturation — belong to
+`/test-review`. The order tests get written in belongs to `/test-first`. Do not
+restate either here.
 
 ## Strategy Templates
 
-### For a pure function:
-
-```markdown
-## Contract
-
-[function name]: [input types] → [output type]
-
-- Promises: [what it guarantees]
-- Requires: [what inputs must satisfy]
-
-## Test Cases
-
-- [ ] Empty/zero input
-- [ ] Single valid input
-- [ ] Multiple valid inputs
-- [ ] Boundary values
-- [ ] Invalid inputs (error cases)
-- [ ] Properties that hold for all inputs
-```
-
-### For an API endpoint:
-
-```markdown
-## Contract
-
-[METHOD /path]: [request] → [response]
-
-- Auth: [required/optional/none]
-- Idempotent: [yes/no]
-
-## Test Cases
-
-- [ ] Happy path (valid request → expected response)
-- [ ] Validation failures (400)
-- [ ] Auth failures (401/403)
-- [ ] Not found (404)
-- [ ] Concurrent requests
-- [ ] Rate limiting
-```
-
-### For a UI component:
-
-```markdown
-## Contract
-
-[Component]: [props] → [rendered output + interactions]
-
-## Test Cases
-
-- [ ] Renders with required props
-- [ ] Renders with all optional props
-- [ ] User interactions trigger callbacks
-- [ ] Loading/error/empty states
-- [ ] Accessibility (keyboard nav, screen reader)
-```
+Three fill-in shapes — pure function, API endpoint, UI component — in
+`references/strategy-templates.md`. Any one run needs one of them, so they load
+on demand rather than sitting in every invocation.
 
 ## Output Format
 
@@ -212,5 +162,7 @@ After designing the test suite, ask: "If all these tests pass, would you deploy 
 - `/test-review`: Audits whether an existing suite can actually fail
 - `/legacy`: When the code has no tests at all, start with characterization
 - `/review-decisions`: Reviews assess test coverage alongside code quality
+- `references/desiderata.md`: The twelve properties in full
+- `references/strategy-templates.md`: Fill-in shapes per test subject
 - `skills/FRAMEWORKS.md`: Full framework index
 - `RECIPE.md`: Agent recipe for parallel decomposition (2 workers)

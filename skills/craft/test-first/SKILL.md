@@ -1,6 +1,6 @@
 ---
 name: test-first
-description: "Drive code from a failing test, applying Beck's Test-Driven Development by Example. Use when starting new behavior (\"TDD this\", \"write it test-first\", \"red green refactor\"), when fixing a bug (reproduce before repair), or to audit whether existing tests were ever red. Answers one question, forward or backward: did the test fail first, and for the right reason? Do NOT use to choose which properties a suite needs (that is testing), to audit a whole suite for tests that cannot fail (that is test-review), or to get untested legacy code under test (that is legacy)."
+description: 'Drive code from a failing test, applying Beck''s Test-Driven Development by Example. Use when starting new behavior ("TDD this", "write it test-first", "red green refactor"), when fixing a bug (reproduce before repair), or to audit whether existing tests were ever red. Answers one question, forward or backward: did the test fail first, and for the right reason? Do NOT use to choose which properties a suite needs (that is testing), to audit a whole suite for tests that cannot fail (that is test-review), or to get untested legacy code under test (that is legacy).'
 ---
 
 # Test First
@@ -75,8 +75,12 @@ Report per test: could-fail, cannot-fail, or unproven. A suite where nothing fai
 
 ## Gotchas
 
-- **Writing the whole test file up front** is not this skill. That is specify-then-implement, and it loses the feedback that makes step size self-correcting. One test, one cycle.
+- **Writing the whole test file up front** is not this skill. That is specify-then-implement, and it loses the feedback that makes step size self-correcting. Tests authored in bulk are written against _imagined_ behavior: they assert the shape of things — signatures, data structures — rather than what a caller gets, and they go insensitive to the changes worth catching. One test, one cycle. You know what is worth verifying precisely because you just wrote the code.
 - **Reaching green by weakening the test** — relaxing an assertion, widening a tolerance, catching the exception the test was meant to provoke. The tell is a test edit in the same commit as the fix.
 - **Skipping refactor** leaves the fake-it constant in place, or the duplication triangulation created. Green is the midpoint of the cycle, not the end.
 - **Retrofitted tests presented as TDD.** An agent asked to "TDD this" will often write the implementation, then the tests, then report red-green-refactor. The artifact looks identical. Only the run order distinguishes them, so run the test before the implementation exists and say what it printed.
 - **Untestable design is the message, not the obstacle.** When a test is hard to write because the unit cannot be constructed without a database, the design is telling you where the seam belongs. Take it to `domain-model` rather than mocking around it.
+
+---
+
+_The bulk-authoring gotcha is adapted from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)._

@@ -20,6 +20,7 @@ different silencer, so each gets its own skill. The argument is in
 | `visual-recap`      | The shape of a large diff, before reading lines              |
 | `blast-radius`      | What the change breaks outside the diff, proven by running   |
 | `doubt`             | A decision that has not landed yet, cross-examined           |
+| `spec-review`       | A spec against the standards and decisions already on record |
 
 **Reach for the language skill** when an agent just made a build go green.
 **Reach for `review-decisions`** when the change needs a reader, not a linter — it
@@ -28,6 +29,7 @@ review's real product is knowledge transfer.
 **Reach for `visual-recap`** first when the diff is too large to start reading.
 **Reach for `blast-radius`** when the diff is small and you still don't trust it.
 **Reach for `doubt`** before the artifact is finished, not after.
+**Reach for `spec-review`** when the artifact is prose, not code.
 
 `blast-radius` refuses to answer from reading alone. It names the one fact the
 change is safe because of, then ranks the evidence behind it: you said so, you
@@ -42,6 +44,13 @@ one rule: the fresh reviewer gets the artifact and the contract, never your
 claim. Tell a reviewer what you concluded and it grades your conclusion; tell it
 only what the thing must do and it tests whether the thing does it.
 
+**`spec-review` reviews the document, not the diff.** It judges a spec, plan,
+PRD, or RFC against the written record — standards clauses, past decisions,
+declared non-goals — and reports the conflicts the spec never acknowledges. Its
+one rule is cite or drop: a finding it cannot anchor to a clause id is an org
+rule it invented. It requires [Lore](https://github.com/tslateman/lore) for the
+corpus and does nothing without it.
+
 ## `review-decisions` is not `/code-review`
 
 `/code-review` is Claude Code's built-in: it hunts correctness bugs and
@@ -54,9 +63,11 @@ concerns were raised, which alternatives were rejected and why, which risks
 were accepted deliberately. Run `/code-review` for defects, `review-decisions`
 for the record.
 
-The six language skills each run a mechanical pass with a targeted rule set,
+The six local-fix skills each run a mechanical pass with a targeted rule set,
 then sort every trigger into **fine**, **mechanical fix**, or **restructure**.
-The third is named with its blast radius and never applied without asking.
+The third is named with its blast radius and never applied without asking. Five
+of them run a linter; `test-review` runs the suite instead, because no linter
+knows whether an assertion can fail.
 
 New language? See [CONTRIBUTING.md](../../CONTRIBUTING.md) — the six share a
 fixed spine documented in

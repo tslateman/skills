@@ -3,7 +3,7 @@
 **Judge whether code will survive contact with the next change, then change it.**
 
 The largest group, and deliberately so — this repo's center of gravity is code
-judgment. Eleven skills across four jobs: judge it, learn it, change it, prove it.
+judgment. Thirteen skills across three jobs: judge it, change it, prove it.
 
 ## Judge
 

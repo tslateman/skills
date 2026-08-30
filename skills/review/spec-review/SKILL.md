@@ -13,6 +13,10 @@ exist.
 
 ## Run it
 
+Requires [Lore](https://github.com/tslateman/lore). Check with `command -v lore`
+and stop when it is absent — say so rather than reviewing from memory, which is
+the one thing this skill exists to refuse.
+
 ```bash
 lore corpus <spec-file> --prompt
 ```

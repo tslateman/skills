@@ -6,7 +6,7 @@ This index maps the intellectual foundations to the skills that apply them.
 
 | Framework                            | Authority                    | Skill                                                                               | Core Idea                                                                                       |
 | ------------------------------------ | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Local-Fix Debt                       | This repo                    | the six `*-review` skills                                                           | Clearing a failure signal and fixing its cause are different operations                         |
+| Local-Fix Debt                       | This repo                    | the six local-fix skills                                                            | Clearing a failure signal and fixing its cause are different operations                         |
 | Test Desiderata                      | Kent Beck                    | `/testing`                                                                          | 12 properties every test balances; make tradeoffs deliberate                                    |
 | Testing Trophy                       | Kent C. Dodds                | `/testing`                                                                          | Integration tests provide the best confidence-to-cost ratio                                     |
 | Elements of Style                    | William Strunk Jr.           | `/prose`                                                                            | Active voice, omit needless words, be specific                                                  |
@@ -17,6 +17,9 @@ This index maps the intellectual foundations to the skills that apply them.
 | Controlled Vocabulary                | ANSI/NISO Z39.19             | `/lexicon`                                                                          | One term, one meaning; every rejected variant points back to its preferred form                 |
 | ADR Format                           | Michael Nygard               | `/adr`                                                                              | Capture context and reasoning, not just the decision                                            |
 | Modern Code Review                   | Bacchelli & Bird             | `/review-decisions`                                                                 | Code review's primary value is knowledge transfer, not defect detection                         |
+| Requirement Levels                   | RFC 2119 (IETF)              | `/spec-review`                                                                      | MUST, SHOULD, and MAY carry different severities; the source assigns them, not the reviewer     |
+| One-Way and Two-Way Doors            | Amazon                       | `/spec-review`, `/doubt`                                                            | A decision's weight is its reversal cost                                                        |
+| Cite or Drop                         | This repo                    | `/spec-review`, `/cite-or-cut`                                                      | A rule the reviewer cannot cite does not exist                                                  |
 | Information Architecture             | Rosenfeld, Morville & Arango | `/ia`                                                                               | Organization, labeling, navigation, search for findability                                      |
 | Diataxis                             | Daniele Procida              | `/ia`, `/technical-writing`                                                         | Four documentation modes: tutorial, how-to, explanation, reference                              |
 | LATCH                                | Richard Saul Wurman          | `/ia`                                                                               | Five and only five ways to organize: location, alphabet, time, category, hierarchy              |
@@ -107,6 +110,7 @@ This index maps the intellectual foundations to the skills that apply them.
 | "Am I writing a good skill?"                     | `/writing-great-skills`          | `/prose`, `/ia`                            |
 | "Only a human can do this step"                  | `/wizard`                        | `/spec-out`                                |
 | "Am I sure about this decision?"                 | `/doubt`                         | `/blast-radius`, `/vibe-check`             |
+| "Does this spec conflict with what we decided?"  | `/spec-review`                   | `/adr`, `/end-state`, `/cite-or-cut`       |
 | "Should this code exist at all?"                 | `/deprecate`                     | `/improve-codebase-architecture`, `/tidy`  |
 | "Can we tell what happened in production?"       | `/observe`                       | `/blast-radius`, `/testing`                |
 | "What does this break elsewhere?"                | `/blast-radius`                  | `/vibe-check`, `/code-review`              |
@@ -156,6 +160,8 @@ Skills that pair naturally:
 - `/ste` + `/prose` — STE for text a reader executes, prose for text a reader considers
 - `/narrate` + `/review-decisions` — Narrate gates comprehension before the commit; review catches what comprehension missed
 - `/adr` + `/research` — Research informs the decision; ADR captures it
+- `/adr` + `/spec-review` — The ADR records the decision; spec-review is what enforces it on the next spec
+- `/spec-review` + `/cite-or-cut` — Both refuse a claim without a source: one cites the corpus, the other cites the evidence
 - `/end-state` + `/slice` — End-state builds the release ladder; slice turns one rung of it into tasks
 - `/end-state` + `/adr` — When amending the end state is itself a decision, the ADR is where it is recorded
 - `/spec-out` + `/brainstorm` — Spec-out when you don't know what you want; brainstorm when you know what but not how

@@ -80,4 +80,8 @@ Be terse. Name files and line numbers. Skip categories with no findings.
 
 ## See Also
 
-The post-agent triad: sweep checks for collateral damage, the other two check fidelity and threads.
+The post-agent triad, all three firing at a phase boundary:
+
+- `/retro` — what this phase taught that outlives it
+- `/vamp` — what is worth playing next
+- `docs/phase-boundaries.md` — which context move comes after: continue, clear, hand off, delegate, or compact

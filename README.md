@@ -38,6 +38,10 @@ fallback paths it checks when that is unset.
 `/slop-check` and `/ste` use a deterministic scanner when one is on `PATH`, and
 report judgment-only findings when none is.
 
+`/spec-review` requires [Lore](https://github.com/tslateman/lore) for the corpus
+it cites, and stops without it. `/narrate` uses Lore too, but only to record what
+it already wrote into the commit body.
+
 ## Groups
 
 | Group                                   | Owns                                      |

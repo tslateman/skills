@@ -4,113 +4,116 @@ This index maps the intellectual foundations to the skills that apply them.
 
 ## Skills by Framework
 
-| Framework                            | Authority                    | Skill                                                                               | Core Idea                                                                                 |
-| ------------------------------------ | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Local-Fix Debt                       | This repo                    | the six `*-review` skills                                                           | Clearing a failure signal and fixing its cause are different operations                   |
-| Test Desiderata                      | Kent Beck                    | `/testing`                                                                          | 12 properties every test balances; make tradeoffs deliberate                              |
-| Testing Trophy                       | Kent C. Dodds                | `/testing`                                                                          | Integration tests provide the best confidence-to-cost ratio                               |
-| Elements of Style                    | William Strunk Jr.           | `/prose`                                                                            | Active voice, omit needless words, be specific                                            |
-| ASD-STE100                           | AeroSpace and Defence        | `/ste`, `/technical-writing`                                                        | Controlled English for text a reader executes rather than considers                       |
-| Naming Principles                    | Benner                       | `/naming`                                                                           | Understandability, conciseness, consistency, distinguishability                           |
-| API Design                           | Joshua Bloch                 | `/naming`, `/design`                                                                | Self-documenting, least astonishment, minimal surface                                     |
-| Ubiquitous Language                  | Eric Evans (DDD)             | `/naming`, `/lexicon`                                                               | A translation layer between domain and code is a defect                                   |
-| Controlled Vocabulary                | ANSI/NISO Z39.19             | `/lexicon`                                                                          | One term, one meaning; every rejected variant points back to its preferred form           |
-| ADR Format                           | Michael Nygard               | `/adr`                                                                              | Capture context and reasoning, not just the decision                                      |
-| Modern Code Review                   | Bacchelli & Bird             | `/review-decisions`                                                                 | Code review's primary value is knowledge transfer, not defect detection                   |
-| Information Architecture             | Rosenfeld, Morville & Arango | `/ia`                                                                               | Organization, labeling, navigation, search for findability                                |
-| Diataxis                             | Daniele Procida              | `/ia`, `/technical-writing`                                                         | Four documentation modes: tutorial, how-to, explanation, reference                        |
-| LATCH                                | Richard Saul Wurman          | `/ia`                                                                               | Five and only five ways to organize: location, alphabet, time, category, hierarchy        |
-| Eight Principles of IA               | Dan Brown                    | `/ia`, `/wayfinding`                                                                | Objects, choices, disclosure, exemplars, front doors, classification, navigation, growth  |
-| Ontology, Taxonomy, Choreography     | Peter Morville               | `/ia`                                                                               | Meaning, arrangement, and behavior over time are three separable layers                   |
-| The Image of the City                | Kevin Lynch                  | `/wayfinding`                                                                       | Legibility comes from paths, edges, districts, nodes, and landmarks                       |
-| Information Foraging                 | Pirolli & Card               | `/wayfinding`                                                                       | Readers act on scent, not content; they abandon a path before reaching it                 |
-| Wayfinding                           | Arthur & Passini             | `/wayfinding`                                                                       | Put the signage at the decision point, not everywhere                                     |
-| C4 Model                             | Simon Brown                  | `/system-map`                                                                       | One system, four zoom levels, one audience per diagram                                    |
-| A Philosophy of Software Design      | John Ousterhout              | `/ousterhout-software-design`, `/maintainability`, `/improve-codebase-architecture` | Leverage at the interface — large behaviour behind small surface                          |
-| Refactoring                          | Martin Fowler                | `/refactor`, `/maintainability`                                                     | Small verified steps, observable behavior held constant                                   |
-| Test-Driven Development              | Kent Beck                    | `/test-first`                                                                       | Only a test observed to fail has shown it can fail; red, green, refactor                  |
-| Tidy First?                          | Kent Beck                    | `/tidy`                                                                             | Structure and behavior are separate changes; tidying is priced by whether you return      |
-| Two Hats                             | Kent Beck                    | `/refactor`, `/tidy`                                                                | Adding function and restructuring are separate hats; wear one at a time                   |
-| Constantine's Equivalence            | Larry Constantine            | `/tidy`                                                                             | Cost of software tracks cost of change, which tracks coupling                             |
-| Working Effectively with Legacy Code | Michael Feathers             | `/legacy`                                                                           | Legacy code is code without tests; characterize before you change                         |
-| Clean Code                           | Robert C. Martin             | `/maintainability`                                                                  | Names and functions as the unit of readability                                            |
-| Seams & Adapters                     | Michael Feathers             | `/improve-codebase-architecture`, `/legacy`                                         | Alter behaviour without editing in place; the interface is the test surface               |
-| Design It Twice                      | John Ousterhout              | `/improve-codebase-architecture`, `/design`                                         | First idea is unlikely to be best — produce radically different alternatives              |
-| Domain-Driven Design                 | Eric Evans                   | `/domain-model`                                                                     | The code owning the state owns the invariants; anemic models leak them outward            |
-| Functional Core, Imperative Shell    | Gary Bernhardt               | `/domain-model`                                                                     | Pure decisions at the center, I/O at the edge; the mocking test detects the braid         |
-| Diverge Then Converge                | Design Council               | `/brainstorm`, `/spec-out`                                                          | Separate generative mode from evaluative mode                                             |
-| Confidence Stop                      | addyosmani/agent-skills      | `/spec-out`                                                                         | Stop when you can predict the next three answers, not when the rounds run out             |
-| Tracer Bullets                       | Hunt & Thomas                | `/slice`                                                                            | A thin complete path through every layer beats a finished layer                           |
-| Parallel Change                      | Danilo Sato                  | `/slice`, `/deprecate`                                                              | Expand, migrate, contract; never change a form in place                                   |
-| 5 Whys                               | Sakichi Toyoda (Toyota)      | `/automagic-problem-discovery`                                                      | Dig past the symptom to the leverage point underneath it                                  |
-| Judgment Linting                     | Anthropic eval methodology   | `/vibe-check`                                                                       | Higher-order code assertions that require AI reasoning, not regexes                       |
-| Compression Mode                     | mattpocock/skills            | `/bro`                                                                              | Strip a reply to the claim underneath it                                                  |
-| Map Before Streets                   | mattpocock/skills            | `/zoom-out`                                                                         | Map callers, neighbors, and abstraction layers before reading details                     |
-| Visual Recap                         | BuilderIO/skills             | `/visual-recap`                                                                     | Map a diff to structured blocks before reading raw lines                                  |
-| Skill Craft                          | mattpocock/skills            | `/writing-great-skills`                                                             | Predictability via leading words, information hierarchy, and pruning                      |
-| Human-in-the-Loop Procedure          | mattpocock/skills            | `/wizard`                                                                           | A step only a human can take belongs in a script, not in a conversation                   |
-| Phase Boundaries                     | mattpocock/skills            | `docs/phase-boundaries.md`                                                          | Every context move but one trades a primary source for an account of it                   |
-| Adversarial Fresh Context            | addyosmani/agent-skills      | `/doubt`                                                                            | A reviewer told your conclusion grades your conclusion; withhold it                       |
-| Hyrum's Law                          | Hyrum Wright                 | `/deprecate`                                                                        | With enough users, every observable behavior is depended on, promised or not              |
-| Expand, Migrate, Contract            | Parallel Change (Fowler)     | `/deprecate`                                                                        | Old and new forms both valid at every step; never change a form in place                  |
-| RED Method                           | Tom Wilkie                   | `/observe`                                                                          | Rate, errors, duration on every request path                                              |
-| USE Method                           | Brendan Gregg                | `/observe`                                                                          | Utilization, saturation, errors on every resource                                         |
-| Symptom-Based Alerting               | Rob Ewaschuk (Google SRE)    | `/observe`                                                                          | Page on what users feel; dashboard the causes                                             |
-| Mermaid.js v11                       | Mermaid project              | `/mermaid`                                                                          | Text-based diagrams that render natively in GitHub markdown                               |
-| Excalidraw Generator                 | Excalidraw project           | `/excalidraw`                                                                       | Programmatic hand-drawn diagrams via Python API                                           |
-| Developer Documentation Style        | Google                       | `/technical-writing`                                                                | Address the reader as "you", name the actor, put the condition before the instruction     |
-| Global English                       | John Kohl                    | `/technical-writing`                                                                | Write syntax that survives a non-native reader and a machine translator                   |
-| Evidence Ladder                      | pstack (Lauren Tan)          | `/blast-radius`                                                                     | Rank a safety claim by how it was established; anything short of running code is unproven |
-| Candidate Arena                      | pstack (Lauren Tan)          | `/arena`                                                                            | Race N attempts, pick a base, graft the losers' best ideas in by hand                     |
-| App Verification Harness             | pstack (Lauren Tan)          | `/create-verification-skill`, `/maintain-verification-skill`                        | A project needs a scripted way to drive the real app, and it rots unless audited          |
+| Framework                            | Authority                    | Skill                                                                               | Core Idea                                                                                       |
+| ------------------------------------ | ---------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Local-Fix Debt                       | This repo                    | the six `*-review` skills                                                           | Clearing a failure signal and fixing its cause are different operations                         |
+| Test Desiderata                      | Kent Beck                    | `/testing`                                                                          | 12 properties every test balances; make tradeoffs deliberate                                    |
+| Testing Trophy                       | Kent C. Dodds                | `/testing`                                                                          | Integration tests provide the best confidence-to-cost ratio                                     |
+| Elements of Style                    | William Strunk Jr.           | `/prose`                                                                            | Active voice, omit needless words, be specific                                                  |
+| ASD-STE100                           | AeroSpace and Defence        | `/ste`, `/technical-writing`                                                        | Controlled English for text a reader executes rather than considers                             |
+| Naming Principles                    | Benner                       | `/naming`                                                                           | Understandability, conciseness, consistency, distinguishability                                 |
+| API Design                           | Joshua Bloch                 | `/naming`, `/design`                                                                | Self-documenting, least astonishment, minimal surface                                           |
+| Ubiquitous Language                  | Eric Evans (DDD)             | `/naming`, `/lexicon`                                                               | A translation layer between domain and code is a defect                                         |
+| Controlled Vocabulary                | ANSI/NISO Z39.19             | `/lexicon`                                                                          | One term, one meaning; every rejected variant points back to its preferred form                 |
+| ADR Format                           | Michael Nygard               | `/adr`                                                                              | Capture context and reasoning, not just the decision                                            |
+| Modern Code Review                   | Bacchelli & Bird             | `/review-decisions`                                                                 | Code review's primary value is knowledge transfer, not defect detection                         |
+| Information Architecture             | Rosenfeld, Morville & Arango | `/ia`                                                                               | Organization, labeling, navigation, search for findability                                      |
+| Diataxis                             | Daniele Procida              | `/ia`, `/technical-writing`                                                         | Four documentation modes: tutorial, how-to, explanation, reference                              |
+| LATCH                                | Richard Saul Wurman          | `/ia`                                                                               | Five and only five ways to organize: location, alphabet, time, category, hierarchy              |
+| Eight Principles of IA               | Dan Brown                    | `/ia`, `/wayfinding`                                                                | Objects, choices, disclosure, exemplars, front doors, classification, navigation, growth        |
+| Ontology, Taxonomy, Choreography     | Peter Morville               | `/ia`                                                                               | Meaning, arrangement, and behavior over time are three separable layers                         |
+| The Image of the City                | Kevin Lynch                  | `/wayfinding`                                                                       | Legibility comes from paths, edges, districts, nodes, and landmarks                             |
+| Information Foraging                 | Pirolli & Card               | `/wayfinding`                                                                       | Readers act on scent, not content; they abandon a path before reaching it                       |
+| Wayfinding                           | Arthur & Passini             | `/wayfinding`                                                                       | Put the signage at the decision point, not everywhere                                           |
+| C4 Model                             | Simon Brown                  | `/system-map`                                                                       | One system, four zoom levels, one audience per diagram                                          |
+| A Philosophy of Software Design      | John Ousterhout              | `/ousterhout-software-design`, `/maintainability`, `/improve-codebase-architecture` | Leverage at the interface — large behaviour behind small surface                                |
+| Refactoring                          | Martin Fowler                | `/refactor`, `/maintainability`                                                     | Small verified steps, observable behavior held constant                                         |
+| Test-Driven Development              | Kent Beck                    | `/test-first`                                                                       | Only a test observed to fail has shown it can fail; red, green, refactor                        |
+| Tidy First?                          | Kent Beck                    | `/tidy`                                                                             | Structure and behavior are separate changes; tidying is priced by whether you return            |
+| Two Hats                             | Kent Beck                    | `/refactor`, `/tidy`                                                                | Adding function and restructuring are separate hats; wear one at a time                         |
+| Constantine's Equivalence            | Larry Constantine            | `/tidy`                                                                             | Cost of software tracks cost of change, which tracks coupling                                   |
+| Working Effectively with Legacy Code | Michael Feathers             | `/legacy`                                                                           | Legacy code is code without tests; characterize before you change                               |
+| Clean Code                           | Robert C. Martin             | `/maintainability`                                                                  | Names and functions as the unit of readability                                                  |
+| Seams & Adapters                     | Michael Feathers             | `/improve-codebase-architecture`, `/legacy`                                         | Alter behaviour without editing in place; the interface is the test surface                     |
+| Design It Twice                      | John Ousterhout              | `/improve-codebase-architecture`, `/design`                                         | First idea is unlikely to be best — produce radically different alternatives                    |
+| Domain-Driven Design                 | Eric Evans                   | `/domain-model`                                                                     | The code owning the state owns the invariants; anemic models leak them outward                  |
+| Functional Core, Imperative Shell    | Gary Bernhardt               | `/domain-model`                                                                     | Pure decisions at the center, I/O at the edge; the mocking test detects the braid               |
+| Diverge Then Converge                | Design Council               | `/brainstorm`, `/spec-out`                                                          | Separate generative mode from evaluative mode                                                   |
+| Confidence Stop                      | addyosmani/agent-skills      | `/spec-out`                                                                         | Stop when you can predict the next three answers, not when the rounds run out                   |
+| Working Backwards (PR/FAQ)           | Amazon                       | `/end-state`                                                                        | A description in the finished announcement's voice carries no discipline's fingerprints         |
+| Release Ladder                       | This repo                    | `/end-state`                                                                        | Every rung names what it enables and what it defers; an uninventoried remainder admits anything |
+| Tracer Bullets                       | Hunt & Thomas                | `/slice`                                                                            | A thin complete path through every layer beats a finished layer                                 |
+| Parallel Change                      | Danilo Sato                  | `/slice`, `/deprecate`                                                              | Expand, migrate, contract; never change a form in place                                         |
+| 5 Whys                               | Sakichi Toyoda (Toyota)      | `/automagic-problem-discovery`                                                      | Dig past the symptom to the leverage point underneath it                                        |
+| Judgment Linting                     | Anthropic eval methodology   | `/vibe-check`                                                                       | Higher-order code assertions that require AI reasoning, not regexes                             |
+| Compression Mode                     | mattpocock/skills            | `/bro`                                                                              | Strip a reply to the claim underneath it                                                        |
+| Map Before Streets                   | mattpocock/skills            | `/zoom-out`                                                                         | Map callers, neighbors, and abstraction layers before reading details                           |
+| Visual Recap                         | BuilderIO/skills             | `/visual-recap`                                                                     | Map a diff to structured blocks before reading raw lines                                        |
+| Skill Craft                          | mattpocock/skills            | `/writing-great-skills`                                                             | Predictability via leading words, information hierarchy, and pruning                            |
+| Human-in-the-Loop Procedure          | mattpocock/skills            | `/wizard`                                                                           | A step only a human can take belongs in a script, not in a conversation                         |
+| Phase Boundaries                     | mattpocock/skills            | `docs/phase-boundaries.md`                                                          | Every context move but one trades a primary source for an account of it                         |
+| Adversarial Fresh Context            | addyosmani/agent-skills      | `/doubt`                                                                            | A reviewer told your conclusion grades your conclusion; withhold it                             |
+| Hyrum's Law                          | Hyrum Wright                 | `/deprecate`                                                                        | With enough users, every observable behavior is depended on, promised or not                    |
+| Expand, Migrate, Contract            | Parallel Change (Fowler)     | `/deprecate`                                                                        | Old and new forms both valid at every step; never change a form in place                        |
+| RED Method                           | Tom Wilkie                   | `/observe`                                                                          | Rate, errors, duration on every request path                                                    |
+| USE Method                           | Brendan Gregg                | `/observe`                                                                          | Utilization, saturation, errors on every resource                                               |
+| Symptom-Based Alerting               | Rob Ewaschuk (Google SRE)    | `/observe`                                                                          | Page on what users feel; dashboard the causes                                                   |
+| Mermaid.js v11                       | Mermaid project              | `/mermaid`                                                                          | Text-based diagrams that render natively in GitHub markdown                                     |
+| Excalidraw Generator                 | Excalidraw project           | `/excalidraw`                                                                       | Programmatic hand-drawn diagrams via Python API                                                 |
+| Developer Documentation Style        | Google                       | `/technical-writing`                                                                | Address the reader as "you", name the actor, put the condition before the instruction           |
+| Global English                       | John Kohl                    | `/technical-writing`                                                                | Write syntax that survives a non-native reader and a machine translator                         |
+| Evidence Ladder                      | pstack (Lauren Tan)          | `/blast-radius`                                                                     | Rank a safety claim by how it was established; anything short of running code is unproven       |
+| Candidate Arena                      | pstack (Lauren Tan)          | `/arena`                                                                            | Race N attempts, pick a base, graft the losers' best ideas in by hand                           |
+| App Verification Harness             | pstack (Lauren Tan)          | `/create-verification-skill`, `/maintain-verification-skill`                        | A project needs a scripted way to drive the real app, and it rots unless audited                |
 
 ## Skills by Concern
 
-| Concern                                    | Primary Skill                    | Supporting Skills                          |
-| ------------------------------------------ | -------------------------------- | ------------------------------------------ |
-| "Did the agent silence this or fix it?"    | the matching `*-review`          | `/vibe-check`, `/code-review`              |
-| "Would these tests catch a regression?"    | `/test-review`                   | `/testing`                                 |
-| "Is this well-tested?"                     | `/testing`                       | `/test-review`, `/review-decisions`        |
-| "Will this stay cheap to change?"          | `/maintainability`               | `/ousterhout-software-design`, `/refactor` |
-| "Where should we refactor?"                | `/improve-codebase-architecture` | `/zoom-out`, `/naming`, `/maintainability` |
-| "Does the domain own its rules?"           | `/domain-model`                  | `/maintainability`, `/refactor`            |
-| "Execute this restructure safely"          | `/refactor`                      | `/maintainability`, `/testing`             |
-| "Should I clean this up now or later?"     | `/tidy`                          | `/refactor`, `/maintainability`            |
-| "This code has no tests at all"            | `/legacy`                        | `/test-first`, `/refactor`                 |
-| "Did these tests ever fail?"               | `/test-first`                    | `/test-review`, `/testing`                 |
-| "Is this well-designed?"                   | `/design`                        | `/naming`, `/adr`                          |
-| "Is this well-named?"                      | `/naming`                        | `/design`, `/lexicon`                      |
-| "Do we all mean the same thing?"           | `/lexicon`                       | `/naming`, `/ia`                           |
-| "Can people find this?"                    | `/ia`                            | `/naming`, `/wayfinding`                   |
-| "Can people orient once they land?"        | `/wayfinding`                    | `/ia`, `/zoom-out`                         |
-| "How does this system fit together?"       | `/system-map`                    | `/zoom-out`, `/mermaid`                    |
-| "I'm lost in this code"                    | `/zoom-out`                      | `/naming`, `/system-map`                   |
-| "Is this well-written?"                    | `/prose`                         | `/slop-check`, `/review-decisions`         |
-| "Could anyone have written this?"          | `/slop-check`                    | `/prose`                                   |
-| "Can every claim name its evidence?"       | `/cite-or-cut`                   | `/slop-check`, `/prose`                    |
-| "Does this sound like me?"                 | `/voice`                         | `/slop-check`                              |
-| "Can the reader execute it?"               | `/ste`                           | `/prose`                                   |
-| "Do I understand what I just committed?"   | `/narrate`                       | `/review-decisions`                        |
-| "Should we document this decision?"        | `/adr`                           | `/review-decisions`, `/research`           |
-| "What should we use?"                      | `/research`                      | `/adr`                                     |
-| "I don't know what I want yet"             | `/spec-out`                      | `/brainstorm`                              |
-| "How does this spec become tasks?"         | `/slice`                         | `/spec-out`, `/refactor`                   |
-| "I know the goal, not the options"         | `/brainstorm`                    | `/research`, `/design`                     |
-| "What should I automate?"                  | `/automagic-problem-discovery`   | `/research`, `/adr`                        |
-| "Does this vibe-coded output hold up?"     | `/vibe-check`                    | `/review-decisions`, `/naming`             |
-| "How should I visualize this?"             | `/mermaid`                       | `/excalidraw`, `/system-map`               |
-| "Show me what changed"                     | `/visual-recap`                  | `/review-decisions`                        |
-| "Cut my output, save tokens"               | `/bro`                           | `/prose`                                   |
-| "Am I writing a good skill?"               | `/writing-great-skills`          | `/prose`, `/ia`                            |
-| "Only a human can do this step"            | `/wizard`                        | `/spec-out`                                |
-| "Am I sure about this decision?"           | `/doubt`                         | `/blast-radius`, `/vibe-check`             |
-| "Should this code exist at all?"           | `/deprecate`                     | `/improve-codebase-architecture`, `/tidy`  |
-| "Can we tell what happened in production?" | `/observe`                       | `/blast-radius`, `/testing`                |
-| "What does this break elsewhere?"          | `/blast-radius`                  | `/vibe-check`, `/code-review`              |
-| "What kind of document is this?"           | `/technical-writing`             | `/prose`, `/ste`, `/ia`                    |
-| "Can an agent prove this app works?"       | `/create-verification-skill`     | `/demo`, `/testing`                        |
-| "Does the feature map still hold?"         | `/maintain-verification-skill`   | `/create-verification-skill`               |
-| "One attempt would get this wrong"         | `/arena`                         | `/brainstorm`, `/design`                   |
+| Concern                                          | Primary Skill                    | Supporting Skills                          |
+| ------------------------------------------------ | -------------------------------- | ------------------------------------------ |
+| "Did the agent silence this or fix it?"          | the matching `*-review`          | `/vibe-check`, `/code-review`              |
+| "Would these tests catch a regression?"          | `/test-review`                   | `/testing`                                 |
+| "Is this well-tested?"                           | `/testing`                       | `/test-review`, `/review-decisions`        |
+| "Will this stay cheap to change?"                | `/maintainability`               | `/ousterhout-software-design`, `/refactor` |
+| "Where should we refactor?"                      | `/improve-codebase-architecture` | `/zoom-out`, `/naming`, `/maintainability` |
+| "Does the domain own its rules?"                 | `/domain-model`                  | `/maintainability`, `/refactor`            |
+| "Execute this restructure safely"                | `/refactor`                      | `/maintainability`, `/testing`             |
+| "Should I clean this up now or later?"           | `/tidy`                          | `/refactor`, `/maintainability`            |
+| "This code has no tests at all"                  | `/legacy`                        | `/test-first`, `/refactor`                 |
+| "Did these tests ever fail?"                     | `/test-first`                    | `/test-review`, `/testing`                 |
+| "Is this well-designed?"                         | `/design`                        | `/naming`, `/adr`                          |
+| "Is this well-named?"                            | `/naming`                        | `/design`, `/lexicon`                      |
+| "Do we all mean the same thing?"                 | `/lexicon`                       | `/naming`, `/ia`                           |
+| "Can people find this?"                          | `/ia`                            | `/naming`, `/wayfinding`                   |
+| "Can people orient once they land?"              | `/wayfinding`                    | `/ia`, `/zoom-out`                         |
+| "How does this system fit together?"             | `/system-map`                    | `/zoom-out`, `/mermaid`                    |
+| "I'm lost in this code"                          | `/zoom-out`                      | `/naming`, `/system-map`                   |
+| "Is this well-written?"                          | `/prose`                         | `/slop-check`, `/review-decisions`         |
+| "Could anyone have written this?"                | `/slop-check`                    | `/prose`                                   |
+| "Can every claim name its evidence?"             | `/cite-or-cut`                   | `/slop-check`, `/prose`                    |
+| "Does this sound like me?"                       | `/voice`                         | `/slop-check`                              |
+| "Can the reader execute it?"                     | `/ste`                           | `/prose`                                   |
+| "Do I understand what I just committed?"         | `/narrate`                       | `/review-decisions`                        |
+| "Should we document this decision?"              | `/adr`                           | `/review-decisions`, `/research`           |
+| "What should we use?"                            | `/research`                      | `/adr`                                     |
+| "I don't know what I want yet"                   | `/spec-out`                      | `/brainstorm`                              |
+| "What is the finished thing, and in what order?" | `/end-state`                     | `/spec-out`, `/slice`                      |
+| "How does this spec become tasks?"               | `/slice`                         | `/end-state`, `/spec-out`, `/refactor`     |
+| "I know the goal, not the options"               | `/brainstorm`                    | `/research`, `/design`                     |
+| "What should I automate?"                        | `/automagic-problem-discovery`   | `/research`, `/adr`                        |
+| "Does this vibe-coded output hold up?"           | `/vibe-check`                    | `/review-decisions`, `/naming`             |
+| "How should I visualize this?"                   | `/mermaid`                       | `/excalidraw`, `/system-map`               |
+| "Show me what changed"                           | `/visual-recap`                  | `/review-decisions`                        |
+| "Cut my output, save tokens"                     | `/bro`                           | `/prose`                                   |
+| "Am I writing a good skill?"                     | `/writing-great-skills`          | `/prose`, `/ia`                            |
+| "Only a human can do this step"                  | `/wizard`                        | `/spec-out`                                |
+| "Am I sure about this decision?"                 | `/doubt`                         | `/blast-radius`, `/vibe-check`             |
+| "Should this code exist at all?"                 | `/deprecate`                     | `/improve-codebase-architecture`, `/tidy`  |
+| "Can we tell what happened in production?"       | `/observe`                       | `/blast-radius`, `/testing`                |
+| "What does this break elsewhere?"                | `/blast-radius`                  | `/vibe-check`, `/code-review`              |
+| "What kind of document is this?"                 | `/technical-writing`             | `/prose`, `/ste`, `/ia`                    |
+| "Can an agent prove this app works?"             | `/create-verification-skill`     | `/demo`, `/testing`                        |
+| "Does the feature map still hold?"               | `/maintain-verification-skill`   | `/create-verification-skill`               |
+| "One attempt would get this wrong"               | `/arena`                         | `/brainstorm`, `/design`                   |
 
 ## Recipes
 
@@ -153,6 +156,8 @@ Skills that pair naturally:
 - `/ste` + `/prose` — STE for text a reader executes, prose for text a reader considers
 - `/narrate` + `/review-decisions` — Narrate gates comprehension before the commit; review catches what comprehension missed
 - `/adr` + `/research` — Research informs the decision; ADR captures it
+- `/end-state` + `/slice` — End-state builds the release ladder; slice turns one rung of it into tasks
+- `/end-state` + `/adr` — When amending the end state is itself a decision, the ADR is where it is recorded
 - `/spec-out` + `/brainstorm` — Spec-out when you don't know what you want; brainstorm when you know what but not how
 - `/automagic-problem-discovery` + `/adr` — Discovery builds the fix; the ADR records why that fix over the alternatives
 - `/get-or-create-note` + `/obsidian-note` — Lookup resolves the subject against the vault; obsidian-note owns every rule about writing into it

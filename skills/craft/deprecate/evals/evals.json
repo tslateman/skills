@@ -1,0 +1,57 @@
+{
+  "skill_name": "deprecate",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "sunset-v1-endpoint-with-external-callers",
+      "prompt": "We want /api/v1/rooms/availability gone. v2 replaced it last spring. The v1 handler is in {fixtures}/availability_api.py, our own cron that still calls it is {fixtures}/nightly_rollup.py, and {fixtures}/v1_consumers.md is who else is on it. What is the sequence, and what do I owe the partners?",
+      "expected_output": "An ordered removal sequence that migrates the internal cron first, treats the two contracted partners as compulsory-notice callers rather than code we control, and names the v1/v2 response gap (the dropped `available` field and the newly required `currency`) as migration work that must be resolved before the endpoint can be withdrawn.",
+      "files": [
+        "evals/fixtures/availability_api.py",
+        "evals/fixtures/nightly_rollup.py",
+        "evals/fixtures/v1_consumers.md"
+      ],
+      "expectations": [
+        "Gives an ordered sequence in which v1 stays routed until its callers are off it, rather than deleting the handler as the first step",
+        "Separates the caller we control (nightly_rollup) from the two contracted partners, and migrates the internal caller first",
+        "Identifies that v2 has no `available` field while Northwind reads it, so migration requires either a v2 change or a documented replacement computation, not just a URL swap",
+        "Identifies that v2 requires an explicit `currency` that v1 defaulted to USD, and names that as a change each caller must make",
+        "Names the evidence that would show v1 is safe to withdraw, such as v1 call volume falling to zero in the gateway log, rather than relying on an announced date alone",
+        "Treats the partner notice as compulsory because the contracts carry no deprecation window, rather than assuming an advisory deprecation is sufficient",
+        "Does not propose deleting get_availability_v1 in the same change that announces the deprecation"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "consolidate-duplicate-retry-helpers",
+      "prompt": "{fixtures}/retry_helpers.py has two functions that do the same job. I want one. Which one goes, and how do I get there without breaking the four modules that call them?",
+      "expected_output": "A verdict that `retry` is the one to remove because it has a single caller, with an expand-migrate-contract sequence that migrates legacy_importer to `with_retries` before the duplicate is deleted, and a note that the two signatures differ only in parameter names so the migration is mechanical.",
+      "files": [
+        "evals/fixtures/retry_helpers.py"
+      ],
+      "expectations": [
+        "Chooses `retry` for removal and justifies it by caller count, since `with_retries` has three callers and `retry` has one",
+        "Sequences the change so legacy_importer moves to `with_retries` before `retry` is deleted, rather than deleting and fixing callers after",
+        "Notes that the two signatures differ in parameter names (attempts/delay versus times/backoff), so any caller passing keyword arguments must change",
+        "Does not recommend keeping both behind a new wrapper or alias as the end state",
+        "Does not recommend changing the retry or backoff behavior as part of the consolidation"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "keep-load-bearing-compat-shim",
+      "prompt": "Doing a dead code sweep. {fixtures}/currency_shim.py maps currency codes that were retired in 2023. That migration finished years ago. Can I delete it?",
+      "expected_output": "A verdict that the shim must stay, because historical rows written before the migration still carry the retired codes and are read on every invoice reprint, so the code is live rather than dead.",
+      "files": [
+        "evals/fixtures/currency_shim.py"
+      ],
+      "expectations": [
+        "Concludes the shim should not be deleted, and identifies the reason as historical rows that still carry retired codes rather than the age of the migration",
+        "Distinguishes the migration being finished from the data being backfilled, and notes that only a backfill would make the shim removable",
+        "If it proposes any path to removal, that path starts with backfilling or re-encoding the stored rows",
+        "Does not manufacture a deprecation sequence for code it has judged to be live",
+        "Does not recommend deleting the module and restoring it if something breaks"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "skill_name": "refactor",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "extract-tax-calculation-under-green-tests",
+      "prompt": "Extract the tax calculation out of OrderTotal.compute() in {fixtures}/order_total.py into its own unit. It is the block between the subtotal loop and the rounding. {fixtures}/test_order_total.py is green right now. Behavior must not move.",
+      "expected_output": "The named extraction carried out in small steps against the existing green suite, preserving the member discount being applied to the taxable base and the GB rounding branch, with the suite re-run between steps and no change to any computed total.",
+      "files": [
+        "evals/fixtures/order_total.py",
+        "evals/fixtures/test_order_total.py"
+      ],
+      "expectations": [
+        "Carries out the extraction the user named rather than re-opening whether the code should be restructured at all",
+        "Confirms the suite is green before the first edit, and states that it is re-run between steps rather than only at the end",
+        "Preserves the member discount being applied a second time to the taxable base, and does not silently collapse it into a single discount application",
+        "Preserves the GB-specific rounding branch rather than folding it into the general int() truncation",
+        "Works in more than one verified step, rather than producing a single rewritten module",
+        "Does not change the nickel rounding, the exempt SKU set, or any value the existing tests assert",
+        "Does not pivot into a broader design critique of OrderTotal or recommend redesigning the tax model"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "refuse-without-a-green-baseline",
+      "prompt": "Split the pagination loop out of PmsSyncJob.run() in {fixtures}/pms_sync_job.py into its own method. There are no tests for this module.",
+      "expected_output": "A refusal to restructure without a safety net, naming the absence of a green baseline as the blocker and routing to getting the class under test first, with the constructor's database and HTTP session work identified as what makes it hard to instantiate in a test.",
+      "files": [
+        "evals/fixtures/pms_sync_job.py"
+      ],
+      "expectations": [
+        "Declines to perform the restructure as the first action, and names the absence of a green test baseline as the reason",
+        "Says explicitly that a characterization or safety-net test comes before the split, rather than offering to restructure carefully instead",
+        "Identifies that the constructor opens a database connection and an HTTP session, which is what stops the class being built in a test",
+        "Hands off to getting the code under test rather than attempting both the harness and the restructure in one pass",
+        "Does not perform the extraction anyway with a caution attached",
+        "Does not offer manual verification or careful reading as a substitute for the test baseline"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "refuse-a-consolidation-that-changes-behavior",
+      "prompt": "{fixtures}/parsers.py has two functions doing the same thing. Consolidate them into one.",
+      "expected_output": "A refusal to consolidate as requested, because parse_room_code strips surrounding whitespace and parse_vendor_room_code deliberately does not, so merging them changes behavior at one of the two call sites.",
+      "files": [
+        "evals/fixtures/parsers.py"
+      ],
+      "expectations": [
+        "Identifies the concrete behavioral difference: parse_room_code calls strip() and parse_vendor_room_code does not",
+        "Declines to merge them as a behavior-preserving refactoring, because a single implementation must either add or drop the strip and either choice changes one caller's behavior",
+        "Names which input the difference matters for, connecting tolerant guest input to strict vendor feed input",
+        "Does not merge them and describe the strip change as a harmless improvement or a bug fix",
+        "If it offers any path forward, that path is framed as a behavior change to be decided and tested separately, not as this refactoring"
+      ]
+    }
+  ]
+}

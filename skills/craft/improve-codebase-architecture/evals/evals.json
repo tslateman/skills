@@ -1,0 +1,64 @@
+{
+  "skill_name": "improve-codebase-architecture",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "sweep-a-vendor-package-for-deepening",
+      "prompt": "Sweep {fixtures}/svc for consolidation wins. I want fewer, deeper modules and a tree an agent can navigate. Where are the opportunities, ranked?",
+      "expected_output": "A ranked sweep that identifies the three vendor clients as one shape repeated with a per-vendor field mapping, ReservationManager as a pass-through over ReservationStore, and http_client as a shallow wrapper over requests, recommending a single vendor client driven by a mapping table and the removal of both wrapper layers.",
+      "files": [
+        "evals/fixtures/svc/corvus_client.py",
+        "evals/fixtures/svc/northwind_client.py",
+        "evals/fixtures/svc/opal_client.py",
+        "evals/fixtures/svc/reservation_manager.py",
+        "evals/fixtures/svc/reservation_store.py",
+        "evals/fixtures/svc/http_client.py",
+        "evals/fixtures/svc/sync.py"
+      ],
+      "expectations": [
+        "Identifies the three vendor clients as the same structure repeated, and locates the only real difference as the URL shape, the auth header form, the response envelope key and the field name mapping",
+        "Recommends collapsing them to one client parameterized by that per-vendor data, rather than extracting a shared base class that each vendor still subclasses",
+        "Identifies ReservationManager as a pass-through that forwards four methods to ReservationStore without changing the abstraction, and recommends removing it",
+        "Identifies http_client as a shallow wrapper that adds nothing over requests beyond a default timeout, and says what it would take for it to earn its place",
+        "Ranks the findings, and the vendor-client consolidation is placed above the wrapper removals",
+        "Names a concrete future-edit cost, such as adding a fourth vendor requiring a fourth near-identical module",
+        "Does not recommend adding an interface, protocol or abstract base class as the primary cure for the vendor duplication",
+        "Does not report the differing exception messages across the three clients as a top-priority finding"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "error-handling-swallowed-at-the-boundary",
+      "prompt": "In {fixtures}/svc/sync.py, sync_all catches PermissionError and ConnectionError and continues. Is that the right boundary for that decision, given how the vendor clients in the same package raise them?",
+      "expected_output": "A finding that the vendor clients push the raise-or-handle decision upward and sync_all resolves it by discarding both, so a fully broken vendor is indistinguishable from a vendor with no reservations, with the fix framed as pulling the decision down or returning a per-vendor outcome rather than a bare total.",
+      "files": [
+        "evals/fixtures/svc/sync.py",
+        "evals/fixtures/svc/corvus_client.py"
+      ],
+      "expectations": [
+        "Identifies that a vendor failing entirely and a vendor returning no reservations produce the same observable result from sync_all, since only a total is returned",
+        "Locates the problem as complexity exported upward: each client raises and leaves the handling decision to its caller, which then discards it",
+        "Recommends that sync_all report per-vendor outcomes, or that the decision move down into the client, rather than only replacing continue with a log line",
+        "Distinguishes the two exception types by what a caller would do differently about them, rather than treating both as generic failures",
+        "Does not recommend catching a broader exception type",
+        "Does not treat the missing logging as the whole of the finding"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-deep-module-no-consolidation",
+      "prompt": "Any architecture wins in {fixtures}/pricing/rate_plan.py? Looking for consolidation opportunities across the codebase and this one is on my list.",
+      "expected_output": "A verdict that RatePlan is already a deep module: a small interface over seasonality, weekend uplift, length-of-stay discounting and corporate overrides, with no wrapper layer and no duplication, so there is nothing to consolidate.",
+      "files": [
+        "evals/fixtures/pricing/rate_plan.py"
+      ],
+      "expectations": [
+        "Concludes there is no consolidation opportunity here, without manufacturing a finding",
+        "Recognizes the module as deep, noting that four pricing concerns are hidden behind a signature that exposes none of them",
+        "Does not recommend splitting nightly_cents on length or branch-count grounds",
+        "Does not recommend extracting the weekend, seasonal, length-of-stay and override rules into separate strategy classes or a rules engine",
+        "Does not flag the private attributes or the mutable _overrides dict as an architectural problem"
+      ]
+    }
+  ]
+}

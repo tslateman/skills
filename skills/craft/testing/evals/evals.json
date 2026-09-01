@@ -1,0 +1,58 @@
+{
+  "skill_name": "testing",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "strategy-for-a-webhook-receiver",
+      "prompt": "We are planning the test suite for {fixtures}/webhook_receiver.py. It takes reservation events from three PMS vendors, dedupes on a vendor event id, and writes to postgres. Which properties actually matter here, and where should the effort go? I do not want 400 tests nobody trusts.",
+      "expected_output": "A strategy that selects the properties worth buying for this receiver and names the ones being traded away, concentrating effort on the dedupe and signature boundaries, and identifying the concurrent-duplicate race and the non-atomic event-insert-plus-reservation-write as the risks that decide whether the suite can be fast and isolated.",
+      "files": [
+        "evals/fixtures/webhook_receiver.py"
+      ],
+      "expectations": [
+        "Selects which test properties matter for this receiver and names at least one it is deliberately trading away, rather than recommending that every property be maximized",
+        "Ties at least two recommendations to specific behavior in the module: the dedupe on (vendor, event_id), the HMAC signature check, or the reservation upsert",
+        "Identifies that two concurrent deliveries of the same event can both pass the seen check before either commits, and treats that as a property the suite should decide about rather than ignoring it",
+        "Takes a position on testing against a real postgres versus a substitute, and justifies it in terms of what the dedupe and commit behavior actually depends on",
+        "Notes that body['reservation_id'], body['status'], body['check_in'] and body['check_out'] are read without validation, unlike event_id, so a malformed payload raises rather than returning 400",
+        "Does not answer with a flat list of test cases to write in place of a strategy",
+        "Does not recommend a target coverage percentage as the measure of whether the suite is good"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "diagnose-an-over-mocked-suite",
+      "prompt": "Here is our existing folio suite: {fixtures}/test_folio_over_mocked.py. It is green and it has good coverage numbers, but it keeps breaking whenever we touch folio internals and it has never caught a real bug. What is wrong with it?",
+      "expected_output": "A diagnosis that the suite asserts on interactions and internals rather than on results, so it is coupled to the implementation and cannot fail for a wrong total, with the fix framed as asserting the computed total against known inputs and unmocking the collaborators that carry no cost to run.",
+      "files": [
+        "evals/fixtures/test_folio_over_mocked.py"
+      ],
+      "expectations": [
+        "Identifies that no test asserts on the value that total() returns, so the suite cannot fail when the total is wrong",
+        "Names asserting on interactions rather than results as the underlying problem, citing at least one concrete case such as the call_count check, the call_args check, or the invocation-order check",
+        "Flags test_total_uses_private_helper as coupling the suite to a private method, which is why internal changes break it",
+        "Explains the connection between the mocking and the reported symptom: the tests break on refactoring because they encode how the code works rather than what it produces",
+        "Recommends asserting the computed total for known inputs as the replacement, not merely reducing the number of mocks",
+        "Does not recommend raising coverage or adding more tests of the same kind",
+        "Does not attribute the problem to the tests being slow, since nothing in the fixture suggests that"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-suite-needs-nothing",
+      "prompt": "Is {fixtures}/slug.py well tested? Its suite is {fixtures}/test_slug.py. Anything I should add before I move on?",
+      "expected_output": "A verdict that the suite is well proportioned for the module: it covers the transformation shapes, both empty results, and all three truncation behaviors, so nothing significant is missing.",
+      "files": [
+        "evals/fixtures/slug.py",
+        "evals/fixtures/test_slug.py"
+      ],
+      "expectations": [
+        "Concludes the suite is adequate and nothing significant needs adding, without manufacturing a gap",
+        "Recognizes that the edge cases are already covered, naming at least two of: empty input, punctuation-only input, word-boundary truncation, the max_length bound, or the single-long-word hard cut",
+        "Does not recommend adding tests for the private module-level regexes",
+        "Does not recommend property-based or fuzz testing as something the module is missing, rather than as an explicitly optional extra",
+        "Does not recommend splitting the parametrized test into separate test functions on style grounds"
+      ]
+    }
+  ]
+}

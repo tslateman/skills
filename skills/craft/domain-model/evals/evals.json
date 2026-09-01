@@ -1,0 +1,58 @@
+{
+  "skill_name": "domain-model",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "overlap-rule-duplicated-outside-the-model",
+      "prompt": "The rule that a stay cannot overlap another stay for the same room lives in ReservationService.create() in {fixtures}/reservation_service.py, and there is a second copy in {fixtures}/admin_import.py. The model itself is {fixtures}/reservation.py. The two copies have already drifted once. To unit test the rule at all I have to mock the database. Where should that rule actually live?",
+      "expected_output": "A verdict that the overlap rule belongs to an aggregate that owns a room's booked span rather than to Reservation or to either caller, naming the drift between the two copies (strict versus inclusive date comparison, and the cancelled-status filter present in only one) as evidence the rule has no owner, and showing that relocating it removes the database mock from the test.",
+      "files": [
+        "evals/fixtures/reservation.py",
+        "evals/fixtures/reservation_service.py",
+        "evals/fixtures/admin_import.py"
+      ],
+      "expectations": [
+        "Names which object should own the overlap rule and explains why that object is the one positioned to enforce it, rather than only saying the rule should move out of the service",
+        "Identifies that the two copies have already drifted, citing at least one concrete difference: the strict comparison in the service versus the inclusive one in the import, or the status != 'cancelled' filter that only the service applies",
+        "States that after the change both the booking flow and the admin import go through the same rule, rather than leaving the import with its own copy",
+        "Explains why the relocated rule becomes testable without a database mock, connecting the fix to the testability complaint in the prompt",
+        "Identifies Reservation as an anemic record whose save() lets callers persist an unvalidated state, rather than treating it as an acceptable data holder",
+        "Does not propose fixing the drift by copying the service's version of the check into the import path",
+        "Does not recommend a database uniqueness constraint as the sole answer, since that relocates enforcement out of the domain rather than giving the rule an owner"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "caller-sequenced-construction",
+      "prompt": "Look at how a Reservation gets built in {fixtures}/reservation_service.py. The caller constructs it, then sets rate_cents, then sets status, then calls save(). Every new call site has to remember that order. Is that a problem, and if so what is the shape of the fix?",
+      "expected_output": "A verdict that the construct-mutate-save sequence leaves a partially built Reservation observable and lets any caller skip a step, with a fix that makes a valid Reservation the only constructible one so the ordering constraint disappears rather than being documented.",
+      "files": [
+        "evals/fixtures/reservation_service.py",
+        "evals/fixtures/reservation.py"
+      ],
+      "expectations": [
+        "Identifies that the object is observable in an invalid or half-built state between construction and save, and names a concrete consequence such as a reservation persisted with rate_cents at 0 or status left pending",
+        "Proposes a construction path that makes the invalid state unrepresentable, for example a single factory or constructor that requires the rate and status, rather than documenting the required call order",
+        "Notes that the burden currently falls on every call site and that adding a new field makes every call site a place to forget it",
+        "Does not accept a comment, docstring, or naming convention as the fix",
+        "Does not recommend a runtime assertion inside save() as the primary fix"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-value-object-holds-its-invariants",
+      "prompt": "Quick domain read on {fixtures}/money.py. Does this hold its own invariants, or is the domain leaking out into callers?",
+      "expected_output": "A verdict that Money already holds its invariants: construction rejects unsupported currencies and non-integer amounts, addition rejects mixed currencies, and there is no path to an invalid instance, so nothing needs to move.",
+      "files": [
+        "evals/fixtures/money.py"
+      ],
+      "expectations": [
+        "Concludes the invariants are held by the type itself and that no rule needs relocating, without manufacturing a significant finding",
+        "Recognizes at least one specific mechanism that enforces an invariant: the __post_init__ currency and integer checks, the currency guard in __add__, or frozen=True preventing post-construction mutation",
+        "Does not recommend extracting a service, manager, or validator layer around Money",
+        "Does not flag the module-level _MINOR_UNITS table as a code smell or recommend moving it to configuration",
+        "Does not treat the raised ValueError and TypeError as defensive programming that should be removed"
+      ]
+    }
+  ]
+}

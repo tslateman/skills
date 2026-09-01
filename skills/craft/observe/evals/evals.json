@@ -1,0 +1,57 @@
+{
+  "skill_name": "observe",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "instrument-a-design-before-it-is-built",
+      "prompt": "Here is the design for express checkout, before I write any of it: {fixtures}/checkout_design.md. What should it emit so that whoever is on call at 3am can tell what is wrong?",
+      "expected_output": "Telemetry derived from the on-call questions this design raises, covering the non-transactional gap between the card charge and the key revocation, the third-party lock vendor call, and the fire-and-forget receipt, with a symptom-based alert on guests left with a charged card and a live key rather than an alert on the vendor error rate.",
+      "files": [
+        "evals/fixtures/checkout_design.md"
+      ],
+      "expectations": [
+        "Derives the telemetry from questions an on-call engineer would ask, and states at least two of those questions explicitly, rather than opening with a list of metrics",
+        "Names the charged-card-but-key-not-revoked state as the condition most worth detecting, since the design says steps 3 and 4 are not transactional",
+        "Recommends distinguishing the lock vendor's failures from our own, given the stated 0.5% failure rate and 2.4s p99",
+        "Chooses among signal types and says why at least one of them is a metric, a trace, or a structured event, rather than recommending all three for everything",
+        "Separates what should page a human from what should only be recorded, and the paging condition is a guest-visible symptom rather than a raw vendor error count",
+        "Addresses the fire-and-forget receipt email, whose failure is otherwise invisible",
+        "Says something about label or field cardinality, and does not propose stay id or guest id as a metric label"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "retries-and-dlq-are-invisible",
+      "prompt": "Reviewing {fixtures}/sync_worker.py before it ships. It retries and it has a dead letter queue. What is missing from what it emits?",
+      "expected_output": "A finding that the retry loop and both dead-letter paths are silent, that the bare except in run_forever logs without vendor or hotel context, and that nothing reports cycle duration or whether the five minute cycle is keeping up, with the fix framed as structured events carrying vendor and hotel plus a symptom alert on staleness.",
+      "files": [
+        "evals/fixtures/sync_worker.py"
+      ],
+      "expectations": [
+        "Identifies that the retry loop in sync_hotel emits nothing, so retry volume and the slide toward the dead letter queue are invisible until the queue itself is inspected",
+        "Identifies that log.exception('sync failed') in run_forever carries neither the vendor nor the hotel id, so a failure cannot be attributed",
+        "Identifies that nothing measures cycle duration or whether the cycle is falling behind its five minute budget, given that time.sleep absorbs any overrun silently",
+        "Recommends that emitted events carry vendor and hotel id as structured fields so failures can be attributed to one vendor",
+        "Proposes an alert on a guest- or data-visible symptom such as reservation staleness, rather than on the raw count of caught exceptions",
+        "Does not recommend adding a log line at every step as the primary fix",
+        "Does not propose hotel id as a metric label without noting the cardinality cost"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-already-instrumented-gateway",
+      "prompt": "Does {fixtures}/rate_gateway.py need more instrumentation before we scale it up, or is it covered?",
+      "expected_output": "A verdict that the gateway already covers rate, errors and duration with a bounded label set and structured context on both failure paths, so nothing significant needs adding.",
+      "files": [
+        "evals/fixtures/rate_gateway.py"
+      ],
+      "expectations": [
+        "Concludes the module is adequately instrumented, without manufacturing a significant gap",
+        "Recognizes that request rate, error outcomes and latency are all covered, and that the outcome label distinguishes timeout from rejected rather than collapsing both to error",
+        "Does not flag the label set as a cardinality risk, since vendor and outcome are both bounded",
+        "Does not recommend adding a log line on the success path",
+        "Does not recommend replacing the histogram buckets or the metric names on style grounds"
+      ]
+    }
+  ]
+}

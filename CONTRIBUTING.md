@@ -89,8 +89,9 @@ State in the PR what you ran it against and what it found.
 
 ## Evals
 
-Five skills carry a published `evals/` directory. **Two formats, chosen by what
-the skill produces** — not two conventions competing for the same job.
+Skills that carry a published eval set hold it in an `evals/` directory beside
+`SKILL.md`. **Two formats, chosen by what the skill produces**, not two
+conventions competing for the same job.
 
 **Judgment evals** grade a report. Use when the skill's output is prose: a
 verdict, a ranked finding list, a recommendation.
@@ -117,10 +118,14 @@ evals/<case-name>/
 Categories are `INTENT`, `DESIGN`, `EDGE_CASE`, `INTEGRATION`. Weight `DESIGN`
 highest when the skill exists to change how an agent decides, not what it types.
 
-In force today: `maintainability`, `test-first`, and `tidy` use judgment evals;
-`ousterhout-software-design` and `legacy` use task evals.
+Which format a skill uses is readable from its tree: a judgment set has
+`evals/evals.json`, a task set has `evals/<case-name>/task.md`.
 
-`slop-check` has a sixth set that stays unpublished. Its clean-draft fixture is
+Point prompts at fixtures with the `{fixtures}` token rather than a checked-in
+path. A runner stages `fixtures/` to a scratch directory and expands the token to
+point there, so runs stay hermetic and the set carries no machine-specific paths.
+
+`slop-check` has a set that stays unpublished. Its clean-draft fixture is
 real unedited writing about internal systems, so `.gitignore` excludes
 `**/slop-check/evals/`. Keep any fixture drawn from private prose out of the
 repo the same way.

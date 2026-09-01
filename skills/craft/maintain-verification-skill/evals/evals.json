@@ -1,0 +1,63 @@
+{
+  "skill_name": "maintain-verification-skill",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "audit-a-drifted-feature-map",
+      "prompt": "The verification skill in {fixtures}/drifted-app was written in March and things have shipped since. I think its feature map is lying about what it covers. Audit it against the source in {fixtures}/drifted-app/src.",
+      "expected_output": "An audit that finds three drifts against the source: the Export CSV row covers a feature that was deleted, bulk void shipped and is absent from the map, and the send-invoice proof names a test id the component no longer has, plus the claim that the map is complete being false.",
+      "files": [
+        "evals/fixtures/drifted-app/.claude/skills/verify/SKILL.md",
+        "evals/fixtures/drifted-app/src/router.js",
+        "evals/fixtures/drifted-app/src/InvoiceDetail.jsx",
+        "evals/fixtures/drifted-app/src/BulkVoid.jsx"
+      ],
+      "expectations": [
+        "Finds that the Export CSV row covers a feature that no longer exists, since there is no export route in router.js",
+        "Finds that bulk void shipped at /invoices/bulk-void and is missing from the feature map",
+        "Finds that the Send invoice proof names [data-testid=\"send-invoice\"] while InvoiceDetail.jsx renders data-testid=\"invoice-send\", so that step cannot pass as written",
+        "Flags the 'Not covered: Nothing. The map above is complete.' claim as false, given the bulk void gap",
+        "Grounds each finding in the source rather than in the changelog alone, so the audit does not depend on the changelog being accurate",
+        "Treats the existing skill as the subject of an audit and proposes corrections to it, rather than authoring a replacement verification skill",
+        "Does not report a finding it cannot point at a file for"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "corrections-must-be-proven-not-assumed",
+      "prompt": "You audited {fixtures}/drifted-app and found the feature map is out of date. Before I take a PR of corrections: how do you know each correction is right, and what would you have to run to be sure?",
+      "expected_output": "A separation of the corrections that are proven by reading the source from the ones that need the app driven to confirm, with the send-invoice test id treated as readable from the component and the new bulk void proof treated as unproven until it has actually been driven.",
+      "files": [
+        "evals/fixtures/drifted-app/.claude/skills/verify/SKILL.md",
+        "evals/fixtures/drifted-app/src/BulkVoid.jsx"
+      ],
+      "expectations": [
+        "Separates corrections established by reading the source from corrections that require running the application to confirm",
+        "Treats a newly written proof for bulk void as unproven until it has been driven against the running app, rather than as correct because it was derived from the component",
+        "Names what it would run, and gates on an observable result rather than on the script exiting zero",
+        "States that the removal of the Export CSV row is safe to make from the source alone, since the route is absent",
+        "Does not propose shipping every correction in one unverified batch",
+        "Does not treat the changelog as sufficient proof that a feature was removed"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-map-still-honest",
+      "prompt": "Audit the verification skill in {fixtures}/accurate-app against {fixtures}/accurate-app/src. Is its feature map still honest?",
+      "expected_output": "A verdict that the map is accurate: both documented features match the routes and the test ids in the components, and the one uncovered feature is already disclosed, so there is nothing to correct.",
+      "files": [
+        "evals/fixtures/accurate-app/.claude/skills/verify/SKILL.md",
+        "evals/fixtures/accurate-app/src/router.js",
+        "evals/fixtures/accurate-app/src/TimesheetEntry.jsx",
+        "evals/fixtures/accurate-app/src/ApprovalQueue.jsx"
+      ],
+      "expectations": [
+        "Concludes the feature map is accurate and needs no corrections, without manufacturing a finding",
+        "Confirms at least one test id against the component that renders it, such as hours-submit in TimesheetEntry.jsx or week-approve in ApprovalQueue.jsx",
+        "Recognizes the payroll export as already disclosed under 'Not covered', rather than reporting it as a coverage gap the skill hides",
+        "Does not recommend adding coverage for the payroll export as a correction, since the prompt asks whether the map is honest",
+        "Does not open a PR or propose edits when it has found nothing to correct"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "skill_name": "create-verification-skill",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "two-surface-app-with-no-scripted-proof",
+      "prompt": "{fixtures}/bookings-app is a Go API with a React admin panel and there is no scripted way to prove either one works beyond a human clicking around. I want something repeatable I can point an agent at. Build it.",
+      "expected_output": "A project-local verification skill checked into the repo that brings the stack up using the documented make targets, drives the booking creation flow through the admin panel rather than only calling the API, gates on an observable result rather than a sleep, and carries a feature map naming what is proven and what is not.",
+      "files": [
+        "evals/fixtures/bookings-app/README.md",
+        "evals/fixtures/bookings-app/cmd/api/main.go",
+        "evals/fixtures/bookings-app/admin/src/BookingForm.jsx"
+      ],
+      "expectations": [
+        "Produces something checked into the repository and repeatable, not a manual test plan for a human to follow",
+        "Uses the launch path the repo already documents (the make targets and the seeded hotel and admin login) rather than inventing a new one",
+        "Drives the running application through the admin panel, not only the API, since the prompt names both surfaces",
+        "Names a concrete observable that proves the booking flow worked, such as the created booking appearing with status confirmed, rather than asserting only that a command exited zero",
+        "Waits on an observable condition rather than a fixed sleep",
+        "Includes a map of which features are covered and which are not, so a reader can tell what the skill does not prove",
+        "Does not propose Go unit tests or React component tests as the deliverable, since go test already exists and the gap is end-to-end proof",
+        "Does not assume a tool or service the repo does not mention without saying it is adding a dependency"
+      ]
+    },
+    {
+      "id": 1,
+      "eval_name": "surface-the-launch-preconditions",
+      "prompt": "Before you write anything for {fixtures}/bookings-app: what does a verification skill for this repo have to get right about starting it up, and what would make it flaky?",
+      "expected_output": "An account of the startup ordering and readiness hazards specific to this repo: postgres must be up and seeded before the API, the admin dev server proxies to the API so it must start after it, and the seeded credentials are the only login path, with readiness gated on /api/health rather than on elapsed time.",
+      "files": [
+        "evals/fixtures/bookings-app/README.md"
+      ],
+      "expectations": [
+        "Identifies the startup ordering: postgres and the seed must precede the API, and the admin dev server proxies to the API so it depends on the API being up",
+        "Names /api/health as the readiness signal to poll, rather than sleeping for a fixed interval",
+        "Identifies the seeded login (admin@example.com) and hotel (SEED-HOTEL) as preconditions the script depends on, and therefore as a source of flake if the seed changes",
+        "Names at least one further flake source, such as the fixed ports 8080 and 5173 colliding, or leftover state from a previous run in a database that is not reset",
+        "Does not begin writing the verification skill, since the prompt asks what it has to get right first"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "clean-repo-already-has-one",
+      "prompt": "Set up a verification skill for {fixtures}/covered-app so I can prove changes to the invoice flow actually work.",
+      "expected_output": "A finding that the repo already has a verification skill at .claude/skills/verify covering the four invoice features with scripted just drive targets, so nothing needs creating, with any further work framed as auditing or extending the existing one.",
+      "files": [
+        "evals/fixtures/covered-app/.claude/skills/verify/SKILL.md",
+        "evals/fixtures/covered-app/README.md"
+      ],
+      "expectations": [
+        "Finds the existing verification skill at .claude/skills/verify and concludes that creating a new one is not the right move",
+        "Recognizes that the invoice flow the user named is already covered, citing at least one of the documented targets such as create-invoice, send-invoice, record-payment or void-invoice",
+        "Frames any further work as auditing or extending what exists, rather than as authoring a replacement",
+        "Does not write a second verification skill alongside the existing one",
+        "Does not report the existing skill as inadequate without naming a specific gap in it"
+      ]
+    }
+  ]
+}
